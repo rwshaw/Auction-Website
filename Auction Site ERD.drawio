@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-10-21T19:19:46.878Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15" etag="Po2Li_SZFRy4it8Ubsrp" version="13.8.1" type="github" pages="3">
+<mxfile host="app.diagrams.net" modified="2020-10-21T19:23:13.201Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15" etag="vdEyXsBE2SYKK_X-59mf" version="13.8.1" type="github" pages="3">
   <diagram id="PBJe3xCFQkrLJ3TgRgL_" name="Qasim">
     <mxGraphModel dx="1113" dy="781" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -131,7 +131,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="jdo_Bs8H3Nefda1nTduL-45" value="Belongs to" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
-          <mxGeometry x="707" y="810" width="120" height="60" as="geometry" />
+          <mxGeometry x="680" y="790" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="jdo_Bs8H3Nefda1nTduL-46" value="Product/Auction Category" style="whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
           <mxGeometry x="690" y="960" width="100" height="40" as="geometry" />
@@ -142,9 +142,9 @@
             <mxPoint x="820" y="690" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="jdo_Bs8H3Nefda1nTduL-50" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERoneToMany;" parent="1" target="jdo_Bs8H3Nefda1nTduL-46" edge="1">
+        <mxCell id="jdo_Bs8H3Nefda1nTduL-50" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERoneToMany;exitX=1;exitY=1;exitDx=0;exitDy=0;" parent="1" target="jdo_Bs8H3Nefda1nTduL-46" edge="1" source="jdo_Bs8H3Nefda1nTduL-45">
           <mxGeometry width="100" height="100" relative="1" as="geometry">
-            <mxPoint x="767" y="870" as="sourcePoint" />
+            <mxPoint x="790" y="860" as="sourcePoint" />
             <mxPoint x="940" y="690" as="targetPoint" />
           </mxGeometry>
         </mxCell>
