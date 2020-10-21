@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-10-21T19:23:13.201Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15" etag="vdEyXsBE2SYKK_X-59mf" version="13.8.1" type="github" pages="3">
+<mxfile host="app.diagrams.net" modified="2020-10-21T19:23:40.720Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15" etag="EweAAvptarTY4S90Hy3P" version="13.8.1" type="github" pages="3">
   <diagram id="PBJe3xCFQkrLJ3TgRgL_" name="Qasim">
     <mxGraphModel dx="1113" dy="781" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -104,7 +104,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="jdo_Bs8H3Nefda1nTduL-39" value="Bid price" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
-          <mxGeometry x="617" y="690" width="100" height="40" as="geometry" />
+          <mxGeometry x="630" y="690" width="100" height="40" as="geometry" />
         </mxCell>
         <mxCell id="jdo_Bs8H3Nefda1nTduL-40" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="jdo_Bs8H3Nefda1nTduL-35" target="jdo_Bs8H3Nefda1nTduL-39" edge="1">
           <mxGeometry relative="1" as="geometry">
