@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-10-21T19:23:40.720Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15" etag="EweAAvptarTY4S90Hy3P" version="13.8.1" type="github" pages="3">
+<mxfile host="app.diagrams.net" modified="2020-10-21T19:29:18.746Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15" etag="6cq5vDmrC-rf4ch7Whs_" version="13.8.1" type="github" pages="3">
   <diagram id="PBJe3xCFQkrLJ3TgRgL_" name="Qasim">
     <mxGraphModel dx="1113" dy="781" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -88,37 +88,34 @@
             <mxPoint x="1030" y="750" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="jdo_Bs8H3Nefda1nTduL-35" value="Bids/buys" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
-          <mxGeometry x="590" y="585" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="jdo_Bs8H3Nefda1nTduL-37" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERzeroToMany;endFill=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;exitX=1;exitY=1;exitDx=0;exitDy=0;" parent="1" source="jdo_Bs8H3Nefda1nTduL-35" target="jdo_Bs8H3Nefda1nTduL-21" edge="1">
+        <mxCell id="jdo_Bs8H3Nefda1nTduL-37" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERzeroToMany;endFill=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;exitX=1;exitY=1;exitDx=0;exitDy=0;" parent="1" source="S4HPG_5OyXTRfToOtr7x-22" target="jdo_Bs8H3Nefda1nTduL-21" edge="1">
           <mxGeometry width="100" height="100" relative="1" as="geometry">
-            <mxPoint x="680" y="810" as="sourcePoint" />
+            <mxPoint x="680" y="630" as="sourcePoint" />
             <mxPoint x="780" y="710" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="jdo_Bs8H3Nefda1nTduL-38" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERzeroToMany;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" parent="1" source="jdo_Bs8H3Nefda1nTduL-35" target="jdo_Bs8H3Nefda1nTduL-10" edge="1">
+        <mxCell id="jdo_Bs8H3Nefda1nTduL-38" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERzeroToMany;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" parent="1" source="S4HPG_5OyXTRfToOtr7x-22" target="jdo_Bs8H3Nefda1nTduL-10" edge="1">
           <mxGeometry width="100" height="100" relative="1" as="geometry">
-            <mxPoint x="690" y="640" as="sourcePoint" />
+            <mxPoint x="590" y="615" as="sourcePoint" />
             <mxPoint x="510" y="510" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="jdo_Bs8H3Nefda1nTduL-39" value="Bid price" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
-          <mxGeometry x="630" y="690" width="100" height="40" as="geometry" />
+          <mxGeometry x="617" y="690" width="100" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="jdo_Bs8H3Nefda1nTduL-40" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="jdo_Bs8H3Nefda1nTduL-35" target="jdo_Bs8H3Nefda1nTduL-39" edge="1">
+        <mxCell id="jdo_Bs8H3Nefda1nTduL-40" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="S4HPG_5OyXTRfToOtr7x-22" target="jdo_Bs8H3Nefda1nTduL-39" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="670" y="600" as="sourcePoint" />
+            <mxPoint x="690" y="610" as="sourcePoint" />
             <mxPoint x="830" y="600" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="jdo_Bs8H3Nefda1nTduL-41" value="BidID" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=4;" parent="1" vertex="1">
           <mxGeometry x="500" y="690" width="100" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="jdo_Bs8H3Nefda1nTduL-42" value="" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="jdo_Bs8H3Nefda1nTduL-41" target="jdo_Bs8H3Nefda1nTduL-35" edge="1">
+        <mxCell id="jdo_Bs8H3Nefda1nTduL-42" value="" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" parent="1" source="jdo_Bs8H3Nefda1nTduL-41" target="S4HPG_5OyXTRfToOtr7x-22" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="750" y="610" as="sourcePoint" />
-            <mxPoint x="910" y="610" as="targetPoint" />
+            <mxPoint x="625.9999999999998" y="632.9999999999998" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="jdo_Bs8H3Nefda1nTduL-43" value="End date" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
@@ -228,6 +225,9 @@
             <mxPoint x="925" y="710" as="sourcePoint" />
             <mxPoint x="987" y="840" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="S4HPG_5OyXTRfToOtr7x-22" value="Bids/buys" style="shape=rhombus;double=1;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;shadow=0;sketch=0;strokeColor=#000000;gradientColor=none;" vertex="1" parent="1">
+          <mxGeometry x="587" y="570" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
