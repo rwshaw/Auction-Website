@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-10-22T13:38:52.633Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15" etag="XKQW3bHi_O8Inwdya476" version="13.8.1" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2020-10-22T13:40:57.004Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15" etag="y0Voi1SuDfg4DylOJvo5" version="13.8.1" type="github" pages="4">
   <diagram id="PBJe3xCFQkrLJ3TgRgL_" name="Qasim">
     <mxGraphModel dx="1577" dy="1065" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -11,7 +11,7 @@
           <mxGeometry x="950" y="310" width="140" height="80" as="geometry" />
         </mxCell>
         <mxCell id="jdo_Bs8H3Nefda1nTduL-9" value="Seller" style="shape=ext;margin=3;double=1;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
-          <mxGeometry x="1100" y="470" width="100" height="40" as="geometry" />
+          <mxGeometry x="1110" y="430" width="100" height="40" as="geometry" />
         </mxCell>
         <mxCell id="jdo_Bs8H3Nefda1nTduL-10" value="Buyer" style="shape=ext;margin=3;double=1;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
           <mxGeometry x="330" y="430" width="100" height="40" as="geometry" />
@@ -38,7 +38,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="jdo_Bs8H3Nefda1nTduL-20" value="Creates" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
-          <mxGeometry x="1265" y="585" width="120" height="60" as="geometry" />
+          <mxGeometry x="1237" y="550" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="jdo_Bs8H3Nefda1nTduL-21" value="Auction listing" style="whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
           <mxGeometry x="1100" y="690" width="100" height="40" as="geometry" />
@@ -269,7 +269,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="u88miDDHLqtCUj73dIhM-6" value="connected to" style="shape=rhombus;double=1;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
-          <mxGeometry x="860" y="620" width="120" height="60" as="geometry" />
+          <mxGeometry x="880" y="610" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="u88miDDHLqtCUj73dIhM-7" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERone;endFill=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="u88miDDHLqtCUj73dIhM-6" target="jdo_Bs8H3Nefda1nTduL-21">
           <mxGeometry width="100" height="100" relative="1" as="geometry">
