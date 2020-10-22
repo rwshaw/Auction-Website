@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2020-10-22T13:40:57.004Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15" etag="y0Voi1SuDfg4DylOJvo5" version="13.8.1" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2020-10-22T13:43:51.698Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15" etag="UIRVC1IqwOEsWPQrDnM1" version="13.8.1" type="github" pages="4">
   <diagram id="PBJe3xCFQkrLJ3TgRgL_" name="Qasim">
-    <mxGraphModel dx="1577" dy="1065" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1351" dy="913" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -70,7 +70,7 @@
             <mxPoint x="1080" y="660" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="jdo_Bs8H3Nefda1nTduL-29" value="Product Name" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+        <mxCell id="jdo_Bs8H3Nefda1nTduL-29" value="ProductName" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
           <mxGeometry x="1405" y="835" width="100" height="40" as="geometry" />
         </mxCell>
         <mxCell id="jdo_Bs8H3Nefda1nTduL-30" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="jdo_Bs8H3Nefda1nTduL-29" target="jdo_Bs8H3Nefda1nTduL-21" edge="1">
@@ -79,8 +79,8 @@
             <mxPoint x="1225" y="810" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="jdo_Bs8H3Nefda1nTduL-31" value="Product description" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
-          <mxGeometry x="1285" y="810" width="100" height="40" as="geometry" />
+        <mxCell id="jdo_Bs8H3Nefda1nTduL-31" value="ProductDescription" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+          <mxGeometry x="1285" y="810" width="105" height="40" as="geometry" />
         </mxCell>
         <mxCell id="jdo_Bs8H3Nefda1nTduL-34" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=1;exitY=0;exitDx=0;exitDy=0;" parent="1" source="jdo_Bs8H3Nefda1nTduL-31" target="jdo_Bs8H3Nefda1nTduL-21" edge="1">
           <mxGeometry relative="1" as="geometry">
@@ -94,7 +94,7 @@
             <mxPoint x="590" y="580" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="jdo_Bs8H3Nefda1nTduL-39" value="Bid price" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+        <mxCell id="jdo_Bs8H3Nefda1nTduL-39" value="BidPrice" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
           <mxGeometry x="720" y="730" width="100" height="40" as="geometry" />
         </mxCell>
         <mxCell id="jdo_Bs8H3Nefda1nTduL-40" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=0.75;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="u88miDDHLqtCUj73dIhM-4" target="jdo_Bs8H3Nefda1nTduL-39" edge="1">
@@ -112,7 +112,7 @@
             <mxPoint x="650" y="740" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="jdo_Bs8H3Nefda1nTduL-43" value="End date" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+        <mxCell id="jdo_Bs8H3Nefda1nTduL-43" value="EndDate" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
           <mxGeometry x="1080" y="845" width="90" height="30" as="geometry" />
         </mxCell>
         <mxCell id="jdo_Bs8H3Nefda1nTduL-44" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="jdo_Bs8H3Nefda1nTduL-43" target="jdo_Bs8H3Nefda1nTduL-21" edge="1">
@@ -142,13 +142,13 @@
         <mxCell id="S4HPG_5OyXTRfToOtr7x-1" value="CategoryID" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=4;" parent="1" vertex="1">
           <mxGeometry x="1264" y="1065" width="100" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="S4HPG_5OyXTRfToOtr7x-2" value="Category name" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+        <mxCell id="S4HPG_5OyXTRfToOtr7x-2" value="CategoryName" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
           <mxGeometry x="1147" y="1065" width="100" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="S4HPG_5OyXTRfToOtr7x-4" value="Sub-category" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+        <mxCell id="S4HPG_5OyXTRfToOtr7x-4" value="SubCategory" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
           <mxGeometry x="1027" y="1065" width="100" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="S4HPG_5OyXTRfToOtr7x-5" value="Sub-categoryID" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=4;" parent="1" vertex="1">
+        <mxCell id="S4HPG_5OyXTRfToOtr7x-5" value="SubCategoryID" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=4;" parent="1" vertex="1">
           <mxGeometry x="1374" y="1065" width="100" height="40" as="geometry" />
         </mxCell>
         <mxCell id="S4HPG_5OyXTRfToOtr7x-6" value="" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="jdo_Bs8H3Nefda1nTduL-46" target="S4HPG_5OyXTRfToOtr7x-5" edge="1">
@@ -202,10 +202,10 @@
             <mxPoint x="837" y="130" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="S4HPG_5OyXTRfToOtr7x-18" value="Starting price" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+        <mxCell id="S4HPG_5OyXTRfToOtr7x-18" value="StartingPrice" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
           <mxGeometry x="1225" y="850" width="100" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="S4HPG_5OyXTRfToOtr7x-19" value="Reserve price" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+        <mxCell id="S4HPG_5OyXTRfToOtr7x-19" value="ReservePrice" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
           <mxGeometry x="1137" y="810" width="100" height="40" as="geometry" />
         </mxCell>
         <mxCell id="S4HPG_5OyXTRfToOtr7x-20" value="" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="jdo_Bs8H3Nefda1nTduL-21" target="S4HPG_5OyXTRfToOtr7x-19" edge="1">
@@ -223,7 +223,7 @@
         <mxCell id="S4HPG_5OyXTRfToOtr7x-22" value="submits/places" style="shape=rhombus;double=1;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;shadow=0;sketch=0;strokeColor=#000000;gradientColor=none;" parent="1" vertex="1">
           <mxGeometry x="510" y="440" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="S4HPG_5OyXTRfToOtr7x-23" value="Bid timestamp" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+        <mxCell id="S4HPG_5OyXTRfToOtr7x-23" value="BidTimestamp" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
           <mxGeometry x="580" y="760" width="100" height="40" as="geometry" />
         </mxCell>
         <mxCell id="S4HPG_5OyXTRfToOtr7x-24" value="" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;" parent="1" source="u88miDDHLqtCUj73dIhM-4" target="S4HPG_5OyXTRfToOtr7x-23" edge="1">
