@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2020-10-25T23:41:00.483Z" agent="5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36" etag="wL-AgBAh0GuKVkRQY1KW" version="13.8.2" type="github">
+<mxfile host="app.diagrams.net" modified="2020-10-25T23:43:10.737Z" agent="5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36" etag="Lv26kCg6Kn_oJGVuK8Tv" version="13.8.2" type="github">
   <diagram id="PBJe3xCFQkrLJ3TgRgL_" name="Page-1">
-    <mxGraphModel dx="449" dy="297" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1885" dy="1298" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -119,7 +119,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="jdo_Bs8H3Nefda1nTduL-45" value="Belongs to" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
-          <mxGeometry x="530" y="850" width="120" height="60" as="geometry" />
+          <mxGeometry x="599" y="830" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="jdo_Bs8H3Nefda1nTduL-46" value="category" style="whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
           <mxGeometry x="540" y="980" width="100" height="40" as="geometry" />
@@ -480,7 +480,7 @@
           <mxGeometry x="650" y="900" width="90" height="30" as="geometry" />
         </mxCell>
         <mxCell id="jAN6Pm0lT5QuEJ-GA6cV-15" value="adds to watchlist" style="shape=rhombus;double=1;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;shadow=0;sketch=0;strokeColor=#000000;gradientColor=none;" parent="1" vertex="1">
-          <mxGeometry x="170" y="720" width="150" height="95" as="geometry" />
+          <mxGeometry x="230" y="1000" width="150" height="95" as="geometry" />
         </mxCell>
         <mxCell id="jAN6Pm0lT5QuEJ-GA6cV-16" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERzeroToMany;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="jAN6Pm0lT5QuEJ-GA6cV-15" target="jdo_Bs8H3Nefda1nTduL-21" edge="1">
           <mxGeometry width="100" height="100" relative="1" as="geometry">
