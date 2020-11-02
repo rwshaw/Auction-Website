@@ -122,7 +122,21 @@ FROM users where email = 'tom.cruise@ourauctionsite.com'
 INSERT INTO auctionsite.auction_listing (sellerUserID, itemName,itemDescription , reservePrice,
     startTime , endTime, categoryID)
 SELECT userID
-, 'Assassins Creed Valhalla PS4', 'Great Game. Already played it so selling it.'
+, 'Assassins Creed Valhalla PS5', 'Great Game. Already played it so selling it.'
 , 25.49, now(),date_add(now(), interval 10 day),6
 FROM users where email = 'tom.cruise@ourauctionsite.com'
+;
+INSERT INTO auctionsite.auction_listing (sellerUserID, itemName,itemDescription , startPrice, reservePrice,
+    startTime , endTime, categoryID)
+SELECT userID
+, 'Samsung 55 inch TV', 'Samsung TV, amazing condiiton. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sagittis pretium velit egestas venenatis. 
+Donec vel lacinia sem, non tristique neque. Suspendisse pellentesque tempus sodales. Vestibulum rhoncus maximus diam. Aenean ut nisi non felis tristique egestas a eget diam. 
+Integer suscipit ac ex vel semper. Donec efficitur blandit elit, id scelerisque quam suscipit eu. Donec sagittis tempor erat, nec posuere nisi efficitur ac. Nulla ac justo fermentum, consequat ipsum ac, condimentum lectus. 
+Maecenas ac congue arcu, eget consectetur augue. Phasellus eget tortor risus. Pellentesque feugiat libero accumsan, rhoncus magna eget, commodo ligula. Nunc sed suscipit ex. Nulla finibus interdum lectus, sit amet gravida orci dictum eget.
+
+Sed sed velit sollicitudin, dapibus nibh sit amet, vulputate neque. Morbi in luctus metus. Nullam nec lacus pellentesque, auctor lorem ut, egestas nisi. Nullam iaculis nibh molestie sapien facilisis congue. 
+Etiam id felis non erat ultricies ornare vitae nec sapien. Morbi dapibus sollicitudin diam et efficitur. Etiam porttitor risus at mauris gravida mollis. Vestibulum in nulla nec mauris sollicitudin malesuada eleifend nec odio. 
+Sed quam ipsum, faucibus id laoreet eget, vehicula sit amet diam. Phasellus ac massa ut mi aliquet fermentum vitae sed velit.'
+,210, 375, now(),date_add(now(), interval 8 day),3
+FROM users where email = 'john.doe@ourauctionsite.com'
 ;
