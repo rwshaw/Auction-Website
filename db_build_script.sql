@@ -50,7 +50,8 @@ CREATE TABLE categories (
     categoryID INT NOT NULL AUTO_INCREMENT,
     deptName VARCHAR(50) NOT NULL,
     subCategoryName VARCHAR(50) NOT NULL,
-    PRIMARY KEY (categoryID)
+    PRIMARY KEY (categoryID),
+    UNIQUE (subCategoryName)
 );
 
 CREATE TABLE bids (
@@ -78,3 +79,50 @@ CREATE TABLE watchlist (
 
 ALTER TABLE auction_listing
 ADD FOREIGN KEY (categoryID) REFERENCES categories(categoryID) ON UPDATE CASCADE ON DELETE CASCADE;
+
+-- SPECIFYING CATEGORIES
+
+
+-- ADDING DUMMY DATA
+
+INSERT INTO auctionsite.users (fName, lName, email, password, addressLine1, addressLine2, city, postcode,
+buyer, seller)
+VALUES
+('Tom', 'Cruise', 'tom.cruise@ourauctionsite.com','Password123','15 Honey Drive',null,'London','NW15JBE',TRUE, TRUE),
+('John', 'Doe', 'john.doe@ourauctionsite.com', 'Password123', '8 Street', "John's Avenue", 'London', 'WH547PE', TRUE, TRUE),
+('Bob', 'Smith', 'bob.smith@ourauctionsite.com', 'Password123', '6 Street', "Bob's Avenue", 'London', 'GS392JF', TRUE, FALSE);;
+
+INSERT INTO auctionsite.categories (deptName, subCategoryName)
+VALUES
+('Books', 'Fiction'),
+('Books','Nonfiction'),
+('Electronics', 'TVs'),
+('Electronics', 'Computers'),
+('Electronics', 'Mobile Phones'),
+('Electronics', 'Video Games'),
+('Sport & Leisure', 'Cycling'),
+('Sport & Leisure','Golf'),
+('Sport & Leisure','Tennis'),
+('Sport & Leisure','Art'),
+('Electronics', 'Cameras'),
+('Electronics', 'Audio'),
+('Health', 'Gym'),
+('Health', 'Female Beauty'),
+('Health', 'Supplements')
+;
+
+INSERT INTO auctionsite.auction_listing (sellerUserID, itemName,itemDescription ,startPrice , reservePrice,
+    startTime , endTime, categoryID)
+SELECT userID
+, 'Lenovo Laptop', 'This is my lenovo laptop I got back in 2018. I love it but now I have just bought a mac so do not need it anymore.'
+, 105.99, 150, now(),date_add(now(), interval 7 day),4
+FROM users where email = 'tom.cruise@ourauctionsite.com'
+;
+
+INSERT INTO auctionsite.auction_listing (sellerUserID, itemName,itemDescription , reservePrice,
+    startTime , endTime, categoryID)
+SELECT userID
+, 'Assassins Creed Valhalla PS4', 'Great Game. Already played it so selling it.'
+, 25.49, now(),date_add(now(), interval 10 day),6
+FROM users where email = 'tom.cruise@ourauctionsite.com'
+;
