@@ -1,4 +1,5 @@
-<!-- This won't be served as a file on front end. Include this as an import in each file that needs to connect to DB. -->
+<!-- This won't be served as a file on front end. Include this as an import in each file that needs to connect to DB.
+Use functions below to open and close DB connections with the website user login credentials.-->
 
 <?php
 // Connecting to DB
