@@ -126,6 +126,7 @@ SELECT userID
 , 25.49, now(),date_add(now(), interval 10 day),6
 FROM users where email = 'tom.cruise@ourauctionsite.com'
 ;
+
 INSERT INTO auctionsite.auction_listing (sellerUserID, itemName,itemDescription , startPrice, reservePrice,
     startTime , endTime, categoryID)
 SELECT userID
