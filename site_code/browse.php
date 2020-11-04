@@ -37,7 +37,7 @@ error_reporting(E_ALL);
       <div class="form-group">
         <label for="cat" class="sr-only">Search within:</label>
         <select class="form-control" id="cat" name="cat">
-          <option selected value="all">All categories</option>
+          <option value=''>All categories</option>
            <!-- TODO - Auto generate categories alphabetically in options from database -->
            <?php
            $sql = "SELECT distinct deptName from auctionsite.categories order by deptName";
@@ -73,19 +73,18 @@ error_reporting(E_ALL);
   // Retrieve these from the URL
   
   // Base search statement
-  $base_query1 = "SELECT a.listingID, ItemName, ItemDescription, ifnull(max(bidPrice),startPrice) as currentPrice, count(bidID) as num_bids, endTime 
-                  from auction_listing a left join bids b on a.listingID = b.listingID 
-                  where endTime > now()";
-  $base_query2 = "group by a.listingID, a.ItemName, a.ItemDescription, a.endTime
-                  order by ?";
+  $base_query1 = "SELECT a.listingID, ItemName, ItemDescription, ifnull(max(bidPrice),startPrice) as currentPrice, count(bidID) as num_bids, endTime from auction_listing a left join bids b on a.listingID = b.listingID left join categories c on a.categoryID = c.categoryID where endTime > now() ";
+  $base_query2 = "group by a.listingID, a.ItemName, a.ItemDescription, a.endTime order by ";
   $where_conditions = array();
 
   if (!isset($_GET['keyword'])) {
   }
   else {
-    $keyword = $_GET['keyword'];
-    $where_conditions[] = "AND lower(ItemName) like %" .strtolower($keyword);
-
+    if (strlen($_GET["keyword"]) > 0) {
+      $keyword = strtolower($_GET['keyword']); //remove case for wildcard search
+      // $where_conditions[] = "AND lower(ItemName) like '%" .strtolower($keyword) . "'";
+    }
+    //if variable is null do nothing
   }
 
   if (!isset($_GET['cat'])) {
@@ -93,24 +92,23 @@ error_reporting(E_ALL);
   }
   else {
     $category = $_GET['cat'];
-    if (strtolower($category = "all")) {
-      // DO Nothing - no category limitition in where condition.
+    if ($category != '') {
+      $where_conditions[] = "AND deptName = '" . $category . "'";
     }
-    $where_conditions[] = "AND deptName = $category";
-  }
+    }
   
   if (!isset($_GET['order_by'])) {
     $ordering = "endTime"; //This is the default parameter at the moment.
   }
   else {
     $ordering = $_GET['order_by'];
-    if ($ordering = "date") {
+    if ($ordering === "date") {
       $ordering = "endTime";
     }
-    elseif ($ordering = "pricelow") {
+    elseif ($ordering === "pricelow") {
       $ordering = "currentPrice asc";
     }
-    elseif ($ordering = "pricehigh") {
+    elseif ($ordering === "pricehigh") {
       $ordering = "currentPrice desc";
     }
     else {} // do nothing for now.
@@ -123,20 +121,39 @@ error_reporting(E_ALL);
     $curr_page = $_GET['page'];
   }
 
-  $search_query = $base_query1 . implode(' ', $where_conditions) . ' ' . $base_query2;
-  $con = OpenDbConnection();
-  $stmt = $con->query($search_query);
+  //if keyword variable is set, then we will prepare query to prevent SQL injection.
+  if (isset($keyword)) {
+    $search_query = $base_query1 . "AND lower(ItemName) like ? " . implode(' ', $where_conditions) . ' ' . $base_query2 . $ordering;
+    $con = OpenDbConnection();
+    $stmt = $con->stmt_init();
+    $stmt->prepare($search_query);
+    $stmt->bind_param("s", $keyword);
+    $stmt->execute();
+    $search_result = $stmt->get_result();
+  }
+  else {   //if not set we can prepare query without using an itemName wildcard user input
+    $search_query = $base_query1 . implode(' ', $where_conditions) . ' ' . $base_query2 . $ordering;
+    $con = OpenDbConnection();
+    $search_result = $con->query($search_query);
+  }
+  
+
+
+
+  
+  // $con = OpenDbConnection();
+  // // $stmt = $con->query($search_query);
   // $stmt = $con->stmt_init();
   // $stmt->prepare($search_query);
-  // $stmt->bind_param("s", $ordering);
+  // $stmt->bind_param("s", $keyword);
   // $stmt->execute();
 
-  $search_result = $stmt; //$stmt->get_result();
-  while ($row = $search_result->fetch_all(MYSQLI_ASSOC)) {
-    foreach($row as $item) {
-      print_listing_li($item["listingID"],$item["ItemName"],$item["ItemDescription"],$item["currentPrice"],$item["num_bids"],$item["endTime"]);
-    }
-  }
+  // $search_result = $stmt; //$stmt->get_result();
+  // while ($row = $search_result->fetch_all(MYSQLI_ASSOC)) {
+  //   foreach($row as $item) {
+  //     print_listing_li($item["listingID"],$item["ItemName"],$item["ItemDescription"],$item["currentPrice"],$item["num_bids"],$item["endTime"]);
+  //   }
+  // }
 
   /*
   
@@ -162,6 +179,8 @@ error_reporting(E_ALL);
 
 <div class="container mt-5">
 
+<?= console_log($search_query); ?>
+<?= console_log($search_result); ?>
 
 <!-- TODO: If result set is empty, print an informative message. Otherwise... -->
 
@@ -173,18 +192,21 @@ error_reporting(E_ALL);
 <?php
   // Demonstration of what listings will look like using dummy data.
 
-  
-  $search_result = $stmt; //$stmt->get_result();
-  while ($row = $search_result->fetch_all(MYSQLI_ASSOC)) {
-    foreach($row as $item) {
-      print_listing_li($item["listingID"],$item["ItemName"],$item["ItemDescription"],$item["currentPrice"],$item["num_bids"],$item["endTime"]);
+  // what to do with search result.
+  if ($search_result->num_rows>0) {
+    while ($row = $search_result->fetch_all(MYSQLI_ASSOC)) {
+      foreach($row as $item) {
+        print_listing_li($item["listingID"],$item["ItemName"],$item["ItemDescription"],$item["currentPrice"],$item["num_bids"],$item["endTime"]);
+      }
     }
   }
+  else { echo "<h1> RESULT NOT FOUND <?h1>";
+  }
 
-  // $stmt->free_result();
+  // $search_result->free_result();
 
 
-  $stmt->close();
+  // $search_result->close();
   $con->close();
 
   $item_id = "87021";
@@ -206,8 +228,6 @@ error_reporting(E_ALL);
   
   print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
 ?>
-
-<?= console_log($search_result); ?>
 
 </ul>
 
