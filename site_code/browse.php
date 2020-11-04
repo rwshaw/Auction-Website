@@ -127,7 +127,7 @@ error_reporting(E_ALL);
     $con = OpenDbConnection();
     $stmt = $con->stmt_init();
     $stmt->prepare($search_query);
-    $wild_keyword = "'%" . $keyword . "%'";
+    $wild_keyword = "%" . $keyword . "%";
     $stmt->bind_param("s", $wild_keyword);
     $stmt->execute();
     $search_result = $stmt->get_result();
