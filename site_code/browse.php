@@ -53,9 +53,9 @@ error_reporting(E_ALL);
       <div class="form-inline">
         <label class="mx-2" for="order_by">Sort by:</label>
         <select class="form-control" id="order_by" name="order_by">
-          <option selected value="pricelow">Price (low to high)</option>
-          <option value="pricehigh">Price (high to low)</option>
           <option value="date">Soonest expiry</option>
+          <option value="pricelow">Price (low to high)</option>
+          <option value="pricehigh">Price (high to low)</option>
         </select>
       </div>
     </div>
@@ -127,7 +127,8 @@ error_reporting(E_ALL);
     $con = OpenDbConnection();
     $stmt = $con->stmt_init();
     $stmt->prepare($search_query);
-    $stmt->bind_param("s", $keyword);
+    $wild_keyword = "'%" . $keyword . "%'";
+    $stmt->bind_param("s", $wild_keyword);
     $stmt->execute();
     $search_result = $stmt->get_result();
   }
@@ -200,7 +201,12 @@ error_reporting(E_ALL);
       }
     }
   }
-  else { echo "<h1> RESULT NOT FOUND <?h1>";
+  else { 
+    // If no results returned - print alert
+    $header = "Oooops...";
+    $text1 = "Looks like there aren&#39;t any auctions that match your search criteria. If you can&#39;t find what you are looking for, try browsing by category?";
+    $text2 = "Or try searching again!";
+    print_alert("warning", $header, $text1, $text2);
   }
 
   // $search_result->free_result();
