@@ -61,4 +61,27 @@ function print_listing_li($item_id, $title, $desc, $price, $num_bids, $end_time)
   );
 }
 
+//HTML BOOTSTRAP Alert Generator.
+function  print_alert($alert_type, $alert_heading, $alert_text1, $alert_text2) {
+  /**
+   * Creates an alert message.
+   * 
+   * @param string $alert_type - colour of alert (success/danger/warning/info etc)
+   * @param string $alert_heading - The heading (already put between h4 tags)
+   * @param string $alert_text1 - Above margin text (already put between p tags)
+   * @param string $alert_text2 - Below margin text (already put between p tags)
+   * @return string html alert
+   */
+  echo 
+  '<div class="alert alert-' . $alert_type . '" alert-dismissable fade show role="alert">
+    <h4 class="alert-heading">' . $alert_heading . '</h4>
+    <p>' . $alert_text1 . '    
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button></p>
+    <hr>
+    <p class="mb-0">' . $alert_text2 . '</p>
+  </div>';
+}
+
 ?>
