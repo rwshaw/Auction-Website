@@ -1,5 +1,14 @@
 <?php include_once("header.php")?>
-<?php require("utilities.php")?>
+<?php 
+require("utilities.php");
+require("mysql_connect.php");
+require("debug.php");
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+?>
+
+
 
 <div class="container">
 
@@ -20,25 +29,30 @@
               <i class="fa fa-search"></i>
             </span>
           </div>
-          <input type="text" class="form-control border-left-0" id="keyword" placeholder="Search for anything">
+          <input type="text" class="form-control border-left-0" id="keyword" name="keyword" placeholder="Search for a product">
         </div>
       </div>
     </div>
     <div class="col-md-3 pr-0">
       <div class="form-group">
         <label for="cat" class="sr-only">Search within:</label>
-        <select class="form-control" id="cat">
+        <select class="form-control" id="cat" name="cat">
           <option selected value="all">All categories</option>
-          <option value="fill">Fill me in</option>
-          <option value="with">with options</option>
-          <option value="populated">populated from a database?</option>
+           <!-- TODO - Auto generate categories alphabetically in options from database -->
+           <?php
+           $sql = "SELECT distinct deptName from auctionsite.categories order by deptName";
+           $result = SQLQuery($sql);
+           foreach ($result as $row) {
+             echo "<option value=" . $row["deptName"] .">" . $row["deptName"] ."</option>";
+           }
+           ?>
         </select>
       </div>
     </div>
     <div class="col-md-3 pr-0">
       <div class="form-inline">
         <label class="mx-2" for="order_by">Sort by:</label>
-        <select class="form-control" id="order_by">
+        <select class="form-control" id="order_by" name="order_by">
           <option selected value="pricelow">Price (low to high)</option>
           <option value="pricehigh">Price (high to low)</option>
           <option value="date">Soonest expiry</option>
@@ -57,11 +71,21 @@
 
 <?php
   // Retrieve these from the URL
+  
+  // Base search statement
+  $base_query1 = "SELECT a.listingID, ItemName, ItemDescription, ifnull(max(bidPrice),startPrice) as currentPrice, count(bidID) as num_bids, endTime 
+                  from auction_listing a left join bids b on a.listingID = b.listingID 
+                  where endTime > now()";
+  $base_query2 = "group by a.listingID, a.ItemName, a.ItemDescription, a.endTime
+                  order by ?";
+  $where_conditions = array();
+
   if (!isset($_GET['keyword'])) {
-    // TODO: Define behavior if a keyword has not been specified.
   }
   else {
     $keyword = $_GET['keyword'];
+    $where_conditions[] = "AND lower(ItemName) like %" .strtolower($keyword);
+
   }
 
   if (!isset($_GET['cat'])) {
@@ -69,13 +93,27 @@
   }
   else {
     $category = $_GET['cat'];
+    if (strtolower($category = "all")) {
+      // DO Nothing - no category limitition in where condition.
+    }
+    $where_conditions[] = "AND deptName = $category";
   }
   
   if (!isset($_GET['order_by'])) {
-    // TODO: Define behavior if an order_by value has not been specified.
+    $ordering = "endTime"; //This is the default parameter at the moment.
   }
   else {
     $ordering = $_GET['order_by'];
+    if ($ordering = "date") {
+      $ordering = "endTime";
+    }
+    elseif ($ordering = "pricelow") {
+      $ordering = "currentPrice asc";
+    }
+    elseif ($ordering = "pricehigh") {
+      $ordering = "currentPrice desc";
+    }
+    else {} // do nothing for now.
   }
   
   if (!isset($_GET['page'])) {
@@ -84,6 +122,32 @@
   else {
     $curr_page = $_GET['page'];
   }
+
+  $search_query = $base_query1 . implode(' ', $where_conditions) . ' ' . $base_query2;
+  $con = OpenDbConnection();
+  $stmt = $con->query($search_query);
+  // $stmt = $con->stmt_init();
+  // $stmt->prepare($search_query);
+  // $stmt->bind_param("s", $ordering);
+  // $stmt->execute();
+
+  $search_result = $stmt; //$stmt->get_result();
+  while ($row = $search_result->fetch_all(MYSQLI_ASSOC)) {
+    foreach($row as $item) {
+      print_listing_li($item["listingID"],$item["ItemName"],$item["ItemDescription"],$item["currentPrice"],$item["num_bids"],$item["endTime"]);
+    }
+  }
+
+  /*
+  
+
+// <?= console_log($ordering); ?>
+<!-- // <?= console_log($base_query1); ?>
+// <?= console_log($search_query); ?>
+// <?= console_log("prepare: " . $con->prepare($search_query)->error); ?>
+// <?= console_log($stmt->get_result()); ?> -->
+*/
+
 
   /* TODO: Use above values to construct a query. Use this query to 
      retrieve data from the database. (If there is no form data entered,
@@ -98,6 +162,7 @@
 
 <div class="container mt-5">
 
+
 <!-- TODO: If result set is empty, print an informative message. Otherwise... -->
 
 <ul class="list-group">
@@ -107,6 +172,21 @@
 
 <?php
   // Demonstration of what listings will look like using dummy data.
+
+  
+  $search_result = $stmt; //$stmt->get_result();
+  while ($row = $search_result->fetch_all(MYSQLI_ASSOC)) {
+    foreach($row as $item) {
+      print_listing_li($item["listingID"],$item["ItemName"],$item["ItemDescription"],$item["currentPrice"],$item["num_bids"],$item["endTime"]);
+    }
+  }
+
+  // $stmt->free_result();
+
+
+  $stmt->close();
+  $con->close();
+
   $item_id = "87021";
   $title = "Dummy title";
   $description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget rutrum ipsum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus feugiat, ipsum vel egestas elementum, sem mi vestibulum eros, et facilisis dui nisi eget metus. In non elit felis. Ut lacus sem, pulvinar ultricies pretium sed, viverra ac sapien. Vivamus condimentum aliquam rutrum. Phasellus iaculis faucibus pellentesque. Sed sem urna, maximus vitae cursus id, malesuada nec lectus. Vestibulum scelerisque vulputate elit ut laoreet. Praesent vitae orci sed metus varius posuere sagittis non mi.";
@@ -126,6 +206,8 @@
   
   print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
 ?>
+
+<?= console_log($search_result); ?>
 
 </ul>
 
