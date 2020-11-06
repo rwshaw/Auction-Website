@@ -74,7 +74,7 @@ error_reporting(E_ALL);
   
   // Base search statement
   $base_query1 = "SELECT a.listingID, ItemName, ItemDescription, ifnull(max(bidPrice),startPrice) as currentPrice, count(bidID) as num_bids, endTime from auction_listing a left join bids b on a.listingID = b.listingID left join categories c on a.categoryID = c.categoryID where endTime > now() ";
-  $base_query2 = "group by a.listingID, a.ItemName, a.ItemDescription, a.endTime order by ";
+  $base_query2 = "group by a.listingID, a.ItemName, a.ItemDescription, a.endTime ";
   $where_conditions = array();
 
   if (!isset($_GET['keyword'])) {
@@ -98,32 +98,37 @@ error_reporting(E_ALL);
     }
   
   if (!isset($_GET['order_by'])) {
-    $ordering = "endTime"; //This is the default parameter at the moment.
+    $ordering = "order by endTime"; //This is the default parameter at the moment.
   }
   else {
     $ordering = $_GET['order_by'];
     if ($ordering === "date") {
-      $ordering = "endTime";
+      $ordering = "order by endTime";
     }
     elseif ($ordering === "pricelow") {
-      $ordering = "currentPrice asc";
+      $ordering = "order by currentPrice asc";
     }
     elseif ($ordering === "pricehigh") {
-      $ordering = "currentPrice desc";
+      $ordering = "order by currentPrice desc";
     }
     else {} // do nothing for now.
   }
+
+  // Page variables
+  $results_per_page = 10;
   
   if (!isset($_GET['page'])) {
     $curr_page = 1;
   }
   else {
-    $curr_page = $_GET['page'];
+    $curr_page = $_GET['page'] ;
   }
+  $limit = " LIMIT " .($curr_page -1)*$results_per_page . ", $results_per_page";
 
   //if keyword variable is set, then we will prepare query to prevent SQL injection.
   if (isset($keyword)) {
-    $search_query = $base_query1 . "AND lower(ItemName) like ? " . implode(' ', $where_conditions) . ' ' . $base_query2 . $ordering;
+    $sq_no_limit = $base_query1 . "AND lower(ItemName) like ? " . implode(' ', $where_conditions) . ' ' . $base_query2 ; //for pagination, not need for ordering, dont want limit
+    $search_query = $sq_no_limit . $ordering . $limit;
     $con = OpenDbConnection();
     $stmt = $con->stmt_init();
     $stmt->prepare($search_query);
@@ -133,7 +138,8 @@ error_reporting(E_ALL);
     $search_result = $stmt->get_result();
   }
   else {   //if not set we can prepare query without using an itemName wildcard user input
-    $search_query = $base_query1 . implode(' ', $where_conditions) . ' ' . $base_query2 . $ordering;
+    $sq_no_limit = $base_query1 . implode(' ', $where_conditions) . ' ' . $base_query2;
+    $search_query = $sq_no_limit . $ordering . $limit;
     $con = OpenDbConnection();
     $search_result = $con->query($search_query);
   }
@@ -147,10 +153,23 @@ error_reporting(E_ALL);
   
   /* For the purposes of pagination, it would also be helpful to know the
      total number of results that satisfy the above query */
-  $num_results = $search_result->num_rows;
-  $results_per_page = 10;
+  $num_results_query =  "SELECT COUNT(*) as num_rows FROM ($sq_no_limit) result";
+  //if keyword - we need to prepare then execute, if not execute query immediately.
+  if (isset($keyword)) {
+    $stmt_num_rows = $con->stmt_init();
+    $stmt_num_rows->prepare($num_results_query);
+    $stmt_num_rows->bind_param("s", $wild_keyword);
+    $stmt_num_rows->execute();
+    $num_rows_result = $stmt_num_rows->get_result()->fetch_all(MYSQLI_ASSOC); 
+  } else {
+    $num_rows_result = SQLQuery($num_results_query);
+  }
+  // $num_results = SQLQuery($num_results_query);
+  $num_results = $num_rows_result[0]['num_rows'] ?? false;
   $max_page = ceil($num_results / $results_per_page);
 ?>
+
+<?=console_log($num_results);?>
 
 <div class="container mt-5">
 
@@ -205,47 +224,59 @@ error_reporting(E_ALL);
   $low_page_boost = max(2 - ($max_page - $curr_page), 0);
   $low_page = max(1, $curr_page - 2 - $low_page_boost);
   $high_page = min($max_page, $curr_page + 2 + $high_page_boost);
-  
-  if ($curr_page != 1) {
-    echo('
-    <li class="page-item">
-      <a class="page-link" href="browse.php?' . $querystring . 'page=' . ($curr_page - 1) . '" aria-label="Previous">
-        <span aria-hidden="true"><i class="fa fa-arrow-left"></i></span>
-        <span class="sr-only">Previous</span>
-      </a>
-    </li>');
-  }
-    
-  for ($i = $low_page; $i <= $high_page; $i++) {
-    if ($i == $curr_page) {
-      // Highlight the link
+
+  if ($max_page >0) {
+    if ($curr_page != 1) {
       echo('
-    <li class="page-item active">');
+      <li class="page-item">
+        <a class="page-link" href="browse.php?' . $querystring . 'page=' . ($curr_page - 1) . '" aria-label="Previous">
+          <span aria-hidden="true"><i class="fa fa-arrow-left"></i></span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>');
     }
-    else {
-      // Non-highlighted link
+      
+    for ($i = $low_page; $i <= $high_page; $i++) {
+      if ($i == $curr_page) {
+        // Highlight the link
+        echo('
+      <li class="page-item active">');
+      }
+      else {
+        // Non-highlighted link
+        echo('
+      <li class="page-item">');
+      }
+      
+      // Do this in any case
       echo('
-    <li class="page-item">');
+        <a class="page-link" href="browse.php?' . $querystring . 'page=' . $i . '">' . $i . '</a>
+      </li>');
     }
     
-    // Do this in any case
-    echo('
-      <a class="page-link" href="browse.php?' . $querystring . 'page=' . $i . '">' . $i . '</a>
-    </li>');
+    if ($curr_page != $max_page) {
+      echo('
+      <li class="page-item">
+        <a class="page-link" href="browse.php?' . $querystring . 'page=' . ($curr_page + 1) . '" aria-label="Next">
+          <span aria-hidden="true"><i class="fa fa-arrow-right"></i></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>');
+    }
   }
-  
-  if ($curr_page != $max_page) {
-    echo('
-    <li class="page-item">
-      <a class="page-link" href="browse.php?' . $querystring . 'page=' . ($curr_page + 1) . '" aria-label="Next">
-        <span aria-hidden="true"><i class="fa fa-arrow-right"></i></span>
-        <span class="sr-only">Next</span>
-      </a>
-    </li>');
-  }
+
+
 ?>
 
   </ul>
+<?php if ($max_page > 0) : ?>
+  <div class="progress">
+  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo ($curr_page/$max_page)*100 ?>%;" aria-valuenow="<?php echo ($curr_page/$max_page)*100 ?>" aria-valuemin="0" aria-valuemax="100"><?php echo "Page $curr_page of $max_page"?></div>
+  </div>
+<?php endif; ?>
+
+<div></div>
+
 </nav>
 
 
