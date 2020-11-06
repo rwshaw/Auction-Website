@@ -29,7 +29,7 @@ error_reporting(E_ALL);
               <i class="fa fa-search"></i>
             </span>
           </div>
-          <input type="text" class="form-control border-left-0" id="keyword" name="keyword" placeholder="Search for a product">
+          <input type="search" class="form-control border-left-0" id="keyword" name="keyword" placeholder="Search for a product">
         </div>
       </div>
     </div>
@@ -64,7 +64,14 @@ error_reporting(E_ALL);
     </div>
   </div>
 </form>
-</div> <!-- end search specs bar -->
+</div> 
+<!-- JS to retain form data in form options after input. -->
+<script type="text/javascript">
+  document.getElementById("keyword").value="<?php echo $_GET["keyword"];?>";
+  document.getElementById("cat").value="<?php echo $_GET["cat"];?>";
+  document.getElementById("order_by").value="<?php echo $_GET["order_by"];?>";
+</script>
+<!-- end search specs bar -->
 
 
 </div>
@@ -169,7 +176,6 @@ error_reporting(E_ALL);
   $max_page = ceil($num_results / $results_per_page);
 ?>
 
-<?=console_log($num_results);?>
 
 <div class="container mt-5">
 
