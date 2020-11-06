@@ -1,0 +1,98 @@
+﻿sellerUserID,itemName,itemDescription,itemImage,startPrice,reservePrice,startTime,endTime,categoryID
+1,AppleMacBook Pro,AppleMacBook Pro<ul><li>IPS Panel Retina Display 2560x1600</li><li>Intel Core i5 2.3GHz</li><li>128GB SSD</li></ul>,,401.91,803.81,2020-11-03 14:34:23,2020-11-14 16:34:23,4
+2,AppleMacbook Air,AppleMacbook Air<ul><li>1440x900</li><li>Intel Core i5 1.8GHz</li><li>128GB Flash Storage</li></ul>,,269.68,539.36,2020-11-03 14:34:23,2020-11-15 14:34:23,4
+1,HP250 G6,HP250 G6<ul><li>Full HD 1920x1080</li><li>Intel Core i5 7200U 2.5GHz</li><li>256GB SSD</li></ul>,,172.5,345,2020-11-03 14:34:23,2020-11-15 16:34:23,4
+2,AppleMacBook Pro,AppleMacBook Pro<ul><li>IPS Panel Retina Display 2880x1800</li><li>Intel Core i7 2.7GHz</li><li>512GB SSD</li></ul>,,761.24,1522.47,2020-11-03 14:34:23,2020-11-16 14:34:23,4
+1,AppleMacBook Pro,AppleMacBook Pro<ul><li>IPS Panel Retina Display 2560x1600</li><li>Intel Core i5 3.1GHz</li><li>256GB SSD</li></ul>,,541.08,1082.16,2020-11-03 14:34:23,2020-11-14 14:34:23,4
+1,AcerAspire 3,AcerAspire 3<ul><li>1366x768</li><li>AMD A9-Series 9420 3GHz</li><li>500GB HDD</li></ul>,,120,240,2020-11-03 14:34:23,2020-11-14 16:34:23,4
+2,AppleMacBook Pro,AppleMacBook Pro<ul><li>IPS Panel Retina Display 2880x1800</li><li>Intel Core i7 2.2GHz</li><li>256GB Flash Storage</li></ul>,,641.99,1283.98,2020-11-03 14:34:23,2020-11-15 14:34:23,4
+1,AppleMacbook Air,AppleMacbook Air<ul><li>1440x900</li><li>Intel Core i5 1.8GHz</li><li>256GB Flash Storage</li></ul>,,347.61,695.22,2020-11-03 14:34:23,2020-11-15 16:34:23,4
+2,AsusZenBook UX430UN,AsusZenBook UX430UN<ul><li>Full HD 1920x1080</li><li>Intel Core i7 8550U 1.8GHz</li><li>512GB SSD</li></ul>,,448.5,897,2020-11-03 14:34:23,2020-11-16 14:34:23,4
+1,AcerSwift 3,AcerSwift 3<ul><li>IPS Panel Full HD 1920x1080</li><li>Intel Core i5 8250U 1.6GHz</li><li>256GB SSD</li></ul>,,0,462,2020-11-03 14:34:23,2020-11-14 14:34:23,4
+2,HP250 G6,HP250 G6<ul><li>1366x768</li><li>Intel Core i5 7200U 2.5GHz</li><li>500GB HDD</li></ul>,,118.17,236.34,2020-11-03 14:34:23,2020-11-14 16:34:23,4
+1,HP250 G6,HP250 G6<ul><li>Full HD 1920x1080</li><li>Intel Core i3 6006U 2GHz</li><li>500GB HDD</li></ul>,,103.5,206.99,2020-11-03 14:34:23,2020-11-15 14:34:23,4
+1,AppleMacBook Pro,AppleMacBook Pro<ul><li>IPS Panel Retina Display 2880x1800</li><li>Intel Core i7 2.8GHz</li><li>256GB SSD</li></ul>,,731.99,1463.98,2020-11-03 14:34:23,2020-11-15 16:34:23,4
+2,DellInspiron 3567,DellInspiron 3567<ul><li>Full HD 1920x1080</li><li>Intel Core i3 6006U 2GHz</li><li>256GB SSD</li></ul>,,149.67,299.34,2020-11-03 14:34:23,2020-11-16 14:34:23,4
+2,"AppleMacBook 12""","AppleMacBook 12""<ul><li>IPS Panel Retina Display 2304x1440</li><li>Intel Core M m3 1.2GHz</li><li>256GB SSD</li></ul>",,378.72,757.44,2020-11-03 14:34:23,2020-11-14 14:34:23,4
+1,AppleMacBook Pro,AppleMacBook Pro<ul><li>IPS Panel Retina Display 2560x1600</li><li>Intel Core i5 2.3GHz</li><li>256GB SSD</li></ul>,,455.57,911.13,2020-11-03 14:34:23,2020-11-14 16:34:23,4
+2,DellInspiron 3567,DellInspiron 3567<ul><li>Full HD 1920x1080</li><li>Intel Core i7 7500U 2.7GHz</li><li>256GB SSD</li></ul>,,223.5,447,2020-11-03 14:34:23,2020-11-15 14:34:23,4
+1,AppleMacBook Pro,AppleMacBook Pro<ul><li>IPS Panel Retina Display 2880x1800</li><li>Intel Core i7 2.9GHz</li><li>512GB SSD</li></ul>,,857.4,1714.8,2020-11-03 14:34:23,2020-11-15 16:34:23,4
+2,LenovoIdeaPad 320-15IKB,LenovoIdeaPad 320-15IKB<ul><li>Full HD 1920x1080</li><li>Intel Core i3 7100U 2.4GHz</li><li>1TB HDD</li></ul>,,149.7,299.4,2020-11-03 14:34:23,2020-11-16 14:34:23,4
+2,DellXPS 13,DellXPS 13<ul><li>IPS Panel Full HD / Touchscreen 1920x1080</li><li>Intel Core i5 8250U 1.6GHz</li><li>128GB SSD</li></ul>,,293.7,587.4,2020-11-03 14:34:23,2020-11-14 14:34:23,4
+2,AsusVivobook E200HA,AsusVivobook E200HA<ul><li>1366x768</li><li>Intel Atom x5-Z8350 1.44GHz</li><li>32GB Flash Storage</li></ul>,,57.57,115.14,2020-11-03 14:34:23,2020-11-14 16:34:23,4
+2,LenovoLegion Y520-15IKBN,LenovoLegion Y520-15IKBN<ul><li>IPS Panel Full HD 1920x1080</li><li>Intel Core i5 7300HQ 2.5GHz</li><li>128GB SSD +  1TB HDD</li></ul>,,299.7,599.4,2020-11-03 14:34:23,2020-11-15 14:34:23,4
+2,HP255 G6,HP255 G6<ul><li>1366x768</li><li>AMD E-Series E2-9000e 1.5GHz</li><li>500GB HDD</li></ul>,,77.4,154.8,2020-11-03 14:34:23,2020-11-15 16:34:23,4
+1,DellInspiron 5379,DellInspiron 5379<ul><li>Full HD / Touchscreen 1920x1080</li><li>Intel Core i5 8250U 1.6GHz</li><li>256GB SSD</li></ul>,,245.7,491.4,2020-11-03 14:34:23,2020-11-16 14:34:23,4
+2,HP15-BS101nv (i7-8550U/8GB/256GB/FHD/W10),HP15-BS101nv (i7-8550U/8GB/256GB/FHD/W10)<ul><li>Full HD 1920x1080</li><li>Intel Core i7 8550U 1.8GHz</li><li>256GB SSD</li></ul>,,197.7,395.4,2020-11-03 14:34:23,2020-11-14 14:34:23,4
+2,DellInspiron 3567,DellInspiron 3567<ul><li>1366x768</li><li>Intel Core i3 6006U 2GHz</li><li>1TB HDD</li></ul>,,0,251.18,2020-11-03 14:34:23,2020-11-14 16:34:23,4
+1,AppleMacBook Air,AppleMacBook Air<ul><li>1440x900</li><li>Intel Core i5 1.6GHz</li><li>128GB Flash Storage</li></ul>,,329.7,659.4,2020-11-03 14:34:23,2020-11-15 14:34:23,4
+1,DellInspiron 5570,DellInspiron 5570<ul><li>Full HD 1920x1080</li><li>Intel Core i5 8250U 1.6GHz</li><li>256GB SSD</li></ul>,,240,480,2020-11-03 14:34:23,2020-11-15 16:34:23,4
+2,DellLatitude 5590,DellLatitude 5590<ul><li>Full HD 1920x1080</li><li>Intel Core i7 8650U 1.9GHz</li><li>256GB SSD +  256GB SSD</li></ul>,,389.4,778.8,2020-11-03 14:34:23,2020-11-16 14:34:23,4
+1,HPProBook 470,HPProBook 470<ul><li>Full HD 1920x1080</li><li>Intel Core i5 8250U 1.6GHz</li><li>1TB HDD</li></ul>,,268.8,537.6,2020-11-03 14:34:23,2020-11-14 14:34:23,4
+2,"ChuwiLapBook 15.6""","ChuwiLapBook 15.6""<ul><li>Full HD 1920x1080</li><li>Intel Atom x5-Z8300 1.44GHz</li><li>64GB Flash Storage</li></ul>",,73.5,146.99,2020-11-03 14:34:23,2020-11-14 16:34:23,4
+1,AsusE402WA-GA010T (E2-6110/2GB/32GB/W10),AsusE402WA-GA010T (E2-6110/2GB/32GB/W10)<ul><li>1366x768</li><li>AMD E-Series E2-6110 1.5GHz</li><li>32GB Flash Storage</li></ul>,,59.7,119.4,2020-11-03 14:34:23,2020-11-15 14:34:23,4
+1,HP17-ak001nv (A6-9220/4GB/500GB/Radeon,HP17-ak001nv (A6-9220/4GB/500GB/Radeon<ul><li>Full HD 1920x1080</li><li>AMD A6-Series 9220 2.5GHz</li><li>500GB HDD</li></ul>,,0,263.4,2020-11-04 14:34:23,2020-11-16 14:34:23,4
+2,DellXPS 13,DellXPS 13<ul><li>Touchscreen / Quad HD+ 3200x1800</li><li>Intel Core i7 8550U 1.8GHz</li><li>512GB SSD</li></ul>,,560.7,1121.4,2020-11-05 14:34:23,2020-11-17 14:34:23,4
+2,AppleMacBook Air,AppleMacBook Air<ul><li>1440x900</li><li>Intel Core i5 1.6GHz</li><li>256GB Flash Storage</li></ul>,,299.4,598.8,2020-11-06 14:34:23,2020-11-18 14:34:23,4
+2,LenovoIdeaPad 120S-14IAP,LenovoIdeaPad 120S-14IAP<ul><li>1366x768</li><li>Intel Celeron Dual Core N3350 1.1GHz</li><li>64GB Flash Storage</li></ul>,,74.7,149.4,2020-11-04 14:34:23,2020-11-19 14:34:23,4
+2,AcerAspire 3,AcerAspire 3<ul><li>1366x768</li><li>Intel Core i3 7130U 2.7GHz</li><li>1TB HDD</li></ul>,,110.1,220.2,2020-11-04 14:34:23,2020-11-20 14:34:23,4
+2,DellInspiron 5770,DellInspiron 5770<ul><li>IPS Panel Full HD 1920x1080</li><li>Intel Core i5 8250U 1.6GHz</li><li>128GB SSD +  1TB HDD</li></ul>,,293.7,587.4,2020-11-05 14:34:23,2020-11-21 14:34:23,4
+2,HP250 G6,HP250 G6<ul><li>1366x768</li><li>Intel Core i5 7200U 2.5GHz</li><li>1TB HDD</li></ul>,,146.61,293.21,2020-11-06 14:34:23,2020-11-22 14:34:23,4
+2,HPProBook 450,HPProBook 450<ul><li>Full HD 1920x1080</li><li>Intel Core i5 8250U 1.6GHz</li><li>256GB SSD</li></ul>,,263.7,527.4,2020-11-04 14:34:23,2020-11-23 14:34:23,4
+1,AsusX540UA-DM186 (i3-6006U/4GB/1TB/FHD/Linux),AsusX540UA-DM186 (i3-6006U/4GB/1TB/FHD/Linux)<ul><li>Full HD 1920x1080</li><li>Intel Core i3 6006U 2GHz</li><li>1TB HDD</li></ul>,,116.7,233.4,2020-11-04 14:34:23,2020-11-24 14:34:23,4
+1,DellInspiron 7577,DellInspiron 7577<ul><li>IPS Panel Full HD 1920x1080</li><li>Intel Core i7 7700HQ 2.8GHz</li><li>256GB SSD +  1TB HDD</li></ul>,,449.7,899.4,2020-11-05 14:34:23,2020-11-25 14:34:23,4
+1,AsusX542UQ-GO005 (i5-7200U/8GB/1TB/GeForce,AsusX542UQ-GO005 (i5-7200U/8GB/1TB/GeForce<ul><li>1366x768</li><li>Intel Core i5 7200U 2.5GHz</li><li>1TB HDD</li></ul>,,156.9,313.79,2020-11-06 14:34:23,2020-11-26 14:34:23,4
+1,AcerAspire A515-51G,AcerAspire A515-51G<ul><li>IPS Panel Full HD 1920x1080</li><li>Intel Core i5 8250U 1.6GHz</li><li>256GB SSD</li></ul>,,204.6,409.2,2020-11-04 14:34:23,2020-11-27 14:34:23,4
+1,DellInspiron 7773,DellInspiron 7773<ul><li>Full HD / Touchscreen 1920x1080</li><li>Intel Core i5 8250U 1.6GHz</li><li>1TB HDD</li></ul>,,299.7,599.4,2020-11-04 14:34:23,2020-11-28 14:34:23,4
+1,AppleMacBook Pro,AppleMacBook Pro<ul><li>IPS Panel Retina Display 2560x1600</li><li>Intel Core i5 2.0GHz</li><li>256GB SSD</li></ul>,,425.7,851.4,2020-11-05 14:34:23,2020-11-29 14:34:23,4
+2,LenovoIdeaPad 320-15ISK,LenovoIdeaPad 320-15ISK<ul><li>1366x768</li><li>Intel Core i3 6006U 2GHz</li><li>128GB SSD</li></ul>,,110.7,221.4,2020-11-06 14:34:23,2020-11-30 14:34:23,4
+2,AsusRog Strix,AsusRog Strix<ul><li>Full HD 1920x1080</li><li>AMD Ryzen 1700 3GHz</li><li>256GB SSD +  1TB HDD</li></ul>,,389.7,779.4,2020-11-04 14:34:23,2020-12-01 14:34:23,4
+2,DellInspiron 3567,DellInspiron 3567<ul><li>Full HD 1920x1080</li><li>Intel Core i5 7200U 2.5GHz</li><li>256GB SSD</li></ul>,,191.7,383.4,2020-11-04 14:34:23,2020-12-02 14:34:23,4
+1,AsusX751NV-TY001T (N4200/4GB/1TB/GeForce,AsusX751NV-TY001T (N4200/4GB/1TB/GeForce<ul><li>1366x768</li><li>Intel Pentium Quad Core N4200 1.1GHz</li><li>1TB HDD</li></ul>,,139.8,279.6,2020-11-05 14:34:23,2020-12-03 14:34:23,4
+1,LenovoYoga Book,LenovoYoga Book<ul><li>IPS Panel Touchscreen 1920x1200</li><li>Intel Atom x5-Z8550 1.44GHz</li><li>64GB Flash Storage</li></ul>,,95.7,191.4,2020-11-06 14:34:23,2020-12-04 14:34:23,4
+2,AcerAspire A515-51G,AcerAspire A515-51G<ul><li>IPS Panel Full HD 1920x1080</li><li>Intel Core i7 8550U 1.8GHz</li><li>256GB SSD</li></ul>,,252.3,504.6,2020-11-04 14:34:23,2020-11-16 14:34:23,4
+1,HP255 G6,HP255 G6<ul><li>Full HD 1920x1080</li><li>AMD A6-Series 9220 2.5GHz</li><li>256GB SSD</li></ul>,,119.55,239.09,2020-11-04 14:34:23,2020-11-17 14:34:23,4
+2,HPProBook 430,HPProBook 430<ul><li>Full HD 1920x1080</li><li>Intel Core i7 8550U 1.8GHz</li><li>512GB SSD</li></ul>,,330.9,661.8,2020-11-05 14:34:23,2020-11-18 14:34:23,4
+2,AcerAspire 3,AcerAspire 3<ul><li>1366x768</li><li>Intel Core i3 7100U 2.4GHz</li><li>1TB HDD</li></ul>,,115.2,230.4,2020-11-06 14:34:23,2020-11-19 14:34:23,4
+2,DellInspiron 3576,DellInspiron 3576<ul><li>Full HD 1920x1080</li><li>Intel Core i7 8550U 1.8GHz</li><li>256GB SSD</li></ul>,,230.34,460.68,2020-11-04 14:34:23,2020-11-20 14:34:23,4
+2,HP15-bs002nv (i3-6006U/4GB/128GB/FHD/W10),HP15-bs002nv (i3-6006U/4GB/128GB/FHD/W10)<ul><li>Full HD 1920x1080</li><li>Intel Core i3 6006U 2GHz</li><li>128GB SSD</li></ul>,,131.7,263.4,2020-11-04 14:34:23,2020-11-21 14:34:23,4
+2,AsusVivoBook Max,AsusVivoBook Max<ul><li>1366x768</li><li>Intel Core i5 7200U 2.5GHz</li><li>256GB SSD</li></ul>,,175.86,351.71,2020-11-05 14:34:23,2020-11-22 14:34:23,4
+2,MSIGS73VR 7RG,MSIGS73VR 7RG<ul><li>Full HD 1920x1080</li><li>Intel Core i7 7700HQ 2.8GHz</li><li>256GB SSD +  2TB HDD</li></ul>,,734.7,1469.4,2020-11-06 14:34:23,2020-11-23 14:34:23,4
+1,AsusX541UA-DM1897 (i3-6006U/4GB/256GB/FHD/Linux),AsusX541UA-DM1897 (i3-6006U/4GB/256GB/FHD/Linux)<ul><li>Full HD 1920x1080</li><li>Intel Core i3 6006U 2GHz</li><li>256GB SSD</li></ul>,,124.5,249,2020-11-04 14:34:23,2020-11-24 14:34:23,4
+2,DellInspiron 5770,DellInspiron 5770<ul><li>Full HD 1920x1080</li><li>Intel Core i7 8550U 1.8GHz</li><li>256GB SSD +  2TB HDD</li></ul>,,389.7,779.4,2020-11-04 14:34:23,2020-11-25 14:34:23,4
+2,DellVostro 5471,DellVostro 5471<ul><li>Full HD 1920x1080</li><li>Intel Core i5 8250U 1.6GHz</li><li>256GB SSD</li></ul>,,263.7,527.4,2020-11-05 14:34:23,2020-11-26 14:34:23,4
+2,LenovoIdeaPad 520S-14IKB,LenovoIdeaPad 520S-14IKB<ul><li>IPS Panel Full HD 1920x1080</li><li>Intel Core i3 7130U 2.7GHz</li><li>256GB SSD</li></ul>,,179.7,359.4,2020-11-06 14:34:23,2020-11-27 14:34:23,4
+1,AsusUX410UA-GV350T (i5-8250U/8GB/256GB/FHD/W10),AsusUX410UA-GV350T (i5-8250U/8GB/256GB/FHD/W10)<ul><li>Full HD 1920x1080</li><li>Intel Core i5 8250U 1.6GHz</li><li>256GB SSD</li></ul>,,282.3,564.6,2020-11-04 14:34:23,2020-11-28 14:34:23,4
+2,HP250 G6,HP250 G6<ul><li>Full HD 1920x1080</li><li>Intel Core i5 7200U 2.5GHz</li><li>256GB SSD</li></ul>,,207,414,2020-11-04 14:34:23,2020-11-29 14:34:23,4
+2,AsusZenBook Pro,AsusZenBook Pro<ul><li>Full HD 1920x1080</li><li>Intel Core i7 7700HQ 2.8GHz</li><li>512GB SSD</li></ul>,,594.9,1189.8,2020-11-05 14:34:23,2020-11-30 14:34:23,4
+2,HP250 G6,HP250 G6<ul><li>1366x768</li><li>Intel Core i3 6006U 2GHz</li><li>500GB HDD</li></ul>,,131.61,263.21,2020-11-06 14:34:23,2020-12-01 14:34:23,4
+1,HPStream 14-AX040wm,HPStream 14-AX040wm<ul><li>1366x768</li><li>Intel Celeron Dual Core N3060 1.6GHz</li><li>32GB SSD</li></ul>,,68.7,137.4,2020-11-04 14:34:23,2020-12-02 14:34:23,4
+2,LenovoV310-15ISK (i5-7200U/4GB/1TB/FHD/W10),LenovoV310-15ISK (i5-7200U/4GB/1TB/FHD/W10)<ul><li>Full HD 1920x1080</li><li>Intel Core i5 7200U 2.5GHz</li><li>1TB HDD</li></ul>,,164.7,329.4,2020-11-04 14:34:23,2020-12-03 14:34:23,4
+2,AsusFX753VE-GC093 (i7-7700HQ/12GB/1TB/GeForce,AsusFX753VE-GC093 (i7-7700HQ/12GB/1TB/GeForce<ul><li>Full HD 1920x1080</li><li>Intel Core i7 7700HQ 2.8GHz</li><li>1TB HDD</li></ul>,,284.7,569.4,2020-11-05 14:34:23,2020-12-04 14:34:23,4
+1,MicrosoftSurface Laptop,MicrosoftSurface Laptop<ul><li>Touchscreen 2256x1504</li><li>Intel Core i5 7200U 2.5GHz</li><li>128GB SSD</li></ul>,,326.7,653.4,2020-11-06 14:34:23,2020-11-16 14:34:23,4
+1,DellInspiron 5370,DellInspiron 5370<ul><li>IPS Panel Full HD 1920x1080</li><li>Intel Core i7 8550U 1.8GHz</li><li>256GB SSD</li></ul>,,286.5,573,2020-11-04 14:34:23,2020-11-17 14:34:23,4
+1,DellInspiron 5570,DellInspiron 5570<ul><li>Full HD 1920x1080</li><li>Intel Core i7 8550U 1.8GHz</li><li>256GB SSD</li></ul>,,261,522,2020-11-04 14:34:23,2020-11-18 14:34:23,4
+2,MSIGL72M 7RDX,MSIGL72M 7RDX<ul><li>Full HD 1920x1080</li><li>Intel Core i5 7300HQ 2.5GHz</li><li>128GB SSD +  1TB HDD</li></ul>,,328.5,657,2020-11-05 14:34:23,2020-11-19 14:34:23,4
+2,AcerAspire E5-475,AcerAspire E5-475<ul><li>1366x768</li><li>Intel Core i3 6006U 2GHz</li><li>1TB HDD</li></ul>,,116.7,233.4,2020-11-06 14:34:23,2020-11-20 14:34:23,4
+2,AsusFX503VD-E4022T (i7-7700HQ/8GB/1TB/GeForce,AsusFX503VD-E4022T (i7-7700HQ/8GB/1TB/GeForce<ul><li>Full HD 1920x1080</li><li>Intel Core i7 7700HQ 2.8GHz</li><li>1TB HDD</li></ul>,,284.7,569.4,2020-11-04 14:34:23,2020-11-21 14:34:23,4
+2,LenovoIdeaPad 320-15IKBN,LenovoIdeaPad 320-15IKBN<ul><li>Full HD 1920x1080</li><li>Intel Core i5 7200U 2.5GHz</li><li>2TB HDD</li></ul>,,155.7,311.4,2020-11-04 14:34:23,2020-11-22 14:34:23,4
+1,DellInspiron 5570,DellInspiron 5570<ul><li>Full HD 1920x1080</li><li>Intel Core i7 8550U 1.8GHz</li><li>128GB SSD +  1TB HDD</li></ul>,,256.5,513,2020-11-05 14:34:23,2020-11-23 14:34:23,4
+1,AcerAspire A515-51G-32MX,AcerAspire A515-51G-32MX<ul><li>Full HD 1920x1080</li><li>Intel Core i3 7130U 2.7GHz</li><li>1TB HDD</li></ul>,,159,318,2020-11-06 14:34:23,2020-11-24 14:34:23,4
+2,HPProBook 470,HPProBook 470<ul><li>Full HD 1920x1080</li><li>Intel Core i5 8250U 1.6GHz</li><li>128GB SSD +  1TB HDD</li></ul>,,293.1,586.2,2020-11-04 14:34:23,2020-11-25 14:34:23,4
+2,DellLatitude 5590,DellLatitude 5590<ul><li>IPS Panel Full HD 1920x1080</li><li>Intel Core i5 8250U 1.6GHz</li><li>256GB SSD</li></ul>,,328.85,657.7,2020-11-04 14:34:23,2020-11-26 14:34:23,4
+2,"AppleMacBook 12""","AppleMacBook 12""<ul><li>IPS Panel Retina Display 2304x1440</li><li>Intel Core i5 1.3GHz</li><li>512GB SSD</li></ul>",,453,906,2020-11-05 14:34:23,2020-11-27 14:34:23,4
+2,HPProBook 440,HPProBook 440<ul><li>Full HD 1920x1080</li><li>Intel Core i5 8250U 1.6GHz</li><li>256GB SSD</li></ul>,,258,516,2020-11-06 14:34:23,2020-11-28 14:34:23,4
+2,LenovoIdeaPad 320-15AST,LenovoIdeaPad 320-15AST<ul><li>Full HD 1920x1080</li><li>AMD A6-Series 9220 2.5GHz</li><li>128GB SSD</li></ul>,,119.7,239.4,2020-11-04 14:34:23,2020-11-29 14:34:23,4
+2,AcerAspire 3,AcerAspire 3<ul><li>1366x768</li><li>AMD A9-Series 9420 3GHz</li><li>1TB HDD</li></ul>,,118.5,237,2020-11-04 14:34:23,2020-11-30 14:34:23,4
+2,DellInspiron 7577,DellInspiron 7577<ul><li>IPS Panel Full HD 1920x1080</li><li>Intel Core i7 7700HQ 2.8GHz</li><li>128GB SSD +  1TB HDD</li></ul>,,404.7,809.4,2020-11-05 14:34:23,2020-12-01 14:34:23,4
+1,HPPavilion 15-CK000nv,HPPavilion 15-CK000nv<ul><li>IPS Panel Full HD 1920x1080</li><li>Intel Core i7 8550U 1.8GHz</li><li>256GB SSD</li></ul>,,209.7,419.4,2020-11-06 14:34:23,2020-12-02 14:34:23,4
+1,HP250 G6,HP250 G6<ul><li>Full HD 1920x1080</li><li>Intel Core i5 7200U 2.5GHz</li><li>256GB SSD</li></ul>,,179.7,359.39,2020-11-04 14:34:23,2020-12-03 14:34:23,4
+1,AsusFX503VM-E4007T (i7-7700HQ/16GB/1TB,AsusFX503VM-E4007T (i7-7700HQ/16GB/1TB<ul><li>IPS Panel Full HD 1920x1080</li><li>Intel Core i7 7700HQ 2.8GHz</li><li>128GB SSD +  1TB HDD</li></ul>,,434.7,869.4,2020-11-04 14:34:23,2020-12-04 14:34:23,4
+1,DellXPS 13,DellXPS 13<ul><li>IPS Panel Full HD 1920x1080</li><li>Intel Core i7 8550U 1.8GHz</li><li>256GB SSD</li></ul>,,494.7,989.4,2020-11-05 14:34:23,2020-11-16 14:34:23,4
+1,AsusFX550IK-DM018T (FX-9830P/8GB/1TB/Radeon,AsusFX550IK-DM018T (FX-9830P/8GB/1TB/Radeon<ul><li>Full HD 1920x1080</li><li>AMD FX 9830P 3GHz</li><li>1TB HDD</li></ul>,,209.7,419.4,2020-11-06 14:34:23,2020-11-17 14:34:23,4
+2,AcerAspire 5,AcerAspire 5<ul><li>Full HD 1920x1080</li><li>Intel Core i7 8550U 1.8GHz</li><li>1TB HDD</li></ul>,,0,413.4,2020-11-04 14:34:23,2020-11-18 14:34:23,4
+2,HPProbook 430,HPProbook 430<ul><li>Full HD 1920x1080</li><li>Intel Core i7 8550U 1.8GHz</li><li>512GB SSD</li></ul>,,359.1,718.2,2020-11-04 14:34:23,2020-11-19 14:34:23,4
+1,DellInspiron 7577,DellInspiron 7577<ul><li>Full HD 1920x1080</li><li>Intel Core i5 7300HQ 2.5GHz</li><li>256GB SSD</li></ul>,,358.5,717,2020-11-05 14:34:23,2020-11-20 14:34:23,4
+1,AsusZenbook UX430UA,AsusZenbook UX430UA<ul><li>Full HD 1920x1080</li><li>Intel Core i7 7500U 2.7GHz</li><li>256GB SSD</li></ul>,,314.7,629.4,2020-11-06 14:34:23,2020-11-21 14:34:23,4
+1,AcerSpin 5,AcerSpin 5<ul><li>IPS Panel Full HD / Touchscreen 1920x1080</li><li>Intel Core i5 8250U 1.6GHz</li><li>256GB SSD</li></ul>,,254.1,508.2,2020-11-04 14:34:23,2020-11-22 14:34:23,4
+2,DellInspiron 3567,DellInspiron 3567<ul><li>Full HD 1920x1080</li><li>Intel Core i7 7500U 2.7GHz</li><li>1TB HDD</li></ul>,,179.97,359.94,2020-11-04 14:34:23,2020-11-23 14:34:23,4
