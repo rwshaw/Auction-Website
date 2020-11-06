@@ -23,7 +23,7 @@ function display_time_remaining($interval) {
 
 // print_listing_li:
 // This function prints an HTML <li> element containing an auction listing
-function print_listing_li($item_id, $title, $desc, $price, $num_bids, $end_time)
+function print_listing_li($item_id, $title, $desc, $price, $num_bids, $end_time,$category, $subcategory)
 {
   // Truncate long descriptions
   if (strlen($desc) > 250) {
@@ -55,7 +55,13 @@ function print_listing_li($item_id, $title, $desc, $price, $num_bids, $end_time)
   // Print HTML
   echo('
     <li class="list-group-item d-flex justify-content-between">
-    <div class="p-2 mr-5"><h5><a href="listing.php?item_id=' . $item_id . '">' . $title . '</a></h5>' . $desc_shortened . '</div>
+    <div class="p-2 mr-5">
+    <h5><a href="listing.php?item_id=' . $item_id . ' aria-labelledby="catTree">' . $title . '</a>
+    <small id=catTree class="text-muted font-italic">
+    ' . $category. ' -> ' . $subcategory . '
+  </small>
+    </h5>
+   ' . $desc_shortened . '</div>
     <div class="text-center text-nowrap"><span style="font-size: 1.5em">£' . number_format($price, 2) . '</span><br/>' . $num_bids . $bid . '<br/>' . $time_remaining . '</div>
   </li>'
   );
@@ -83,5 +89,6 @@ function  print_alert($alert_type, $alert_heading, $alert_text1, $alert_text2) {
     <p class="mb-0">' . $alert_text2 . '</p>
   </div>';
 }
+
 
 ?>

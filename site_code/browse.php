@@ -80,8 +80,8 @@ error_reporting(E_ALL);
   // Retrieve these from the URL
   
   // Base search statement
-  $base_query1 = "SELECT a.listingID, ItemName, ItemDescription, ifnull(max(bidPrice),startPrice) as currentPrice, count(bidID) as num_bids, endTime from auction_listing a left join bids b on a.listingID = b.listingID left join categories c on a.categoryID = c.categoryID where endTime > now() ";
-  $base_query2 = "group by a.listingID, a.ItemName, a.ItemDescription, a.endTime ";
+  $base_query1 = "SELECT a.listingID, ItemName, ItemDescription, ifnull(max(bidPrice),startPrice) as currentPrice, count(bidID) as num_bids, endTime, c.deptName, c.subCategoryName from auction_listing a left join bids b on a.listingID = b.listingID left join categories c on a.categoryID = c.categoryID where endTime > now() ";
+  $base_query2 = "group by a.listingID, a.ItemName, a.ItemDescription, a.endTime, c.deptName, c.subCategoryName ";
   $where_conditions = array();
 
   if (!isset($_GET['keyword'])) {
@@ -192,7 +192,7 @@ error_reporting(E_ALL);
   if ($search_result->num_rows>0) {
     while ($row = $search_result->fetch_all(MYSQLI_ASSOC)) {
       foreach($row as $item) {
-        print_listing_li($item["listingID"],$item["ItemName"],$item["ItemDescription"],$item["currentPrice"],$item["num_bids"],$item["endTime"]);
+        print_listing_li($item["listingID"],$item["ItemName"],$item["ItemDescription"],$item["currentPrice"],$item["num_bids"],$item["endTime"],$item["deptName"], $item["subCategoryName"]);
       }
     }
   }
