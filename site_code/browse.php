@@ -137,35 +137,9 @@ error_reporting(E_ALL);
     $con = OpenDbConnection();
     $search_result = $con->query($search_query);
   }
-  
 
-
-
-  
-  // $con = OpenDbConnection();
-  // // $stmt = $con->query($search_query);
-  // $stmt = $con->stmt_init();
-  // $stmt->prepare($search_query);
-  // $stmt->bind_param("s", $keyword);
-  // $stmt->execute();
-
-  // $search_result = $stmt; //$stmt->get_result();
-  // while ($row = $search_result->fetch_all(MYSQLI_ASSOC)) {
-  //   foreach($row as $item) {
-  //     print_listing_li($item["listingID"],$item["ItemName"],$item["ItemDescription"],$item["currentPrice"],$item["num_bids"],$item["endTime"]);
-  //   }
-  // }
-
-  /*
-  
-
-// <?= console_log($ordering); ?>
-<!-- // <?= console_log($base_query1); ?>
-// <?= console_log($search_query); ?>
-// <?= console_log("prepare: " . $con->prepare($search_query)->error); ?>
-// <?= console_log($stmt->get_result()); ?> -->
-*/
-
+  // need to fix time remaining calculation issue in utlities
+  $now = new DateTime();
 
   /* TODO: Use above values to construct a query. Use this query to 
      retrieve data from the database. (If there is no form data entered,
@@ -173,15 +147,12 @@ error_reporting(E_ALL);
   
   /* For the purposes of pagination, it would also be helpful to know the
      total number of results that satisfy the above query */
-  $num_results = 96; // TODO: Calculate me for real
+  $num_results = $search_result->num_rows;
   $results_per_page = 10;
   $max_page = ceil($num_results / $results_per_page);
 ?>
 
 <div class="container mt-5">
-
-<?= console_log($search_query); ?>
-<?= console_log($search_result); ?>
 
 <!-- TODO: If result set is empty, print an informative message. Otherwise... -->
 
@@ -191,9 +162,8 @@ error_reporting(E_ALL);
      retrieved from the query -->
 
 <?php
-  // Demonstration of what listings will look like using dummy data.
 
-  // what to do with search result.
+  // List search/browse result.
   if ($search_result->num_rows>0) {
     while ($row = $search_result->fetch_all(MYSQLI_ASSOC)) {
       foreach($row as $item) {
@@ -209,30 +179,10 @@ error_reporting(E_ALL);
     print_alert("warning", $header, $text1, $text2);
   }
 
-  // $search_result->free_result();
+  //Close DB connection used for browse/search query, free result from memory
+  $search_result->free_result();
+  CloseDbConnection($con);
 
-
-  // $search_result->close();
-  $con->close();
-
-  $item_id = "87021";
-  $title = "Dummy title";
-  $description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget rutrum ipsum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus feugiat, ipsum vel egestas elementum, sem mi vestibulum eros, et facilisis dui nisi eget metus. In non elit felis. Ut lacus sem, pulvinar ultricies pretium sed, viverra ac sapien. Vivamus condimentum aliquam rutrum. Phasellus iaculis faucibus pellentesque. Sed sem urna, maximus vitae cursus id, malesuada nec lectus. Vestibulum scelerisque vulputate elit ut laoreet. Praesent vitae orci sed metus varius posuere sagittis non mi.";
-  $current_price = 30;
-  $num_bids = 1;
-  $end_date = new DateTime('2020-09-16T11:00:00');
-  
-  // This uses a function defined in utilities.php
-  print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
-  
-  $item_id = "516";
-  $title = "Different title";
-  $description = "Very short description.";
-  $current_price = 13.50;
-  $num_bids = 3;
-  $end_date = new DateTime('2020-11-02T00:00:00');
-  
-  print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
 ?>
 
 </ul>
