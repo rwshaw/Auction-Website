@@ -274,6 +274,8 @@ error_reporting(E_ALL);
 
 ?>
 
+
+
   </ul>
 <?php if ($max_page > 0) : ?>
   <div class="progress">
