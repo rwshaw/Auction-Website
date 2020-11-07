@@ -8,7 +8,6 @@ function OpenDbConnection() {
     $servername = "localhost";
     $user = "website";
     $pass = "3ZqpGsAsmC6U2opZ";
-    $database = "auctionsite"
 
     /*
     // Root user details
@@ -16,7 +15,7 @@ function OpenDbConnection() {
     $rootpass = "";
     */
 
-    $connect = new mysqli($servername, $user, $pass, $database);s
+    $connect = new mysqli($servername, $user, $pass);
 
     $connect->select_db("auctionsite");
 
