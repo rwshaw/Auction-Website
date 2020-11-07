@@ -42,6 +42,8 @@ function print_listing_li($item_id, $title, $desc, $price, $num_bids, $end_time,
   }
   
   // Calculate time to auction end
+
+  $end_time = DateTime::createFromFormat('Y-m-d H:i:s', $end_time); //reformat date from string to datetime.
   $now = new DateTime();
   if ($now > $end_time) {
     $time_remaining = 'This auction has ended';
