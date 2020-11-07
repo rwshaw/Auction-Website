@@ -8,13 +8,15 @@ function OpenDbConnection() {
     $servername = "localhost";
     $user = "website";
     $pass = "3ZqpGsAsmC6U2opZ";
+    $database = "auctionsite"
+
     /*
     // Root user details
     $rootuser = "root";
     $rootpass = "";
     */
 
-    $connect = new mysqli($servername, $user, $pass);
+    $connect = new mysqli($servername, $user, $pass, $database);s
 
     if ($connect -> error) {
         die("Connection to DB failed: " . $connect->connect_error);
