@@ -147,3 +147,24 @@ Sed quam ipsum, faucibus id laoreet eget, vehicula sit amet diam. Phasellus ac m
 ,210, 375, now(),date_add(now(), interval 8 day),3
 FROM users where email = 'john.doe@ourauctionsite.com'
 ;
+
+INSERT INTO auctionsite.bids (userID, listingID, bidPrice)
+SELECT 2, listingID, 110
+from auction_listing 
+where listingID=1;
+
+INSERT INTO auctionsite.bids (userID, listingID, bidPrice)
+SELECT 2, listingID, 150.33
+from auction_listing where listingID=1;
+
+INSERT INTO auctionsite.bids (userID, listingID, bidPrice)
+SELECT 2, listingID, 234.58
+from auction_listing where listingID=1;
+
+INSERT INTO auctionsite.bids (userID, listingID, bidPrice)
+SELECT 3, listingID, 29.58
+from auction_listing where listingID=2;
+
+INSERT INTO auctionsite.bids (userID, listingID, bidPrice)
+SELECT 1, listingID, 1000.99
+from auction_listing where listingID=3;
