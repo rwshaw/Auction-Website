@@ -3,6 +3,14 @@
 <div class="container">
 <h2 class="my-3">Register new account</h2>
 
+<?php
+if (isset($_POST['reg_user'])) {
+  if(empty(trim($_POST['FirstName']))) {
+    
+  }
+}
+?> 
+
 <!-- Create auction form -->
 <form method="POST" action="process_registration.php">
   <div class="form-group row">
@@ -30,7 +38,6 @@
     <label for="addressLine2" class="col-sm-2 col-form-label text-right">Address line 2</label>
   <div class="col-sm-10">
       <input type="text" class="form-control" id="Adressline2" placeholder="Line 2" name="AddressLine2">
-      <small id="addressLine2Help" class="form-text text-muted"><span class="text-danger">* Required.</span></small>
   </div>
   </div>
   <div class="form-group row">
