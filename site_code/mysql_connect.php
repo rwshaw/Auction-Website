@@ -8,6 +8,7 @@ function OpenDbConnection() {
     $servername = "localhost";
     $user = "website";
     $pass = "3ZqpGsAsmC6U2opZ";
+    $database = "auctionsite"; 
 
     /*
     // Root user details
@@ -15,21 +16,29 @@ function OpenDbConnection() {
     $rootpass = "";
     */
 
-    $connect = new mysqli($servername, $user, $pass);
-
-    $connect->select_db("auctionsite");
-
-    if ($connect -> error) {
-        die("Connection to DB failed: " . $connect->connect_error);
-    }
+    $connect = new mysqli($servername, $user, $pass, $database);
+    ConfirmDbConnection($connect); 
     return $connect;
+}
+
+function ConfirmDbConnection($connect) {
+    if($connect -> connect_errno) {
+        die('connection to DB failed: ' . $connect -> connect_errno ."<br>" . 'Reason: ' . $connect -> connect_error);
+    }
+}
+
+function ConfirmQueryResult($result) {
+    if (!$result || $result->num_rows == 0) {
+        die("Query failed. Reason: " . $result -> error);
+    }
 }
 
 // Basic BD close a connection.
 function CloseDbConnection($connection) {
-    $connection -> close();
+    if (isset($connection)) {
+        $connection -> close();
+    }
 }
-
 
 function SQLQuery($query) {
     /**
@@ -39,9 +48,9 @@ function SQLQuery($query) {
      */
     $con = OpenDbConnection();
     $result = $con->query($query);
-    if ($result->num_rows>0) {
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
+    ConfirmQueryResult($result); 
+    return $result -> fetch_assoc(); 
+    $result -> free();
     CloseDbConnection($con);
 }
 

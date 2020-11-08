@@ -3,6 +3,20 @@
 <div class="container">
 <h2 class="my-3">Register new account</h2>
 
+// password validation: 
+  // Presence 
+  // length
+  // inclusion (i.e. format match - at least 1 uppercase, 1 special, etc)
+  // Type
+  // password match password confirm
+
+// email, name, etc. validation:
+  // uniqueness 
+
+
+// display errors with user input
+<?php echo display_errors($errors); ?>
+
 <!-- Create auction form -->
 <form method="POST" action="process_registration.php">
   <div class="form-group row">
@@ -30,7 +44,6 @@
     <label for="addressLine2" class="col-sm-2 col-form-label text-right">Address line 2</label>
   <div class="col-sm-10">
       <input type="text" class="form-control" id="Adressline2" placeholder="Line 2" name="AddressLine2">
-      <small id="addressLine2Help" class="form-text text-muted"><span class="text-danger">* Required.</span></small>
   </div>
   </div>
   <div class="form-group row">
