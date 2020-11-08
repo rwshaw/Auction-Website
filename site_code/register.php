@@ -14,7 +14,8 @@
   // uniqueness 
 
 
-
+// display errors with user input
+<?php echo display_errors($errors); ?>
 
 <!-- Create auction form -->
 <form method="POST" action="process_registration.php">

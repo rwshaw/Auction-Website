@@ -1,5 +1,9 @@
 <?php 
 
+	// why validate? prevent data corruption in db
+	// why tell users? users need to know what's wrong to fix it
+	// keep track of all errors and report at once -> user can fix all in one go rather than keeping getting annoying alerts
+
 	// validates presence of user input 
 	// uses trim to get rid of whitespace (empty() considers "0" valid.)
 	// "===" ensures the value is identical and has the same type. 
@@ -33,13 +37,33 @@
 		return !strpos($email, $required_string) !== false; //double negative? 
 	}
 
+// 	function display_errors($errors = array()) {
+// 		$output = ''
+// 	}
+
+
+// 	function display_errors($errors=array()) {
+//   $output = '';
+//   if(!empty($errors)) {
+//     $output .= "<div class=\"errors\">";
+//     $output .= "Please fix the following errors:";
+//     $output .= "<ul>";
+//     foreach($errors as $error) {
+//       $output .= "<li>" . h($error) . "</li>";
+//     }
+//     $output .= "</ul>";
+//     $output .= "</div>";
+//   }
+//   return $output;
+// }
+
   	// tests:
  	// echo (is_empty("")); 
 	// echo is_longer_than("hello", 10);
 	// echo is_shorter_than("hello", 4); 
 	// echo includes_email_appendix("example@example.com",".com") 
 
-	// read more about regex, don't fully udnerstand this bit yet, but useful for password and email format verification. 
+	// read more about regex, don't fully udnerstand this bit yet, but useful for password, post code and email format verification. 
 	  // // has_valid_email_format('nobody@nowhere.com')
 	  // // * validate correct format for email addresses
 	  // // * format: [chars]@[chars].[2+ letters]

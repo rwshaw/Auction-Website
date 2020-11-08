@@ -11,9 +11,6 @@ session_start();
 // for now, remember to close connection 
 $db = OpenDbConnection(); 
 
-
-
-
 // register user 
 if (isset($_POST['reg_user'])) {
 // extract $_POST variables
