@@ -16,12 +16,12 @@ function OpenDbConnection() {
     $rootpass = "";
     */
 
-    $connection = new mysqli($servername, $user, $pass, $database);
+    $connect = new mysqli($servername, $user, $pass, $database);
 
-    if ($connection -> error) {
+    if ($connect -> error) {
         die("Connection to DB failed: " . $connection->connect_error);
     }
-    return $connection;
+    return $connect;
 }
 
 function CloseDbConnection($connection) {
