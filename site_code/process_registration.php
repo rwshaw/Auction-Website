@@ -5,14 +5,18 @@
 
   require_once('mysql_connect.php'); 
 
-  
+  //dummy variable for now, delete later
+  $email = "tom.cruise@ourauctionsite.com"; 
+
+  // open connection to auctionsite database
   $db = OpenDbConnection(); 
-
   $check_user_query = "SELECT * FROM users WHERE email = '$email' LIMIT 1"; 
-  $result = mysqli_query($db,$check_user_query) or die( mysqli_error($db)); 
-  $user = mysqli_fetch_assoc($result);
-  $email = $user['email']; 
-  echo $email; 
+  $user = SQLQuery($check_user_query); 
+  $email1 = $user['email'];
+  echo $email1;
 
+  // 2 session variables should be displayed: 
+    // user id
+    // logged_in  
 
 ?>

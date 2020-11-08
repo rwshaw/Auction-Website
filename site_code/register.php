@@ -3,13 +3,18 @@
 <div class="container">
 <h2 class="my-3">Register new account</h2>
 
-<?php
-if (isset($_POST['reg_user'])) {
-  if(empty(trim($_POST['FirstName']))) {
-    
-  }
-}
-?> 
+// password validation: 
+  // Presence 
+  // length
+  // inclusion (i.e. format match - at least 1 uppercase, 1 special, etc)
+  // Type
+  // password match password confirm
+
+// email, name, etc. validation:
+  // uniqueness 
+
+
+
 
 <!-- Create auction form -->
 <form method="POST" action="process_registration.php">
