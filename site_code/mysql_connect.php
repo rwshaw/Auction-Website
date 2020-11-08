@@ -1,4 +1,4 @@
-<!-- This won't be served as a file on front end. Include this as an import in each file that needs to connect to DB.
+ <!-- This won't be served as a file on front end. Include this as an import in each file that needs to connect to DB.
 Use functions below to open and close DB connections with the website user login credentials.-->
 
 <?php
@@ -16,16 +16,18 @@ function OpenDbConnection() {
     $rootpass = "";
     */
 
-    $connect = new mysqli($servername, $user, $pass, $database);s
+    $connection = new mysqli($servername, $user, $pass, $database);
 
-    if ($connect -> error) {
-        die("Connection to DB failed: " . $connect->connect_error);
+    if ($connection -> error) {
+        die("Connection to DB failed: " . $connection->connect_error);
     }
-    return $connect;
+    return $connection;
 }
 
 function CloseDbConnection($connection) {
-    $connection -> close();
+    if(isset($connection)) {
+        $connection -> close();
+    }
 }
 
 ?>
