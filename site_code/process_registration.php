@@ -15,6 +15,7 @@
   $email1 = $user['email'];
   echo $email1;
 
+  CloseDbConnection($db)
   // 2 session variables should be displayed: 
     // user id
     // logged_in  

@@ -1,65 +1,58 @@
 <?php include_once("header.php")?>
 
 <div class="container">
+<script defer src="form_validation.js"></script>
 <h2 class="my-3">Register new account</h2>
 
-// password validation: 
-  // Presence 
-  // length
-  // inclusion (i.e. format match - at least 1 uppercase, 1 special, etc)
-  // Type
-  // password match password confirm
-
-// email, name, etc. validation:
-  // uniqueness 
-
-
-// display errors with user input
-<?php echo display_errors($errors); ?>
+<div id="error"></div>
 
 <!-- Create auction form -->
-<form method="POST" action="process_registration.php">
+<form method="POST" action="process_registration.php" id="form">
+
   <div class="form-group row">
-    <label for="FirstName" class="col-sm-2 col-form-label text-right">First name</label>
+    <label for="fName" class="col-sm-2 col-form-label text-right">First name</label>
   <div class="col-sm-10">
-      <input type="text" class="form-control" id="FirstName" placeholder="First name" name="FirstName">
-      <small id="firstnameHelp" class="form-text text-muted"><span class="text-danger">* Required.</span></small>
+      <input type="text" class="form-control" id="fName" placeholder="First name" name="fName">
+      <small id="fNameHelp" class="form-text text-muted"><span class="text-danger">* Required.</span></small>
   </div>
   </div>
+
+
     <div class="form-group row">
-    <label for="LastName" class="col-sm-2 col-form-label text-right">Last name</label>
+    <label for="lName" class="col-sm-2 col-form-label text-right">Last name</label>
   <div class="col-sm-10">
-      <input type="text" class="form-control" id="LastName" placeholder="Last name" name="LastName">
-      <small id="LastnameHelp" class="form-text text-muted"><span class="text-danger">* Required.</span></small>
+      <input type="text" class="form-control" id="lName" placeholder="Last name" name="lName">
+      <small id="lNameHelp" class="form-text text-muted"><span class="text-danger">* Required.</span></small>
   </div>
   </div>
   <div class="form-group row">
-    <label for="addressLine1" class="col-sm-2 col-form-label text-right">Address Line 1</label>
+    <label for="AddressLine1" class="col-sm-2 col-form-label text-right">Address Line 1</label>
   <div class="col-sm-10">
-      <input type="text" class="form-control" id="Addressline1" placeholder="Line 1" name="AddressLine1">
+      <input type="text" class="form-control" id="AddressLine1" placeholder="Line 1" name="AddressLine1">
       <small id="AddressLine1Help" class="form-text text-muted"><span class="text-danger">* Required.</span></small>
   </div>
   </div>
   <div class="form-group row">
-    <label for="addressLine2" class="col-sm-2 col-form-label text-right">Address line 2</label>
+    <label for="AddressLine2" class="col-sm-2 col-form-label text-right">Address line 2</label>
   <div class="col-sm-10">
-      <input type="text" class="form-control" id="Adressline2" placeholder="Line 2" name="AddressLine2">
+      <input type="text" class="form-control" id="AddressLine2" placeholder="Line 2" name="AddressLine2">
   </div>
   </div>
   <div class="form-group row">
-    <label for="City" class="col-sm-2 col-form-label text-right">City</label>
+    <label for="city" class="col-sm-2 col-form-label text-right">City</label>
   <div class="col-sm-10">
-      <input type="text" class="form-control" id="City" placeholder="City" name="City">
-      <small id="City" class="form-text text-muted"><span class="text-danger">* Required.</span></small>
+      <input type="text" class="form-control" id="city" placeholder="City" name="city">
+      <small id="city" class="form-text text-muted"><span class="text-danger" >* Required.</span></small>
   </div>
   </div>
     <div class="form-group row">
-    <label for="PostCode" class="col-sm-2 col-form-label text-right">PostCode</label>
+    <label for="postCode" class="col-sm-2 col-form-label text-right">Post Code</label>
   <div class="col-sm-10">
-      <input type="text" class="form-control" id="PostCode" placeholder="PostCode" name="PostCode">
-      <small id="PostCode" class="form-text text-muted"><span class="text-danger">* Required.</span></small>
+      <input type="text" class="form-control" id="postCode" placeholder="Post code" name="postCode">
+      <small id="postCodeHelp" class="form-text text-muted"><span class="text-danger">* Required.</span></small>
   </div>
   </div>
+
   <div class="form-group row">
     <label for="email" class="col-sm-2 col-form-label text-right">Email</label>
 	<div class="col-sm-10">
@@ -67,6 +60,7 @@
       <small id="emailHelp" class="form-text text-muted"><span class="text-danger">* Required.</span></small>
 	</div>
   </div>
+
   <div class="form-group row">
     <label for="password" class="col-sm-2 col-form-label text-right">Password</label>
     <div class="col-sm-10">
@@ -77,7 +71,7 @@
   <div class="form-group row">
     <label for="passwordConfirmation" class="col-sm-2 col-form-label text-right">Repeat password</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" id="passwordConfirmation" placeholder="Enter password again" name="password_confirmation">
+      <input type="password" class="form-control" id="passwordConfirmation" placeholder="Enter password again" name="passwordConfirmation">
       <small id="passwordConfirmationHelp" class="form-text text-muted"><span class="text-danger">* Required.</span></small>
     </div>
   </div>
