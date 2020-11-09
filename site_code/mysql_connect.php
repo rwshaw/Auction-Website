@@ -42,7 +42,7 @@ function SQLQuery($query) {
     if ($result->num_rows>0) {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-    CloseDbConnection($con);
+    // CloseDbConnection($con); //need to manually close connection after using function. PHP will terminate fn execution after return statement.
 }
 
 // function PrepSQL($prepared_statement, $bindings) {
