@@ -1,18 +1,30 @@
 <?php include_once("header.php")?>
-<?php require("utilities.php")?>
+<?php 
+require("utilities.php");
+require("mysql_connect.php");
+require("debug.php");
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+?>
+
 
 <?php
   // Get info from the URL:
   $item_id = $_GET['item_id'];
 
   // TODO: Use item_id to make a query to the database.
+  $query = "SELECT * FROM auction_listing WHERE listingID='$item_id'";
+  $result = SQLQuery($query);
+
 
   // DELETEME: For now, using placeholder data.
-  $title = "Placeholder title";
-  $description = "Description blah blah blah";
+
+  $title = $result['itemName'];
+  $description = $result['itemDescription'];
   $current_price = 30.50;
   $num_bids = 1;
-  $end_time = new DateTime('2020-11-02T00:00:00');
+  $end_time = new DateTime($result['endTime']);
 
   // TODO: Note: Auctions that have ended may pull a different set of data,
   //       like whether the auction ended in a sale or was cancelled due
@@ -165,5 +177,5 @@ function removeFromWatchlist(button) {
       }
   }); // End of AJAX call
 
-} // End of addToWatchlist func
+} // End of removefrom func
 </script>
