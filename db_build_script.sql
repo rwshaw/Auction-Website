@@ -24,7 +24,7 @@ CREATE TABLE users (
     fName VARCHAR(50) NOT NULL,
     lName VARCHAR(50) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    password VARCHAR(50) NOT NULL,
+    password VARCHAR(60) NOT NULL,
     addressLine1 VARCHAR(255) NOT NULL,
     addressLine2 VARCHAR(255),
     city VARCHAR(50) NOT NULL,
