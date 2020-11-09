@@ -23,7 +23,7 @@ function display_time_remaining($interval) {
 
 // print_listing_li:
 // This function prints an HTML <li> element containing an auction listing
-function print_listing_li($item_id, $title, $desc, $price, $num_bids, $end_time)
+function print_listing_li($item_id, $title, $desc, $price, $num_bids, $end_time,$category, $subcategory)
 {
   // Truncate long descriptions
   if (strlen($desc) > 250) {
@@ -42,6 +42,8 @@ function print_listing_li($item_id, $title, $desc, $price, $num_bids, $end_time)
   }
   
   // Calculate time to auction end
+
+  $end_time = DateTime::createFromFormat('Y-m-d H:i:s', $end_time); //reformat date from string to datetime.
   $now = new DateTime();
   if ($now > $end_time) {
     $time_remaining = 'This auction has ended';
@@ -55,10 +57,40 @@ function print_listing_li($item_id, $title, $desc, $price, $num_bids, $end_time)
   // Print HTML
   echo('
     <li class="list-group-item d-flex justify-content-between">
-    <div class="p-2 mr-5"><h5><a href="listing.php?item_id=' . $item_id . '">' . $title . '</a></h5>' . $desc_shortened . '</div>
+    <div class="p-2 mr-5">
+    <h5><a href="listing.php?item_id=' . $item_id . ' aria-labelledby="catTree">' . $title . '</a>
+    <small id=catTree class="text-muted font-italic">
+    ' . $category. ' -> ' . $subcategory . '
+  </small>
+    </h5>
+   ' . $desc_shortened . '</div>
     <div class="text-center text-nowrap"><span style="font-size: 1.5em">£' . number_format($price, 2) . '</span><br/>' . $num_bids . $bid . '<br/>' . $time_remaining . '</div>
   </li>'
   );
 }
+
+//HTML BOOTSTRAP Alert Generator.
+function  print_alert($alert_type, $alert_heading, $alert_text1, $alert_text2) {
+  /**
+   * Creates an alert message.
+   * 
+   * @param string $alert_type - colour of alert (success/danger/warning/info etc)
+   * @param string $alert_heading - The heading (already put between h4 tags)
+   * @param string $alert_text1 - Above margin text (already put between p tags)
+   * @param string $alert_text2 - Below margin text (already put between p tags)
+   * @return string html alert
+   */
+  echo 
+  '<div class="alert alert-' . $alert_type . '" alert-dismissable fade show role="alert">
+    <h4 class="alert-heading">' . $alert_heading . '</h4>
+    <p>' . $alert_text1 . '    
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button></p>
+    <hr>
+    <p class="mb-0">' . $alert_text2 . '</p>
+  </div>';
+}
+
 
 ?>

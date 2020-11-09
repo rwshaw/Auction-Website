@@ -4,10 +4,9 @@
   // ONLY after the user's login credentials have been verified via a
   // database query.
   session_start();
-  $_SESSION['logged_in'] = false;
-  $_SESSION['account_type'] = 'seller';
+  // $_SESSION['logged_in'] = false;
+  // $_SESSION['account_type'] = 'seller';
 ?>
-
 
 <!doctype html>
 <html lang="en">
@@ -91,13 +90,13 @@
         <form method="POST" action="login_result.php">
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="text" class="form-control" id="email" placeholder="Email">
+            <input type="text" class="form-control" id="email" placeholder="Email" name="login_email">
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Password">
+            <input type="password" class="form-control" id="password" placeholder="Password" name="login_password">
           </div>
-          <button type="submit" class="btn btn-primary form-control">Sign in</button>
+          <button type="submit" name="login_user" class="btn btn-primary form-control">Sign in</button>
         </form>
         <div class="text-center">or <a href="register.php">create an account</a></div>
       </div>
