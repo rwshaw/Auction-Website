@@ -41,7 +41,7 @@ require("mysql_connect.php"); ?>
                     <div class="col push-left">
                         <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
                     </div>
-                    <div class="col push-right">7 Items</div>
+                    <div class="col push-right">7 Auctions</div>
                 </div>
 
             </div>
