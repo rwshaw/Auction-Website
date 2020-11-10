@@ -119,6 +119,7 @@ function addToWatchlist(button) {
         if (objT == "success") {
           $("#watch_nowatch").hide();
           $("#watch_watching").show();
+          // TODO call function to send email.
         }
         else {
           var mydiv = document.getElementById("watch_nowatch");
@@ -151,6 +152,7 @@ function removeFromWatchlist(button) {
         if (objT == "success") {
           $("#watch_watching").hide();
           $("#watch_nowatch").show();
+          // TODO call function to send email
         }
         else {
           var mydiv = document.getElementById("watch_watching");
