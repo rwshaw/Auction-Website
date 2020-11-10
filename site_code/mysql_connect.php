@@ -40,8 +40,10 @@ function SQLQuery($query) {
     $con = OpenDbConnection();
     $result = $con->query($query);
     if ($result->num_rows>0) {
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
+        $final_result = $result->fetch_all(MYSQLI_ASSOC);
+        CloseDbConnection($con);
+        return $final_result;
+    } // TODO otherwise return error.
     // CloseDbConnection($con); //need to manually close connection after using function. PHP will terminate fn execution after return statement.
 }
 
