@@ -48,10 +48,19 @@ function SQLQuery($query) {
      */
     $con = OpenDbConnection();
     $result = $con->query($query);
+<<<<<<< HEAD
     // ConfirmQueryResult($result); 
     return $result -> fetch_assoc(); 
     $result -> free();
     CloseDbConnection($con);
+=======
+    if ($result->num_rows>0) {
+        $final_result = $result->fetch_all(MYSQLI_ASSOC);
+        CloseDbConnection($con);
+        return $final_result;
+    } // TODO otherwise return error.
+    // CloseDbConnection($con); //need to manually close connection after using function. PHP will terminate fn execution after return statement.
+>>>>>>> SQLQuery - close DB before returning full result set
 }
 
 // function PrepSQL($prepared_statement, $bindings) {
