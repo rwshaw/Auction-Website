@@ -1,5 +1,5 @@
-<?php include_once("header.php")?>
-<?php 
+<?php include_once("header.php") ?>
+<?php
 require_once("utilities.php");
 require_once("mysql_connect.php");
 require_once("debug.php");
@@ -9,36 +9,38 @@ error_reporting(E_ALL);
 ?>
 
 <div>
-<h1>
-THIS IS Q TEST PAGE
-</h1></div>
+    <h1>
+        THIS IS Q TEST PAGE
+    </h1>
+</div>
 
 
-<?php 
+<?php
 
 $item_id = 3;
-$userid= 4; // should be session user id
+$userid = 4; // should be session user id
 
 $check_query = "SELECT isWatching FROM watchlist where userID = $userid and listingID=$item_id";
-  $result = SQLQuery($check_query);
-  if (is_null($result)) {
-      $current_value = FALSE;
-  } else {
-    $current_value = $result[0]["isWatching"];   
-  }
+$result = SQLQuery($check_query);
+if (is_null($result)) {
+    $current_value = FALSE;
+} else {
+    $current_value = $result[0]["isWatching"];
+}
 $watching = $current_value;
 
 ?>
 
-<?= console_log($watching);?>
+<?= console_log($watching); ?>
 
-<div id="watch_nowatch" <?php if ( $watching) echo('style="display: none"');?> >
-      <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addToWatchlist()">+ Add to watchlist</button>
-    </div>
-    <div id="watch_watching" <?php if (!$watching) echo('style="display: none"');?> >
-      <button type="button" class="btn btn-success btn-sm" disabled>Watching</button>
-      <button type="button" class="btn btn-danger btn-sm" onclick="removeFromWatchlist()">Remove watch</button>
-    </div>
+<div id="watch_nowatch" <?php if ($watching) echo ('style="display: none"'); ?>>
+    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addToWatchlist()">+ Add to watchlist</button>
+</div>
+<div id="watch_watching" <?php if (!$watching) echo ('style="display: none"'); ?>>
+    <button type="button" class="btn btn-success btn-sm" disabled>Watching</button>
+    <button type="button" class="btn btn-danger btn-sm" onclick="removeFromWatchlist()">Remove watch</button>
+</div>
+
 
 <script> 
 // JavaScript functions: addToWatchlist and removeFromWatchlist.
@@ -78,11 +80,11 @@ function addToWatchlist(button) {
         // Callback function for when call is successful and returns obj
         console.log("Success");
         var objT = obj.trim();
-        console.log(objT);
  
         if (objT == "success") {
           $("#watch_nowatch").hide();
           $("#watch_watching").show();
+          // TODO call function to send email.
           add_to_watch_success();
         }
         else {
@@ -100,8 +102,7 @@ function addToWatchlist(button) {
 
 } // End of addToWatchlist func
 
-// watchlist removeal send email func
-
+// watchlist removal success send email func
 function remove_from_watch_success() {
             $.ajax("watchlist_notifications.php", {
               type: "POST",
@@ -120,7 +121,6 @@ function remove_from_watch_success() {
             }
             );
         }
-          
 
 function removeFromWatchlist(button) {
   // This performs an asynchronous call to a PHP function using POST method.
@@ -134,16 +134,14 @@ function removeFromWatchlist(button) {
         // Callback function for when call is successful and returns obj
         console.log("Success");
         var objT = obj.trim();
-        console.log(objT);
  
         if (objT == "success") {
           $("#watch_watching").hide();
           $("#watch_nowatch").show();
+          // TODO call function to send email
           remove_from_watch_success();
-          
         }
         else {
-        console.log(objT);
           var mydiv = document.getElementById("watch_watching");
           mydiv.appendChild(document.createElement("br"));
           mydiv.appendChild(document.createTextNode("Watch removal failed. Try again later."));

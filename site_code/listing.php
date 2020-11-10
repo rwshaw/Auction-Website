@@ -101,6 +101,27 @@
 <script> 
 // JavaScript functions: addToWatchlist and removeFromWatchlist.
 
+// watchlist add success send email func
+
+function add_to_watch_success() {
+            $.ajax("watchlist_notifications.php", {
+              type: "POST",
+              data: {functionname: 'add_watch_email', arguments: [<?php echo($item_id);?>]},
+
+              success: 
+                function(obj, textstatus) {
+                  console.log("Email sent");
+                  var resObj = obj.trim();
+                  console.log(resObj);
+                },
+              error: 
+                function (obj, textstatus) {
+                console.log("Error");
+              }
+            }
+            );
+        }
+
 function addToWatchlist(button) {
   console.log("These print statements are helpful for debugging btw");
 
@@ -120,6 +141,7 @@ function addToWatchlist(button) {
           $("#watch_nowatch").hide();
           $("#watch_watching").show();
           // TODO call function to send email.
+          add_to_watch_success();
         }
         else {
           var mydiv = document.getElementById("watch_nowatch");
@@ -135,6 +157,26 @@ function addToWatchlist(button) {
   }); // End of AJAX call
 
 } // End of addToWatchlist func
+
+// watchlist removal success send email func
+function remove_from_watch_success() {
+            $.ajax("watchlist_notifications.php", {
+              type: "POST",
+              data: {functionname: 'remove_watch_email', arguments: [<?php echo($item_id);?>]},
+
+              success: 
+                function(obj, textstatus) {
+                  console.log("Email sent");
+                  var resObj = obj.trim();
+                  console.log(resObj);
+                },
+              error: 
+                function (obj, textstatus) {
+                console.log("Error");
+              }
+            }
+            );
+        }
 
 function removeFromWatchlist(button) {
   // This performs an asynchronous call to a PHP function using POST method.
@@ -153,6 +195,7 @@ function removeFromWatchlist(button) {
           $("#watch_watching").hide();
           $("#watch_nowatch").show();
           // TODO call function to send email
+          remove_from_watch_success();
         }
         else {
           var mydiv = document.getElementById("watch_watching");
