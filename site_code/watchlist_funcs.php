@@ -82,7 +82,7 @@ elseif ($_POST['functionname'] == "remove_from_watchlist") {
   $conn = OpenDbConnection(); // open connection for update of isWatching from TRUE to FALSE (1 -> 0).
 
   //if TRUE then update to false, return success
-  if ($current_value === 1) {
+  if ($current_value == 1) {
     $update_stmt = "UPDATE watchlist set isWatching = FALSE where userID = $userid and listingID = $item_id";
     if ($conn->query($update_stmt) === TRUE) {
       $res = "success";
@@ -91,7 +91,7 @@ elseif ($_POST['functionname'] == "remove_from_watchlist") {
     }
   } else {
     // if Value is false or null then user already not watching
-    $res = "success";
+    $res = $res;
     //Do nothing for now. Other value could be returned to say user already not watching.
   }
 
