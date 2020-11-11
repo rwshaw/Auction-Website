@@ -17,7 +17,7 @@ error_reporting(E_ALL);
 
 <?php
 
-$item_id = 3;
+$item_id = 1;
 $userid = 4; // should be session user id
 
 $check_query = "SELECT isWatching FROM watchlist where userID = $userid and listingID=$item_id";
@@ -39,6 +39,9 @@ $watching = $current_value;
 <div id="watch_watching" <?php if (!$watching) echo ('style="display: none"'); ?>>
     <button type="button" class="btn btn-success btn-sm" disabled>Watching</button>
     <button type="button" class="btn btn-danger btn-sm" onclick="removeFromWatchlist()">Remove watch</button>
+</div>
+<div class="m-5">
+    <button type="button" class="btn btn-primary" onclick="bidNotification()"> Add notifications for last bid</button>
 </div>
 
 
