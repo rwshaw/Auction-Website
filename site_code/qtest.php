@@ -42,117 +42,138 @@ $watching = $current_value;
 </div>
 
 
-<script> 
-// JavaScript functions: addToWatchlist and removeFromWatchlist.
+<script>
+    // JavaScript functions: addToWatchlist and removeFromWatchlist.
 
-// watchlist add success send email func
+    // watchlist add success send email func
 
-function add_to_watch_success() {
-            $.ajax("watchlist_notifications.php", {
-              type: "POST",
-              data: {functionname: 'add_watch_email', arguments: [<?php echo($item_id);?>]},
+    function add_to_watch_success() {
+        $.ajax("watchlist_notifications.php", {
+            type: "POST",
+            data: {
+                functionname: 'add_watch_email',
+                arguments: [<?php echo ($item_id); ?>]
+            },
 
-              success: 
-                function(obj, textstatus) {
-                  console.log("Email sent");
-                  var resObj = obj.trim();
-                  console.log(resObj);
-                },
-              error: 
-                function (obj, textstatus) {
+            success: function(obj, textstatus) {
+                console.log("Email sent");
+                var resObj = obj.trim();
+                console.log(resObj);
+            },
+            error: function(obj, textstatus) {
                 console.log("Error");
-              }
             }
-            );
-        }
+        });
+    }
 
-function addToWatchlist(button) {
-  console.log("These print statements are helpful for debugging btw");
+    function addToWatchlist(button) {
+        console.log("These print statements are helpful for debugging btw");
 
-  // This performs an asynchronous call to a PHP function using POST method.
-  // Sends item ID as an argument to that function.
-  $.ajax('watchlist_funcs.php', {
-    type: "POST",
-    data: {functionname: 'add_to_watchlist', arguments: [<?php echo($item_id);?>]},
+        // This performs an asynchronous call to a PHP function using POST method.
+        // Sends item ID as an argument to that function.
+        $.ajax('watchlist_funcs.php', {
+            type: "POST",
+            data: {
+                functionname: 'add_to_watchlist',
+                arguments: [<?php echo ($item_id); ?>]
+            },
 
-    success: 
-      function (obj, textstatus) {
-        // Callback function for when call is successful and returns obj
-        console.log("Success");
-        var objT = obj.trim();
- 
-        if (objT == "success") {
-          $("#watch_nowatch").hide();
-          $("#watch_watching").show();
-          // TODO call function to send email.
-          add_to_watch_success();
-        }
-        else {
-          var mydiv = document.getElementById("watch_nowatch");
-          mydiv.appendChild(document.createElement("br"));
-          mydiv.appendChild(document.createTextNode("Add to watch failed. Try again later."));
-        }
-      },
+            success: function(obj, textstatus) {
+                // Callback function for when call is successful and returns obj
+                console.log("Success");
+                var objT = obj.trim();
 
-    error:
-      function (obj, textstatus) {
-        console.log("Error");
-      }
-  }); // End of AJAX call
+                if (objT == "success") {
+                    $("#watch_nowatch").hide();
+                    $("#watch_watching").show();
+                    // TODO call function to send email.
+                    add_to_watch_success();
+                } else {
+                    var mydiv = document.getElementById("watch_nowatch");
+                    mydiv.appendChild(document.createElement("br"));
+                    mydiv.appendChild(document.createTextNode("Add to watch failed. Try again later."));
+                }
+            },
 
-} // End of addToWatchlist func
-
-// watchlist removal success send email func
-function remove_from_watch_success() {
-            $.ajax("watchlist_notifications.php", {
-              type: "POST",
-              data: {functionname: 'remove_watch_email', arguments: [<?php echo($item_id);?>]},
-
-              success: 
-                function(obj, textstatus) {
-                  console.log("Email sent");
-                  var resObj = obj.trim();
-                  console.log(resObj);
-                },
-              error: 
-                function (obj, textstatus) {
+            error: function(obj, textstatus) {
                 console.log("Error");
-              }
             }
-            );
-        }
+        }); // End of AJAX call
 
-function removeFromWatchlist(button) {
-  // This performs an asynchronous call to a PHP function using POST method.
-  // Sends item ID as an argument to that function.
-  $.ajax('watchlist_funcs.php', {
-    type: "POST",
-    data: {functionname: 'remove_from_watchlist', arguments: [<?php echo($item_id);?>]},
+    } // End of addToWatchlist func
 
-    success: 
-      function (obj, textstatus) {
-        // Callback function for when call is successful and returns obj
-        console.log("Success");
-        var objT = obj.trim();
- 
-        if (objT == "success") {
-          $("#watch_watching").hide();
-          $("#watch_nowatch").show();
-          // TODO call function to send email
-          remove_from_watch_success();
-        }
-        else {
-          var mydiv = document.getElementById("watch_watching");
-          mydiv.appendChild(document.createElement("br"));
-          mydiv.appendChild(document.createTextNode("Watch removal failed. Try again later."));
-        }
-      },
+    // watchlist removal success send email func
+    function remove_from_watch_success() {
+        $.ajax("watchlist_notifications.php", {
+            type: "POST",
+            data: {
+                functionname: 'remove_watch_email',
+                arguments: [<?php echo ($item_id); ?>]
+            },
 
-    error:
-      function (obj, textstatus) {
-        console.log("Error");
-      }
-  }); // End of AJAX call
+            success: function(obj, textstatus) {
+                console.log("Email sent");
+                var resObj = obj.trim();
+                console.log(resObj);
+            },
+            error: function(obj, textstatus) {
+                console.log("Error");
+            }
+        });
+    }
 
-} // End of addToWatchlist func
+    function removeFromWatchlist(button) {
+        // This performs an asynchronous call to a PHP function using POST method.
+        // Sends item ID as an argument to that function.
+        $.ajax('watchlist_funcs.php', {
+            type: "POST",
+            data: {
+                functionname: 'remove_from_watchlist',
+                arguments: [<?php echo ($item_id); ?>]
+            },
+
+            success: function(obj, textstatus) {
+                // Callback function for when call is successful and returns obj
+                console.log("Success");
+                var objT = obj.trim();
+
+                if (objT == "success") {
+                    $("#watch_watching").hide();
+                    $("#watch_nowatch").show();
+                    // TODO call function to send email
+                    remove_from_watch_success();
+                } else {
+                    var mydiv = document.getElementById("watch_watching");
+                    mydiv.appendChild(document.createElement("br"));
+                    mydiv.appendChild(document.createTextNode("Watch removal failed. Try again later."));
+                }
+            },
+
+            error: function(obj, textstatus) {
+                console.log("Error");
+            }
+        }); // End of AJAX call
+
+    } // End of addToWatchlist func
+
+    // Successful place bid results in notification generation for watchlist users.
+    // function to send item_id to watchlist_notifications.php to initiate notifications for latest bid.
+    function bidNotification(button) { // for testing as button, but thoguht should be implemented on success on place bid ajax call.
+        $.ajax("watchlist_notifications.php", {
+            type: "POST",
+            data: {
+                functionname: 'bid_notification',
+                arguments: [<?php echo ($item_id); ?>]
+            },
+
+            success: function(obj, textstatus) {
+                console.log("function returned success");
+                var resObj = obj.trim();
+                console.log(resObj);
+            },
+            error: function(obj, textstatus) {
+                console.log("Error");
+            }
+        });
+    }
 </script>
