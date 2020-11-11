@@ -214,7 +214,7 @@ function removeFromWatchlist(button) {
 
     // Successful place bid results in notification generation for watchlist users.
     // function to send item_id to watchlist_notifications.php to initiate notifications for latest bid.
-    function bidNotification(button) { // for testing as button, but thoguht should be implemented on success on place bid ajax call.
+    function bidNotification() { // Should be implemented on success on place bid ajax call.
         $.ajax("watchlist_notifications.php", {
             type: "POST",
             data: {
@@ -223,9 +223,9 @@ function removeFromWatchlist(button) {
             },
 
             success: function(obj, textstatus) {
-                console.log("function returned success");
+                // console.log("function returned success");
                 var resObj = obj.trim();
-                console.log(resObj);
+                // console.log(resObj);
             },
             error: function(obj, textstatus) {
                 console.log("Error");
