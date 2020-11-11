@@ -93,7 +93,7 @@ if ($_POST['functionname'] == "remove_watch_email") {
     // Since no lag or window functions in MySQL 5 - had to do some googling to be able to execute desired query in one query. Query was informed by this link - https://stackoverflow.com/questions/7100902/php-mysql-how-can-i-use-set-rank-0-in-query
     $prev_bid_query1 = "select @rownum:=@rownum+1 as lag_bid, b.bidID 
                         from bids b, (SELECT @rownum:=-1) r 
-                        where listingID = $item_id order by bidID asc";
+                        where listingID = $item_id order by bidID asc"; //issue with lab bid!!!
     $prev_bid_search = SQLQuery($prev_bid_query1);
     $lag_bid = end($prev_bid_search);
     $lag_bid_result = $lag_bid["lag_bid"]; // if this is 0 - then no previous high bidder.
@@ -132,7 +132,7 @@ if ($_POST['functionname'] == "remove_watch_email") {
           }
 
       }
-      echo $res;
+      echo $lag_bid_result;
  }
 
 ?>
