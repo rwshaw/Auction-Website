@@ -15,7 +15,7 @@ if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
 $item_id = implode('',$_POST['arguments']);
 
 // GET session userID
-$userid =  2; //user 4 = Qasim - testing  (should get this from session later. //$_SESSION['userID'];
+$userid =  4; //user 4 = Qasim - testing  (should get this from session later. //$_SESSION['userID'];
 
 //  SEND EMAIL for successful removal from watchlist
 if ($_POST['functionname'] == "remove_watch_email") {
@@ -132,7 +132,7 @@ if ($_POST['functionname'] == "remove_watch_email") {
           }
 
       }
-      echo $lag_bid_result;
+      echo $res;
  }
 
 ?>
