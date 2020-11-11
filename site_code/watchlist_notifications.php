@@ -59,7 +59,22 @@ if ($_POST['functionname'] == "remove_watch_email") {
     $success = send_user_email($userid,$subject,$message);
 
     echo $success;
-
 }
+ elseif ($_POST['functionname'] == "bid_notification") {
+    //  takes in listingID, finds latest bid inserted, adds notifications for all users on watchlist.
+    // USER NOTIFICATIONS FOR BIDS
+    // if bid is successful - notifiaction for all watchlist users
+    // bidID, listingID
+    // for all custs who are watching this listingID: 
+    // if user == bidder then 'You',
+    //  if user == seller then 'Your item..', 
+    //  otherwise, if lag(bidID) == user, then "another user just outbid you, 
+    //  otherwise "firstname" just bid on ItemNAme.
+
+    //Start - execute queries to get relevant info to compare in order to build notification message for user.
+    
+
+
+ }
 
 ?>
