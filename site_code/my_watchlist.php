@@ -19,9 +19,11 @@ $count_watched = SQLQuery($count_watched_query);
 $count_watched_result = $count_watched[0]["no_watched"];
 
 //Live Bids
+//TODO
 
 
 //Auctions won past 24 hours
+// TODO
 
 
 
@@ -44,14 +46,15 @@ $show_notif_result = SQLQuery($show_notif_query);
 function print_notifs($notif_array)
 {
     foreach ($notif_array as $row) {
-        $html =  "<a href=\"listing.php?item_id=" . $row["listingID"] . "\"><strong class=\"mr-auto\">AuctionXpress</strong>
+        $html =  "<strong class=\"mr-auto\">AuctionXpress</strong>
         <small class=\"text-muted\">" . $row["bidTimestamp"] . "</small>
         <div class=\"alert alert-info alert-dismissible fade show\" role=\"alert\">
-            <strong>Watchlist Update!</strong>" . $row["message"] . "
+            <strong>Watchlist Update!</strong><a href=\"listing.php?item_id=" . $row["listingID"] .
+            "\"> " . $row["message"] . "</a>
              <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
                 <span aria-hidden=\"true\">&times;</span>
             </button>
-        </div> </a>";
+        </div>";
         echo $html;
     }
 }
