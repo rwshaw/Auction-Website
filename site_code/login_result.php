@@ -3,7 +3,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-require_once('mysql_connect.php'); 
+// include header
+include_once("header.php"); 
 
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
@@ -17,6 +18,9 @@ $password = " ";
 
 // extract $_POST variables
 if (isset($_POST['login_user'])) {
+
+  // import sql connect page
+  require_once('mysql_connect.php'); 
 
   // open connection to database
   $db = OpenDbConnection(); 
@@ -49,7 +53,9 @@ if (isset($_POST['login_user'])) {
     if (password_verify($password, $hashed_user_password)) {
 
       // create session variables 
-      session_start();
+      if (session_id() == "") {
+        session_start();
+      }
       $_SESSION['logged_in'] = true;
       $_SESSION['username'] = $user_id;
       $_SESSION['account_type'] = "buyer";
@@ -71,12 +77,15 @@ if (isset($_POST['login_user'])) {
     header("refresh:5;url=index.php");
   }
   
-}
+  // close database connection
+  CloseDbConnection($db); 
 
-// close database connection
-CloseDbConnection($db); 
+}
 
 // // TODO: Extract $_POST variables, check they're OK, and attempt to login.
 // // Notify user of success/failure and redirect/give navigation options.
 
-// ?> 
+?> 
+
+<!-- Footer -->
+<?php include_once("footer.php")?>
