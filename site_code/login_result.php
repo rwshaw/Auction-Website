@@ -3,9 +3,11 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
+require_once('mysql_connect.php'); 
+
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
-	header("location: browse.php"); 
+  header("location: browse.php"); 
 	exit; 
 }
 
@@ -13,48 +15,68 @@ if(isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
 $email = " "; 
 $password = " "; 
 
-// initialise db connection 
-// change this later to use mysql_connect.php
-// remember to close connection
-$db = new mysqli('localhost','website','3ZqpGsAsmC6U2opZ', 'auctionsite');
-
-// 
+// extract $_POST variables
 if (isset($_POST['login_user'])) {
-	// Extract post variables  
-  	$email = mysqli_real_escape_string($db, $_POST['login_email']);
-  	$password = mysqli_real_escape_string($db, $_POST['login_password']);
 
-	// check user inputted post variables 
-  	if (empty(trim($email))) {echo "Please enter your email.";}
-  	if (empty(trim($password))) {echo "Please enter your password.";}
+  // open connection to database
+  $db = OpenDbConnection(); 
 
-	// attempt to login by checking inputted email and password match user in database
-	// user email verificaiton first 
-	$check_user_email_exists = "SELECT email FROM users WHERE email = '$email'"; // Prepare a select statement to check email 
-	$result = mysqli_query($db, $check_user_email_exists) or die(mysqli_error($db)); 
-  	$number_of_rows = mysqli_num_rows($result); 
-  	if ($number_of_rows == 1) {   	// check only 1 user with this email exists. 
-  		$retrieve_user_password = "SELECT password FROM users WHERE email = '$email'"; // prepare sql statement to retrieve user's (hashed) password
-  		$hashed_password_result = mysqli_query($db, $retrieve_user_password) or die(mysqli_error($db)); 
-  		$hashed_password_array = mysqli_fetch_assoc($hashed_password_result); 
-  		$hashed_password = $hashed_password_array["password"]; 
-  		// password verification 
-  		if (password_verify($password,$hashed_password)) { // check inputted password matches password in db 
-  			session_start(); // start session and initialise variables
-  			$_SESSION['logged_in'] = true;
-  			$_SESSION['username'] = "test";
-  			$_SESSION['account_type'] = "buyer";
-   			echo('<div class="text-center">You are now logged in! You will be redirected shortly.</div>');
- 			header("refresh:5;url=index.php"); // Redirect to index after 5 seconds
-   		} 
-   		else {
-   			echo "login unsuccesful. Wrong email, password combination. Please try again"; 
-   			header("refresh:5;url=index.php");
-  		}
-  	}
+  // escape strings from post request
+  $email = $db->real_escape_string($_POST['login_email']); 
+  $password = $db->real_escape_string($_POST['login_password']); 
+
+  // check user exists in database and retieve email and password
+    // prepare and bind parameters
+  $user_information_query = $db->prepare("SELECT * FROM users WHERE email=?"); 
+    // bind parameters
+  $user_information_query->bind_param("s", $email); 
+    // execute prepared statement with binded parameters
+  $user_information_query->execute(); 
+    // retrieve result
+  $result = $user_information_query->get_result();
+    // fetch as associative array
+  $user = $result->fetch_assoc(); 
+
+    // check user with this email exists
+  if ($user) {
+
+      // retrieve email, user_id and password for user 
+    $user_email = $user['email'];
+    $hashed_user_password = $user['password']; 
+    $user_id = $user['userID'];
+
+      // check passwords match 
+    if (password_verify($password, $hashed_user_password)) {
+
+      // create session variables 
+      session_start();
+      $_SESSION['logged_in'] = true;
+      $_SESSION['username'] = $user_id;
+      $_SESSION['account_type'] = "buyer";
+
+      // redirect 
+      echo "You are now logged in! You will be redirected shortly.";
+      header("refresh:3;url=index.php");
+    }
+
+    else { // if email exists, but password is incorrect
+      echo "login unsuccesful. Wrong email, password combination. Please try again. You will be redirected shortly. "; 
+      header("refresh:5;url=index.php");
+    }
+
+  } 
+
+  else { // if email does not exist in database
+    echo "login unsuccesful. Wrong email, password combination. Please try again. You will be redirected shortly. "; 
+    header("refresh:5;url=index.php");
+  }
+  
 }
 
-// TODO: Extract $_POST variables, check they're OK, and attempt to login.
-// Notify user of success/failure and redirect/give navigation options.
+// close database connection
+CloseDbConnection($db); 
 
-?> 
+// // TODO: Extract $_POST variables, check they're OK, and attempt to login.
+// // Notify user of success/failure and redirect/give navigation options.
+
+// ?> 

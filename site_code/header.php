@@ -8,6 +8,9 @@
   // $_SESSION['account_type'] = 'seller';
 ?>
 
+<script defer src="register_validation.js"></script>
+<div id="error"></div>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -42,7 +45,7 @@
   else {
     echo '<button type="button" class="btn nav-link" data-toggle="modal" data-target="#loginModal">Login</button>';
   }
-?>
+  ?>
 
     </li>
   </ul>
@@ -87,14 +90,14 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form method="POST" action="login_result.php">
+        <form method="POST" action="login_result.php" id="login" name="login"> 
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="text" class="form-control" id="email" placeholder="Email" name="login_email">
+            <input type="text" class="form-control" id="login_email" placeholder="Email" name="login_email" required>
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Password" name="login_password">
+            <input type="password" class="form-control" id="login_password" placeholder="Password" name="login_password" required>
           </div>
           <button type="submit" name="login_user" class="btn btn-primary form-control">Sign in</button>
         </form>
