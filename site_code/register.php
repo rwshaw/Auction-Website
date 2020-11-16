@@ -1,4 +1,8 @@
 <?php 
+  
+  error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
   // include header
   include_once("header.php"); 
 
@@ -25,10 +29,10 @@
   $addressLine1Err          = "";
   $addressLine2Err          = "";
   $cityErr                  = "";
-  $postcodeErr              = "";
+  $postCodeErr              = "";
   $emailErr                 = "";
   $passwordErr              = "";
-  $password_confirmationErr = "";
+  $passwordConfirmationErr  = "";
 
 
   // check registration form has been submitted 
@@ -145,7 +149,7 @@
       } 
     }
 
-    if (empty($fnameErr) && empty($lnameErr) && empty($addressLine1Err) && empty($cityErr) && empty($postcodeErr) && empty($emailErr) && empty($passwordErr) && empty($password_confirmationErr)) {
+    if (empty($fnameErr) && empty($lnameErr) && empty($addressLine1Err) && empty($cityErr) && empty($postCodeErr) && empty($emailErr) && empty($passwordErr) && empty($password_confirmationErr)) {
 
       // import sql connection script
       require_once('mysql_connect.php'); 
@@ -220,7 +224,9 @@
           // if user_id succesfully retrieved
           if ($user_id) {
               // start sessions
-            session_start(); 
+            if (session_id() == "") {
+              session_start();
+            }
               // set session variables 
             $_SESSION['logged_in'] = true;
             $_SESSION['user_id'] = $user_id;
