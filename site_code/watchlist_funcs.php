@@ -6,6 +6,7 @@ require_once("utilities.php");
 
  <?php
 
+// FUNCTIONS TO ADD TO AND REMOVE FROM WATCHLIST FOR USER.
 
 if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
   return;
