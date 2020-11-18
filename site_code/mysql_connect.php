@@ -56,7 +56,10 @@ function SQLQuery($query) {
         $final_result = $result->fetch_all(MYSQLI_ASSOC);
         CloseDbConnection($con);
         return $final_result;
-    } // TODO otherwise return error.
+    } // otherwise return error.
+    else {
+        return false;
+    }
     // CloseDbConnection($con); //need to manually close connection after using function. PHP will terminate fn execution after return statement.
 >>>>>>> SQLQuery - close DB before returning full result set
 }
