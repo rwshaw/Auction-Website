@@ -1,7 +1,7 @@
 <?php require_once("mysql_connect.php");
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);?>
+error_reporting(E_ALL); ?>
 
 <?php
 
@@ -58,7 +58,7 @@ function print_listing_li($item_id, $title, $desc, $price, $num_bids, $end_time,
   echo ('
     <li class="list-group-item d-flex justify-content-between">
     <div class="p-2 mr-5">
-    <h5><a href="listing.php?item_id=' . $item_id . ' aria-labelledby="catTree">' . $title . '</a>
+    <h5><a href="listing.php?item_id=' . $item_id . '" aria-labelledby="catTree">' . $title . '</a>
     <small id=catTree class="text-muted font-italic">
     ' . $category . ' -> ' . $subcategory . '
   </small>
@@ -103,12 +103,63 @@ function send_user_email($user_id, $subject, $message)
   $user_email_query = "SELECT email FROM users WHERE userID = $user_id";
   $result = SQLQuery($user_email_query);
   $user_email = $result[0]["email"];
-  $message = wordwrap($message,70,"\r\n"); // set character wrap in case lines > 70
+  $message = wordwrap($message, 70, "\r\n"); // set character wrap in case lines > 70
 
-  $success = mail($user_email,$subject,$message,$headers);
+  $success = mail($user_email, $subject, $message, $headers);
   if (!$success) {
     $errmsg = error_get_last()['message'];
   }
   return $success;
+}
 
+function print_watchlist_listing($item_id, $title, $desc, $price, $num_bids, $end_time, $category, $subcategory)
+{
+  // Truncate long descriptions
+  if (strlen($desc) > 250) {
+    $desc_shortened = substr($desc, 0, 250) . '...';
+  } else {
+    $desc_shortened = $desc;
+  }
+
+  // Fix language of bid vs. bids
+  if ($num_bids == 1) {
+    $bid = ' bid';
+  } else {
+    $bid = ' bids';
+  }
+
+  // Calculate time to auction end
+
+  $end_time = DateTime::createFromFormat('Y-m-d H:i:s', $end_time); //reformat date from string to datetime.
+  $now = new DateTime();
+  if ($now > $end_time) {
+    $time_remaining = 'This auction has ended';
+  } else {
+    // Get interval:
+    $time_to_end = date_diff($now, $end_time);
+    $time_remaining = display_time_remaining($time_to_end) . ' remaining';
+  }
+
+  // Print HTML
+  echo ('<div class="list-group-item ">
+  <div class="row justify-content-start align-items-start p-1">
+      <div class="col-7"><h5><a href="listing.php?item_id=' . $item_id . '" aria-labelledby="catTree">' . $title . '</a>
+      <small id=catTree class="text-muted font-italic">
+      ' . $category . ' -> ' . $subcategory . '
+    </small>
+      </h5> ' . $desc_shortened . '<br>' . $time_remaining . '
+      </div>
+      <div class="col-5" >
+      <table class="table table-dark table-striped table-hover table-sm table-borderless" id="' . $item_id . '">
+      <tr class="bg-success"><td>WINNING BID</td></tr>
+      <tr><td>2nd</td></tr>
+      <tr><td>3rd</td></tr>
+      <tr><td>4th</td></tr>
+      <tr><td>5th</td></tr>
+      </table>
+      </div>
+  </div>
+</div>');
+
+  
 }
