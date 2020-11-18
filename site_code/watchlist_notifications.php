@@ -6,6 +6,7 @@ require_once("utilities.php");
 
  <?php
 
+// HANDLES BID UPDATE NOTIFICATIONS FOR USER ON WATCHLIST OF ITEM.
 
 if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
   return;
@@ -133,6 +134,65 @@ if ($_POST['functionname'] == "remove_watch_email") {
 
       }
       echo $res;
+ } 
+ elseif ($_POST['functionname'] == "update_bids") {
+     $item_array = $_POST['arguments'];
+    //  echo $item_array;
+     // for each element in array, we need to create a table for 5 last bids.
+     // if the bid is from this user, add "YOU" tag to the end.
+     // if no bids at all for that item yet -> NO BIDS YET, if bid is empty but no_bids > 0 , then leave html empty but keep 5 rows.
+     //return key value array - key =item id, value = html for table rows.
+    //  echo $item_array;
+
+     $return_array = array();
+
+     foreach ($item_array as $item_id) {
+         $recent_bids_query = "SELECT userID, bidPrice,date_format(bidTimestamp, '%d/%m %H:%i') as bidTimestamp from bids where listingID = $item_id
+                                order by bidID desc
+                                LIMIT 5";
+        $con = OpenDbConnection();
+        $recent_bids = $con->query($recent_bids_query);
+        
+        // if there are results , now loop through result and create html table
+        $html_rows = "";    // initialise html to insert into for each row.
+        $winning_badge = '<span class="badge badge-secondary">WINNING</span>'; //badges to make things clearer.
+        $you_badge = '<span class="badge badge-primary">YOU</span>';
+
+
+        if ($recent_bids->num_rows>0) {
+            for ($i=0 ; $i < 5; $i++){
+                if (mysqli_data_seek($recent_bids, $i)) { // if there are rows from DB query left rprocess to html
+                    $bid = mysqli_fetch_row($recent_bids);
+                        if ($i == 0) {
+                            if ($bid[0] == $userid) {
+                                $html_rows .= '<tr class="bg-success"><td style="text-align:center">' . $bid[1] . $winning_badge . $you_badge . '<small>    ' . $bid[2] . '</small></td></tr>';
+                            } else {
+                                // winning but not YOU
+                                $html_rows .= '<tr class="bg-success"><td style="text-align:center">' . $bid[1] . $winning_badge . '<small>    ' . $bid[2] . '</small></td></tr>';
+                            }
+                        } else {
+                            // not winning bid, but row in query 
+                            if ($bid[0] == $userid) {
+                                $html_rows .= '<tr class="bg-danger"><td style="text-align:center">' . $bid[1] . $you_badge . '<small>    ' . $bid[2] . '</small></td></tr>';
+                            } else {
+                                // not winning but not YOU
+                                $html_rows .= '<tr><td style="text-align:center">' . $bid[1] . '<small>    ' . $bid[2] . '</small></td></tr>';
+                            }
+                        }
+                } else {
+                    $html_rows .= '<tr><td style="text-align:center">-- No older bid --</td></tr>';
+                }
+            }
+        }
+        else {
+            $html_rows = '<tr><td style="text-align:center">No bids yet</td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr>';
+        }
+        // put key and html value in return array
+        $return_array[$item_id] = $html_rows;
+     }
+
+     echo json_encode($return_array);
  }
+
 
 ?>
