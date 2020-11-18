@@ -17,14 +17,19 @@ if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
 $item_id = implode('',$_POST['arguments']); 
 
 if ($_POST['functionname'] == "updateprice") {
-  // TODO: Update database and return success/failure.
-	// To do for Q: load $session userID and pass for the query and poss some default vals for the other fields
+  
 
-    $maxprice = "SELECT MAX(bidPrice) as currentPrice FROM bids WHERE listingID='$item_id'";
-    $current_price = SQLQuery($maxprice);
+    $con = OpenDbConnection();
+    $stmt = $con->prepare($maxprice = "SELECT MAX(bidPrice) as currentPrice FROM bids WHERE listingID=?");
+    $stmt->bind_param("i",$item_id);
+    $stmt->execute();
+    $get_mysql = $stmt->get_result();
+    $current_price = $get_mysql->fetch_assoc();
     $current_price = $current_price['currentPrice'];
     $res=(number_format($current_price, 2));
-    //error_log("yeet");
+    $stmt->close();
+    CloseDbConnection($con);
+    
     
 }
 

@@ -10,15 +10,15 @@ error_reporting(E_ALL);
 
 
 <?php
-// Get info from the URL:
+// Get info from the URL using a prepared statement to avoid sql injection:
+
 $item_id = $_GET['item_id'];
-error_log($item_id);
 $con = OpenDbConnection();
-$stmt = "SELECT * FROM auction_listing WHERE listingID='?'";
-$stmt->bind_param("i",$listingID);
-
-
+$stmt = $con->prepare("SELECT * FROM auction_listing WHERE listingID=?");
+$stmt->bind_param("i",$item_id);
 $stmt->execute();
+$get_mysql = $stmt->get_result();
+$result = $get_mysql->fetch_assoc();
 $stmt->close();
 CloseDbConnection($con);
 
@@ -27,11 +27,7 @@ CloseDbConnection($con);
 // else {
 //die();
 //}
-// TODO: Use item_id to make a query to the database.
 
-
-
-// DELETEME: For now, using placeholder data.
 
 $title = $result['itemName'];
 $description = $result['itemDescription'];
@@ -40,7 +36,7 @@ $imageurl = $result['itemImage'];
 $maxprice = "SELECT MAX(bidPrice) as currentPrice FROM bids WHERE listingID='$item_id'";
 $current_price = SQLQuery($maxprice);
 $current_price = $current_price['currentPrice'];
-error_log(print_r($current_price, TRUE));
+//error_log(print_r($current_price, TRUE));
 $num_bids = 1;
 $end_time = new DateTime($result['endTime']);
 
@@ -133,7 +129,7 @@ $watching = false;
           </div>
           <input type="number" class="form-control" id="bid">
         </div>
-        <button type="submit" class="btn btn-primary form-control">Place bid</button>
+        <button type="button" class="btn btn-primary form-control" onclick="placeBid()" >Place bid</button>
       </form>
     <?php endif ?>
 
@@ -142,7 +138,7 @@ $watching = false;
   </div>
 </div> <!-- End of row #2 -->
 
-<?= console_log($item_id); ?>
+
 
 <?php include_once("footer.php") ?>
 
@@ -158,8 +154,8 @@ $watching = false;
       },
 
       success: function(htmlResult) {
-        console.log("RAN FUNCTION SUCCESS");
-        console.log(htmlResult);
+        
+        //console.log(htmlResult);
         $("#latestbid").html("Current Price: £".concat(htmlResult));
         setTimeout(bidUpdater(), 3000);
         // if all looks ok, update the DOM to show latest data feed. jQuery
@@ -167,29 +163,48 @@ $watching = false;
         // $(#table). repopualte with new html order by bidID desc
       }
     });
-  });
+  })
 
 
-  // JavaScript functions: addToWatchlist and removeFromWatchlist.
-
-  // (function worker() {
-  //   $.ajax('priceupdate.php', {
-  //     type: "POST",
-  //     data: {functionname: 'updateprice', arguments: [<?php echo ($item_id); ?>]},
 
 
-  //     success: function(data) {
-  //       console.log("Success");
-  //     },
-  //     complete: function() {
-  //       // Schedule the next request when the current one's complete
-  //       setTimeout(worker, 5000);
-  //     }
-  //   });
-  // })();
-  // error_log(echo worker());
 
 
+  function placeBid(button) {
+    console.log("These print statements are helpful for debugging btw");
+    var bid = document.getElementById("bid").value;
+    console.log(bid);
+    // This performs an asynchronous call to a PHP function using POST method.
+    // Sends item ID as an argument to that function.
+    
+    $.ajax('place_bid.php', {
+      type: "POST",
+      data: {
+        functionname: 'place_bid',
+        arguments: [<?php echo ($item_id); ?>,bid]
+      },
+
+      success: function(obj) {
+        // Callback function for when call is successful and returns obj
+        console.log("RAN PLACEBID SUCCESS");
+        var objT = obj.trim();
+        console.log(objT);
+        if (objT == "success") {
+          $("#watch_nowatch").hide();
+          $("#watch_watching").show();
+        } else {
+          var mydiv = document.getElementById("watch_nowatch");
+          mydiv.appendChild(document.createElement("br"));
+          mydiv.appendChild(document.createTextNode("Bid failed. Try again later."));
+        }
+      },
+
+      error: function(obj, textstatus) {
+        console.log("Error");
+      }
+    }); // End of AJAX call
+    
+  }
   function addToWatchlist(button) {
     console.log("These print statements are helpful for debugging btw");
 
@@ -220,9 +235,8 @@ $watching = false;
       error: function(obj, textstatus) {
         console.log("Error");
       }
-    }); // End of AJAX call
-
-  } // End of addToWatchlist func
+    });
+  }
 
   function removeFromWatchlist(button) {
     // This performs an asynchronous call to a PHP function using POST method.
