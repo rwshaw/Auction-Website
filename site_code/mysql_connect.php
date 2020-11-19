@@ -24,11 +24,11 @@ function ConfirmDbConnection($connect) {
     }
 }
 
-function ConfirmQueryResult($result) {
-    if (!$result || $result->num_rows == 0) {
-        die("Query failed. Reason: " . $result -> error);
-    }
-}
+// function ConfirmQueryResult($result) {
+//     if (!$result || $result->num_rows == 0) {
+//         die("Query failed. Reason: " . $result -> error);
+//     }
+// }
 
 // Basic BD close a connection.
 function CloseDbConnection($connection) {
@@ -45,7 +45,7 @@ function SQLQuery($query) {
      */
     $con = OpenDbConnection();
     $result = $con->query($query);
-    ConfirmQueryResult($result); 
+    // ConfirmQueryResult($result); 
     return $result -> fetch_assoc(); 
     $result -> free();
     CloseDbConnection($con);
