@@ -6,6 +6,8 @@ require_once("utilities.php");
 
  <?php
 
+ session_start(); //connect to current session.
+
 // HANDLES BID UPDATE NOTIFICATIONS FOR USER ON WATCHLIST OF ITEM.
 
 if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {

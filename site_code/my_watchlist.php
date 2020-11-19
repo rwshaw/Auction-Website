@@ -13,6 +13,9 @@ error_reporting(E_ALL); ?>
  - User will also be able to see interesting stats on the side related. -->
 
 <?php
+
+session_start(); //connect to current session.
+
 //get variables for html insertion.
 $userid = 4; //user 4 = Qasim - testing  (should get this from session later. //$_SESSION['userID'];
 
