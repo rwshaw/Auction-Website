@@ -10,6 +10,13 @@ error_reporting(E_ALL);
 
 
 <?php
+//session delete once implemented
+
+//$_SESSION['logged_in'] = true;
+//$_SESSION['username'] = 2;
+// $_SESSION['account_type'] = "buyer";
+
+
 // Get info from the URL using a prepared statement to avoid sql injection:
 
 $item_id = $_GET['item_id'];
@@ -22,11 +29,7 @@ $result = $get_mysql->fetch_assoc();
 $stmt->close();
 CloseDbConnection($con);
 
-//$query = "SELECT * FROM auction_listing WHERE listingID='$item_id'";
-//$result = SQLQuery($query);
-// else {
-//die();
-//}
+
 
 
 $title = $result['itemName'];
@@ -82,7 +85,6 @@ $watching = false;
             <button type="button" class="btn btn-success btn-sm" disabled>Watching</button>
             <button type="button" class="btn btn-danger btn-sm" onclick="removeFromWatchlist()">Remove watch</button>
           </div>
-          <button type="button" class="btn btn_primary" onclick="bidUpdater()">START BID UPDATER</button>
         <?php endif /* Print nothing otherwise */ ?>
       </div>
     </div>
@@ -196,12 +198,16 @@ $watching = false;
         console.log(typeof("bidplaced"));
         if (status==="bidplaced") {
           console.log("Yay");
-        } else {
+        } else if (status=="login") {
           // if bid is too small popover warning to bid
           console.log("nay");
           $("#loginpopup").click();
           //$('#bid').popover('show');
           //setTimeout(function() {$('#bid').popover('dispose');}, 5000);
+        }
+        else {
+          $('#bid').popover('show');
+          setTimeout(function() {$('#bid').popover('dispose');}, 5000);
         }
       },
 
