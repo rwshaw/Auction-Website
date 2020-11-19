@@ -8,46 +8,64 @@ error_reporting(E_ALL);
 
 
 <?php
+session_start();
+
+
 
 if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
     return;
   }
   
-  // Extract arguments from the POST variables:
+  // Extract arguments from the POST and session variables:
+ 
   $results = $_POST['arguments']; 
-  // || $_SESSION['logged_in']
+
+  
   if ($_POST['functionname'] == "place_bid")  {
     //Temporary until session variables called
-    $user_id = 2;
 
-    $item_id = $results[0];
-    $bidprice = $results[1];
-    $datetime = new DateTime();
-    $timestamp= $datetime->format('Y-m-d H:i:s');
-    //retrieve current price
-    $con = OpenDbConnection();
-    $stmt = $con->prepare($maxprice = "SELECT MAX(bidPrice) as currentPrice FROM bids WHERE listingID=?");
-    $stmt->bind_param("i",$item_id);
-    $stmt->execute();
-    $get_mysql = $stmt->get_result();
-    $current_price = $get_mysql->fetch_assoc();
-    $current_price = $current_price['currentPrice'];
-    $current_price=(number_format($current_price, 2));
-    $stmt->close();
-    CloseDbConnection($con);
-    if ($current_price < $bidprice) {
-    //prep statement to enter bid data if greater than current price
+    if (array_key_exists('logged_in',$_SESSION) == false  || $_SESSION['logged_in'] == false) {
+      $res = "login";
+
+    } else {
+      $signedin = $_SESSION['logged_in'];
+      $user_id = $_SESSION['username'];
+
+      $item_id = $results[0];
+      $bidprice = $results[1];
+      error_log($user_id);
+      $datetime = new DateTime();
+      $timestamp= $datetime->format('Y-m-d H:i:s');
+      //retrieve current price
       $con = OpenDbConnection();
-      $stmt = $con->prepare("INSERT INTO bids (userID,listingID,bidPrice,bidTimestamp) VALUES (?,?,?,'$timestamp')");
-      $stmt->bind_param("iid",$user_id,$item_id,$bidprice);
+      $stmt = $con->prepare($maxprice = "SELECT MAX(bidPrice) as currentPrice FROM bids WHERE listingID=?");
+      $stmt->bind_param("i",$item_id);
       $stmt->execute();
+      $get_mysql = $stmt->get_result();
+      $current_price = $get_mysql->fetch_assoc();
+      $current_price = $current_price['currentPrice'];
+      $current_price=(number_format($current_price, 2));
       $stmt->close();
-      $res = "bidplaced";
       CloseDbConnection($con);
-    } 
-    else { 
-      $res = "bidfailed";
+
+      if ($current_price < $bidprice) {
+        //prep statement to enter bid data if greater than current price
+        $con = OpenDbConnection();
+        $stmt = $con->prepare("INSERT INTO bids (userID,listingID,bidPrice,bidTimestamp) VALUES (?,?,?,'$timestamp')");
+        $stmt->bind_param("iid",$user_id,$item_id,$bidprice);
+        $stmt->execute();
+        $stmt->close();
+        $res = "bidplaced";
+        CloseDbConnection($con);
+      }  
+      else {
+        $res = "bidfailed";
+      }
+        
     }
+
+    
+
     echo $res;
    
     
