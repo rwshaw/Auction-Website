@@ -1,4 +1,3 @@
-
 <?php
 
 // Basic DB open a connection.

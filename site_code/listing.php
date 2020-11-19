@@ -127,7 +127,7 @@ $watching = false;
           <div class="input-group-prepend">
             <span class="input-group-text">£</span>
           </div>
-          <input type="number" class="form-control" id="bid">
+          <input type="number" class="form-control" id="bid" data-toggle="popover" data-placement="left" data-content="Please enter a bid higher than the current bid">
         </div>
         <button type="button" class="btn btn-primary form-control" onclick="placeBid()" >Place bid</button>
       </form>
@@ -173,29 +173,35 @@ $watching = false;
   function placeBid(button) {
     console.log("These print statements are helpful for debugging btw");
     var bid = document.getElementById("bid").value;
-    console.log(bid);
+    console.log(bid); 
     // This performs an asynchronous call to a PHP function using POST method.
     // Sends item ID as an argument to that function.
     
     $.ajax('place_bid.php', {
       type: "POST",
+      dataType: "text",
       data: {
         functionname: 'place_bid',
         arguments: [<?php echo ($item_id); ?>,bid]
+        
       },
 
-      success: function(obj) {
+      success: function(text) {
         // Callback function for when call is successful and returns obj
         console.log("RAN PLACEBID SUCCESS");
-        var objT = obj.trim();
-        console.log(objT);
-        if (objT == "success") {
-          $("#watch_nowatch").hide();
-          $("#watch_watching").show();
+        
+        var status = text.trim();
+        console.log(status);
+        console.log(typeof(status));
+        console.log(typeof("bidplaced"));
+        if (status==="bidplaced") {
+          console.log("Yay");
         } else {
-          var mydiv = document.getElementById("watch_nowatch");
-          mydiv.appendChild(document.createElement("br"));
-          mydiv.appendChild(document.createTextNode("Bid failed. Try again later."));
+          // if bid is too small popover warning to bid
+          console.log("nay");
+          $("#loginpopup").click();
+          //$('#bid').popover('show');
+          //setTimeout(function() {$('#bid').popover('dispose');}, 5000);
         }
       },
 
