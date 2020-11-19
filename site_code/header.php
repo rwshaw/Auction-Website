@@ -40,7 +40,7 @@
     echo '<a class="nav-link" href="logout.php">Logout</a>';
   }
   else {
-    echo '<button type="button" class="btn nav-link" data-toggle="modal" data-target="#loginModal">Login</button>';
+    echo '<button type="button" class="btn nav-link" id="loginpopup" data-toggle="modal" data-target="#loginModal">Login</button>';
   }
 ?>
 

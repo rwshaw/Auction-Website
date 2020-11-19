@@ -15,25 +15,42 @@ if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
   
   // Extract arguments from the POST variables:
   $results = $_POST['arguments']; 
-  
-  if ($_POST['functionname'] == "place_bid") {
+  // || $_SESSION['logged_in']
+  if ($_POST['functionname'] == "place_bid")  {
     //Temporary until session variables called
     $user_id = 2;
 
     $item_id = $results[0];
     $bidprice = $results[1];
-    error_log(gettype($user_id));
-    $res = "success";
     $datetime = new DateTime();
     $timestamp= $datetime->format('Y-m-d H:i:s');
-    error_log($timestamp);
+    //retrieve current price
     $con = OpenDbConnection();
-    $stmt = $con->prepare("INSERT INTO bids (userID,listingID,bidPrice,bidTimestamp) VALUES (?,?,?,'$timestamp')");
-    $stmt->bind_param("iid",$user_id,$item_id,$bidprice);
+    $stmt = $con->prepare($maxprice = "SELECT MAX(bidPrice) as currentPrice FROM bids WHERE listingID=?");
+    $stmt->bind_param("i",$item_id);
     $stmt->execute();
+    $get_mysql = $stmt->get_result();
+    $current_price = $get_mysql->fetch_assoc();
+    $current_price = $current_price['currentPrice'];
+    $current_price=(number_format($current_price, 2));
     $stmt->close();
     CloseDbConnection($con);
-      
+    if ($current_price < $bidprice) {
+    //prep statement to enter bid data if greater than current price
+      $con = OpenDbConnection();
+      $stmt = $con->prepare("INSERT INTO bids (userID,listingID,bidPrice,bidTimestamp) VALUES (?,?,?,'$timestamp')");
+      $stmt->bind_param("iid",$user_id,$item_id,$bidprice);
+      $stmt->execute();
+      $stmt->close();
+      $res = "bidplaced";
+      CloseDbConnection($con);
+    } 
+    else { 
+      $res = "bidfailed";
+    }
+    echo $res;
+   
+    
   }
   
   
@@ -42,7 +59,7 @@ if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
   // If multiple echo's in this file exist, they will concatenate together,
   // so be careful. You can also return JSON objects (in string form) using
   // echo json_encode($res).
-  echo $res;
+  
   
 ?>
 
