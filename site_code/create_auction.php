@@ -158,7 +158,6 @@ header('Location: auth.php');
   <?php } ?> 
 </div>
 
-</div>
 
 
 <?php include_once("footer.php")?>
