@@ -91,7 +91,7 @@ header('Location: auth.php');
           </div>
             <small id="imageHelp" class="form-text text-muted">Optional. Paste URL of image here.</small>
           </div>
-        </div>
+       
 
         <!--Category selection-->
         <div class="form-group row">
@@ -152,6 +152,7 @@ header('Location: auth.php');
         </div>
         <button type="submit" class="btn btn-primary form-control" name="submit">Create Auction</button>
       </form>
+      </div>
     </div>
   </div>
   <?php } ?> 
