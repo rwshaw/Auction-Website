@@ -149,7 +149,7 @@ ini_set('display_errors', '1');
       } 
     }
 
-    if (empty($fnameErr) && empty($lnameErr) && empty($addressLine1Err) && empty($cityErr) && empty($postCodeErr) && empty($emailErr) && empty($passwordErr) && empty($password_confirmationErr)) {
+    if (empty($fnameErr) && empty($lnameErr) && empty($addressLine1Err) && empty($cityErr) && empty($postCodeErr) && empty($emailErr) && empty($passwordErr) && empty($passwordConfirmationErr)) {
 
       // import sql connection script
       require_once('mysql_connect.php'); 
@@ -205,7 +205,7 @@ ini_set('display_errors', '1');
             // send mail
           mail($user_email, $subject, $message, $headers);
 
-          // get user_id and set session variables --> redirect user 
+          // get user_id and user_account_type and set session variables --> redirect user 
             // prepare sql statement to get user_id
           $user_id_query = $db->prepare("SELECT * from users WHERE email = ? LIMIT 1");
             // bind parameters
@@ -216,7 +216,7 @@ ini_set('display_errors', '1');
           $result = $user_id_query->get_result();
             // fetch as associative array
           $user = $result->fetch_assoc();
-            // set variable for user_id
+            // set variable for user_id 
           $user_id = $user['userID'];
             // close database connection
           CloseDbConnection($db); 
@@ -230,6 +230,7 @@ ini_set('display_errors', '1');
               // set session variables 
             $_SESSION['logged_in'] = true;
             $_SESSION['user_id'] = $user_id;
+            $_SESSION['account_type'] = "buyer";
 
 
             // replace this with cool alert 

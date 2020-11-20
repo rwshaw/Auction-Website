@@ -57,7 +57,7 @@ if (isset($_POST['login_user'])) {
         session_start();
       }
       $_SESSION['logged_in'] = true;
-      $_SESSION['username'] = $user_id;
+      $_SESSION['user_id'] = $user_id;
       $_SESSION['account_type'] = "buyer";
 
       // redirect 
