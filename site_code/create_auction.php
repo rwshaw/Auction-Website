@@ -146,7 +146,7 @@ header('Location: auth.php');
         <div class="form-group row">
           <label for="auctionEndDate" class="col-sm-2 col-form-label text-right">End date</label>
           <div class="col-sm-10">
-            <input type="datetime-local" class="form-control" name="auctionEndDate">
+            <input type="datetime-local" class="form-control" name="auctionEndDate" placeholder="yyyy-mm-dd, HH:mm">
             <small id="endDateHelp" style="color:red" class="form-text text-muted"><span class="text-danger">* Required.</span> </small>
           </div>
         </div>
