@@ -48,10 +48,15 @@ function SQLQuery($query) {
      */
     $con = OpenDbConnection();
     $result = $con->query($query);
-    // ConfirmQueryResult($result); 
-    return $result -> fetch_assoc(); 
-    $result -> free();
-    CloseDbConnection($con);
+    if ($result->num_rows>0) {
+        $final_result = $result->fetch_assoc();
+        CloseDbConnection($con);
+        return $final_result;
+    } // otherwise return error.
+    else {
+        CloseDbConnection($con);
+        return false;
+    }
 }
 
 // function PrepSQL($prepared_statement, $bindings) {
