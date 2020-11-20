@@ -47,7 +47,7 @@ function SQLQuery($query) {
     $con = OpenDbConnection();
     $result = $con->query($query);
     if ($result->num_rows>0) {
-        $final_result = $result->fetch_assoc();
+        $final_result = $result->fetch_all(MYSQLI_ASSOC);
         CloseDbConnection($con);
         return $final_result;
     } // otherwise return error.
