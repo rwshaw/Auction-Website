@@ -16,7 +16,7 @@ error_reporting(E_ALL); ?>
 <?php
 
 //get variables for html insertion.
-$userid = $_SESSION['username'];
+$userid = $_SESSION['user_id'];
 
 //Items you're watching
 
@@ -207,7 +207,7 @@ function print_notifs($notif_array)
             data: {
                 functionname: 'update_bids',
                 arguments: [<?php echo implode(',', $watched_items_array); ?>],
-                username: [<?php echo ($_SESSION['username']); ?>]
+                username: [<?php echo ($_SESSION['user_id']); ?>]
             },
 
             success: function(item_html, success) {
