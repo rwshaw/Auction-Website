@@ -164,13 +164,6 @@ function print_notifs($notif_array)
             }
 
             ?>
-            <div class="list-group-item ">
-                <div class="row justify-content-start align-items-start p-2">
-                    <div class="col-8">Item + Item details as link</div>
-                    <div class="col-4" id="scroll">Bids + bid time. Last 10 bids. Winning bid highlighted in Green at top., customer bid highlighted in blue.
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="col-4">
             <h2>Notifications</h2>
@@ -203,34 +196,34 @@ function print_notifs($notif_array)
 
     // update the bid tables for all items in watchlist.
 
-$(document).ready(function() {
-    updateBids();
-    setInterval(updateBids, 5000);
-});
-
-function updateBids() {
-    $.ajax("watchlist_notifications.php", {
-        type: "POST",
-        data: {
-            functionname: 'update_bids',
-            arguments: [<?php echo implode(',', $watched_items_array); ?>] , 
-            username: [<?php echo($_SESSION['username']);?>]
-        },
-
-        success: function(item_html, success) {
-            // console.log("returned success");
-            // console.log(item_html);
-            parsed_html = JSON.parse(item_html);
-            // console.log(parsed_html);
-            // in returned array, change item html where id matches, to the html for that id (item_id)
-            for (var key in parsed_html) {
-                $("#".concat(key)).html(parsed_html[key]);
-
-            }
-        },
-        error: function(obj, textstatus) {
-            console.log("Error");
-        }
+    $(document).ready(function() {
+        updateBids();
+        setInterval(updateBids, 5000);
     });
-}
+
+    function updateBids() {
+        $.ajax("watchlist_notifications.php", {
+            type: "POST",
+            data: {
+                functionname: 'update_bids',
+                arguments: [<?php echo implode(',', $watched_items_array); ?>],
+                username: [<?php echo ($_SESSION['username']); ?>]
+            },
+
+            success: function(item_html, success) {
+                // console.log("returned success");
+                // console.log(item_html);
+                parsed_html = JSON.parse(item_html);
+                // console.log(parsed_html);
+                // in returned array, change item html where id matches, to the html for that id (item_id)
+                for (var key in parsed_html) {
+                    $("#".concat(key)).html(parsed_html[key]);
+
+                }
+            },
+            error: function(obj, textstatus) {
+                console.log("Error");
+            }
+        });
+    }
 </script>
