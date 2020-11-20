@@ -29,19 +29,32 @@ $result = $get_mysql->fetch_assoc();
 $stmt->close();
 CloseDbConnection($con);
 
+$end_time = new DateTime($result['endTime']);
+$now = new DateTime();
+$endtimestamp= $end_time->format('Y-m-d H:i:s');
 
-
-
+$item_id = $result['listingID'];
 $title = $result['itemName'];
 $description = $result['itemDescription'];
 $imageurl = $result['itemImage'];
-//to do return intitial bid if no bids
-$maxprice = "SELECT MAX(bidPrice) as currentPrice FROM bids WHERE listingID='$item_id'";
-$current_price = SQLQuery($maxprice);
-$current_price = $current_price['currentPrice'];
+
+//will always return the highest bid during and after auction
+$maxprice = "SELECT MAX(bidPrice) as currentPrice, userID FROM bids WHERE (listingID='$item_id' AND bidTimestamp<'$endtimestamp')";
+$highest_bid = SQLQuery($maxprice);
+$current_price = $highest_bid['currentPrice'];
+$highest_bidder = $highest_bid['userID'];
+error_log($current_price);
+// test if the user has bid on and item returns 1 for bid and 0 for no bid 
+if (array_key_exists('logged_in',$_SESSION) && $_SESSION['logged_in'] == true) {
+  $userID = $_SESSION['username'];
+  $query = "SELECT count(1) FROM bids WHERE (userID='$userID' AND listingID='$item_id')";
+  $bidstatus = SQLQuery($query);
+  error_log($bidstatus['count(1)']);
+}
+
 //error_log(print_r($current_price, TRUE));
 $num_bids = 1;
-$end_time = new DateTime($result['endTime']);
+
 
 
 // TODO: Note: Auctions that have ended may pull a different set of data,
@@ -117,8 +130,19 @@ $watching = false;
 
       <p>
         <?php if ($now > $end_time) : ?>
-          This auction ended <?php echo (date_format($end_time, 'j M H:i')) ?>
-          <!-- TODO: Print the result of the auction here? -->
+          This auction ended <?php echo (date_format($end_time, 'j M H:i')); ?>
+          <div class="row">
+            Bidding has ended, the winning bid was: £<?php echo ($current_price); ?>
+          </div>
+          <?php if (isset($bidstatus)) : ?>
+            <?php if ($userID==$highest_bidder) : ?>
+              <div class="row">
+              You won this auction!
+              </div>
+            <?php else : ?>
+              You were outbid!
+              <?php endif ?> 
+          <?php endif ?>    
         <?php else : ?>
           Auction ends <?php echo (date_format($end_time, 'j M H:i') . $time_remaining) ?></p>
       <p class="lead" id="latestbid"></p>
