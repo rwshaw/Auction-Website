@@ -6,8 +6,6 @@ require_once("utilities.php");
 
  <?php
 
- session_start(); //connect to current session.
-
 // HANDLES BID UPDATE NOTIFICATIONS FOR USER ON WATCHLIST OF ITEM.
 
 if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
@@ -94,18 +92,23 @@ if ($_POST['functionname'] == "remove_watch_email") {
     
     // get bid ID to work out prev higest bidder
     // Since no lag or window functions in MySQL 5 - had to do some googling to be able to execute desired query in one query. Query was informed by this link - https://stackoverflow.com/questions/7100902/php-mysql-how-can-i-use-set-rank-0-in-query
-    $prev_bid_query1 = "select @rownum:=@rownum+1 as lag_bid, b.bidID 
+    $prev_bid_query1 = "select @rownum:=@rownum+1 as row_num, b.bidID 
                         from bids b, (SELECT @rownum:=-1) r 
                         where listingID = $item_id order by bidID asc"; //issue with lab bid!!!
     $prev_bid_search = SQLQuery($prev_bid_query1);
-    $lag_bid = end($prev_bid_search);
-    $lag_bid_result = $lag_bid["lag_bid"]; // if this is 0 - then no previous high bidder.
-    // save lag_bid to variable
-    // now find the user associated with that bidID to find previous highest bidder
-    if ($lag_bid_result == 0) {
+    $max_row_num = end($prev_bid_search);
+    $max_row_num_result = $max_row_num["row_num"]; // if this is 0 - then no previous high bidder.
+    // save max_row_num to variable
+    // now find the user associated with the previous bidID to find previous highest bidder
+    if ($max_row_num_result == 0) {
         $prev_high_bidder = null;
     } else {
-        $prev_high_bidder_query = "SELECT userID from bids where bidID= $lag_bid_result";
+        $lag_row_num = $max_row_num_result -1;
+        $prev_high_bidder_query = "SELECT userID from bids where bidID= (select bidID
+                                    from (select @rownum:=@rownum+1 as row_num, b.bidID 
+                                                            from bids b, (SELECT @rownum:=-1) r 
+                                                            where listingID = 91 order by bidID asc) a
+                                                            where a.row_num = $lag_row_num)";
         $prev_high_result = SQLQuery($prev_high_bidder_query);
         $prev_high_bidder = $prev_high_result[0]["userID"];
     }
