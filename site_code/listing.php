@@ -244,7 +244,8 @@ $watching = false;
 function add_to_watch_success() {
             $.ajax("watchlist_notifications.php", {
               type: "POST",
-              data: {functionname: 'add_watch_email', arguments: [<?php echo($item_id);?>]},
+              data: {functionname: 'add_watch_email', arguments: [<?php echo($item_id);?>], 
+            username: [<?php echo($_SESSION['username']);?>]},
 
               success: 
                 function(obj, textstatus) {
@@ -261,16 +262,13 @@ function add_to_watch_success() {
         }
 
 function addToWatchlist(button) {
-  console.log("These print statements are helpful for debugging btw");
 
-    // This performs an asynchronous call to a PHP function using POST method.
-    // Sends item ID as an argument to that function.
-    $.ajax('watchlist_funcs.php', {
-      type: "POST",
-      data: {
-        functionname: 'add_to_watchlist',
-        arguments: [<?php echo ($item_id); ?>]
-      },
+  // This performs an asynchronous call to a PHP function using POST method.
+  // Sends item ID as an argument to that function.
+  $.ajax('watchlist_funcs.php', {
+    type: "POST",
+    data: {functionname: 'add_to_watchlist', arguments: [<?php echo($item_id);?>], 
+            username: [<?php echo($_SESSION['username']);?>]},
 
       success: function(obj, textstatus) {
         // Callback function for when call is successful and returns obj
@@ -301,7 +299,9 @@ function addToWatchlist(button) {
 function remove_from_watch_success() {
             $.ajax("watchlist_notifications.php", {
               type: "POST",
-              data: {functionname: 'remove_watch_email', arguments: [<?php echo($item_id);?>]},
+              data: {functionname: 'remove_watch_email', arguments: [<?php echo($item_id);?>], 
+              username: [<?php echo($_SESSION['username']);?>]
+              },
 
               success: 
                 function(obj, textstatus) {
@@ -322,7 +322,8 @@ function removeFromWatchlist(button) {
   // Sends item ID as an argument to that function.
   $.ajax('watchlist_funcs.php', {
     type: "POST",
-    data: {functionname: 'remove_from_watchlist', arguments: [<?php echo($item_id);?>]},
+    data: {functionname: 'remove_from_watchlist', arguments: [<?php echo($item_id);?>], 
+            username: [<?php echo($_SESSION['username']);?>]},
 
       success: function(obj, textstatus) {
         // Callback function for when call is successful and returns obj
@@ -356,7 +357,8 @@ function removeFromWatchlist(button) {
             type: "POST",
             data: {
                 functionname: 'bid_notification',
-                arguments: [<?php echo ($item_id); ?>]
+                arguments: [<?php echo ($item_id); ?>], 
+                username: [<?php echo($_SESSION['username']);?>]
             },
 
             success: function(obj, textstatus) {

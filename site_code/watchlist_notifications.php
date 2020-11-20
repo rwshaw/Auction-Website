@@ -15,8 +15,8 @@ if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
 // Extract arguments from the POST variables:
 $item_id = implode('',$_POST['arguments']);
 
-// GET session userID
-$userid = $_SESSION['username'];
+// GET User passed from ajax
+$userid = implode('',$_POST['username']);
 
 //  SEND EMAIL for successful removal from watchlist
 if ($_POST['functionname'] == "remove_watch_email") {
@@ -116,13 +116,13 @@ if ($_POST['functionname'] == "remove_watch_email") {
     // For each watcher in list, we need to assess and generate message based on $latest_bid row and whether they are buyer/seller, bidder or lag bidder.
     foreach ($watchers as $row) {
         if ($row["userID"] === $latest_bid[0]["bidder"]) {
-            $message = "You just bid £" . $latest_bid[0]["bidPrice"] . " for '" . $latest_bid[0]["itemName"] . "'";
+            $message = "You just bid &#163;" . $latest_bid[0]["bidPrice"] . " for '" . $latest_bid[0]["itemName"] . "'";
         } elseif ($row["userID"] === $latest_bid[0]["sellerID"]) {
-            $message = $latest_bid[0]["bidder_name"] . " just bid £" . $latest_bid[0]["bidPrice"] . " for your item '" . $latest_bid[0]["itemName"] . "'";
+            $message = $latest_bid[0]["bidder_name"] . " just bid &#163;" . $latest_bid[0]["bidPrice"] . " for your item '" . $latest_bid[0]["itemName"] . "'";
         } elseif ($row["userID"] === $prev_high_bidder) {
-            $message = "You were just outbid! " . $latest_bid[0]["bidder_name"] . " just bid £" . $latest_bid[0]["bidPrice"] . " for '" . $latest_bid[0]["itemName"] . "'";
+            $message = "You were just outbid! " . $latest_bid[0]["bidder_name"] . " just bid &#163;" . $latest_bid[0]["bidPrice"] . " for '" . $latest_bid[0]["itemName"] . "'";
         } else {
-            $message = $latest_bid[0]["bidder_name"] . " just bid £" . $latest_bid[0]["bidPrice"] . " for '" . $latest_bid[0]["itemName"] . "'";
+            $message = $latest_bid[0]["bidder_name"] . " just bid &#163;" . $latest_bid[0]["bidPrice"] . " for '" . $latest_bid[0]["itemName"] . "'";
         } // Now send email + perform insert 
         //EMAIL
         $subject = "Watchlist Update";
