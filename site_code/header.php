@@ -11,7 +11,6 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 ?>
 
-<script defer src="register_validation.js"></script>
 <div id="error"></div>
 
 <!doctype html>
