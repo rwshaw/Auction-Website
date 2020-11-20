@@ -12,6 +12,7 @@ error_reporting(E_ALL); ?>
  that a customer might want to add to their watchlist.
  - User will also be able to see interesting stats on the side related. -->
 
+
 <?php
 
 //get variables for html insertion.
@@ -212,7 +213,8 @@ function updateBids() {
         type: "POST",
         data: {
             functionname: 'update_bids',
-            arguments: [<?php echo implode(',', $watched_items_array); ?>]
+            arguments: [<?php echo implode(',', $watched_items_array); ?>] , 
+            username: [<?php echo($_SESSION['username']);?>]
         },
 
         success: function(item_html, success) {
