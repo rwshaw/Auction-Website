@@ -41,15 +41,16 @@ $imageurl = $result['itemImage'];
 //will always return the highest bid during and after auction
 $maxprice = "SELECT MAX(bidPrice) as currentPrice, userID FROM bids WHERE (listingID='$item_id' AND bidTimestamp<'$endtimestamp')";
 $highest_bid = SQLQuery($maxprice);
-$current_price = $highest_bid['currentPrice'];
-$highest_bidder = $highest_bid['userID'];
+//error_log( print_r($highest_bid[0]['currentPrice'], TRUE) );
+$current_price = $highest_bid[0]['currentPrice'];
+$highest_bidder = $highest_bid[0]['userID'];
 error_log($current_price);
 // test if the user has bid on and item returns 1 for bid and 0 for no bid 
 if (array_key_exists('logged_in',$_SESSION) && $_SESSION['logged_in'] == true) {
   $userID = $_SESSION['username'];
   $query = "SELECT count(1) FROM bids WHERE (userID='$userID' AND listingID='$item_id')";
   $bidstatus = SQLQuery($query);
-  error_log($bidstatus['count(1)']);
+  error_log($bidstatus[0]['count(1)']);
 }
 
 //error_log(print_r($current_price, TRUE));
@@ -233,7 +234,10 @@ $watching = false;
           $('#bid').popover('show');
           setTimeout(function() {$('#bid').popover('dispose');}, 5000);
         }
-      },
+      }
+    }
+    );
+  }
 
 // watchlist add success send email func
 
