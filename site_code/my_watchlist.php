@@ -15,7 +15,7 @@ error_reporting(E_ALL); ?>
 <?php
 
 //get variables for html insertion.
-$userid = 4; //user 4 = Qasim - testing  (should get this from session later. //$_SESSION['userID'];
+$userid = $_SESSION['username'];
 
 //Items you're watching
 

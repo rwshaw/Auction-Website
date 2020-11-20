@@ -16,7 +16,7 @@ if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
 $item_id = implode('',$_POST['arguments']);
 
 // GET session userID
-$userid =  4; //user 4 = Qasim - testing  (should get this from session later. //$_SESSION['userID'];
+$userid = $_SESSION['username'];
 
 // ADD TO WATCHLIST, IF SUCCESS SEND EMAIL
 if ($_POST['functionname'] == "add_to_watchlist") {
