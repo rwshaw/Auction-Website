@@ -101,6 +101,27 @@
 <script> 
 // JavaScript functions: addToWatchlist and removeFromWatchlist.
 
+// watchlist add success send email func
+
+function add_to_watch_success() {
+            $.ajax("watchlist_notifications.php", {
+              type: "POST",
+              data: {functionname: 'add_watch_email', arguments: [<?php echo($item_id);?>]},
+
+              success: 
+                function(obj, textstatus) {
+                  console.log("Email sent");
+                  var resObj = obj.trim();
+                  console.log(resObj);
+                },
+              error: 
+                function (obj, textstatus) {
+                console.log("Error");
+              }
+            }
+            );
+        }
+
 function addToWatchlist(button) {
   console.log("These print statements are helpful for debugging btw");
 
@@ -119,6 +140,8 @@ function addToWatchlist(button) {
         if (objT == "success") {
           $("#watch_nowatch").hide();
           $("#watch_watching").show();
+          // TODO call function to send email.
+          add_to_watch_success();
         }
         else {
           var mydiv = document.getElementById("watch_nowatch");
@@ -134,6 +157,26 @@ function addToWatchlist(button) {
   }); // End of AJAX call
 
 } // End of addToWatchlist func
+
+// watchlist removal success send email func
+function remove_from_watch_success() {
+            $.ajax("watchlist_notifications.php", {
+              type: "POST",
+              data: {functionname: 'remove_watch_email', arguments: [<?php echo($item_id);?>]},
+
+              success: 
+                function(obj, textstatus) {
+                  console.log("Email sent");
+                  var resObj = obj.trim();
+                  console.log(resObj);
+                },
+              error: 
+                function (obj, textstatus) {
+                console.log("Error");
+              }
+            }
+            );
+        }
 
 function removeFromWatchlist(button) {
   // This performs an asynchronous call to a PHP function using POST method.
@@ -151,6 +194,8 @@ function removeFromWatchlist(button) {
         if (objT == "success") {
           $("#watch_watching").hide();
           $("#watch_nowatch").show();
+          // TODO call function to send email
+          remove_from_watch_success();
         }
         else {
           var mydiv = document.getElementById("watch_watching");
@@ -166,4 +211,25 @@ function removeFromWatchlist(button) {
   }); // End of AJAX call
 
 } // End of addToWatchlist func
+
+    // Successful place bid results in notification generation for watchlist users.
+    // function to send item_id to watchlist_notifications.php to initiate notifications for latest bid.
+    function bidNotification() { // Should be implemented on success on place bid ajax call.
+        $.ajax("watchlist_notifications.php", {
+            type: "POST",
+            data: {
+                functionname: 'bid_notification',
+                arguments: [<?php echo ($item_id); ?>]
+            },
+
+            success: function(obj, textstatus) {
+                // console.log("function returned success");
+                var resObj = obj.trim();
+                // console.log(resObj);
+            },
+            error: function(obj, textstatus) {
+                console.log("Error");
+            }
+        });
+    }
 </script>

@@ -6,6 +6,9 @@
   session_start();
   // $_SESSION['logged_in'] = false;
   // $_SESSION['account_type'] = 'seller';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 ?>
 
 <script defer src="register_validation.js"></script>
@@ -21,6 +24,8 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
   <!-- Custom CSS file -->
   <link rel="stylesheet" href="css/custom.css">
 
