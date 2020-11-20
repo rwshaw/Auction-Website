@@ -17,7 +17,7 @@ error_reporting(E_ALL);
 
 <?php
 
-$item_id = 1;
+$item_id = 91;
 $userid = 4; // should be session user id
 
 $check_query = "SELECT isWatching FROM watchlist where userID = $userid and listingID=$item_id";

@@ -14,8 +14,6 @@ error_reporting(E_ALL); ?>
 
 <?php
 
-session_start(); //connect to current session.
-
 //get variables for html insertion.
 $userid = 4; //user 4 = Qasim - testing  (should get this from session later. //$_SESSION['userID'];
 
