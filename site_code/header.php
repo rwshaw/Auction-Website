@@ -68,15 +68,18 @@ error_reporting(E_ALL);
     </li>
 	<li class="nav-item mx-1">
       <a class="nav-link" href="recommendations.php">Recommended</a>
+    </li>
+    <li class="nav-item mx-1">
+      <a class="nav-link" href="my_watchlist.php">My Watchlist</a>
+    </li>
+    <li class="nav-item ml-3">
+      <a class="nav-link btn border-light" href="create_auction.php">+ Create auction</a>
     </li>');
   }
   if (isset($_SESSION['account_type']) && $_SESSION['account_type'] == 'seller') {
   echo('
 	<li class="nav-item mx-1">
       <a class="nav-link" href="mylistings.php">My Listings</a>
-    </li>
-	<li class="nav-item ml-3">
-      <a class="nav-link btn border-light" href="create_auction.php">+ Create auction</a>
     </li>');
   }
 ?>
