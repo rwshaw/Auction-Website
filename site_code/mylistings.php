@@ -7,7 +7,7 @@
 
 
 
-$user_id = $_SESSION['username'];
+$user_id = $_SESSION['user_id'];
 $sellerid = $user_id;
 
 $connect = OpenDbConnection();

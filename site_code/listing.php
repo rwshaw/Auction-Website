@@ -13,7 +13,7 @@ error_reporting(E_ALL);
 //session delete once implemented
 
 //$_SESSION['logged_in'] = true;
-//$_SESSION['username'] = 2;
+//$_SESSION['user_id'] = 2;
 // $_SESSION['account_type'] = "buyer";
 
 
@@ -47,7 +47,7 @@ $highest_bidder = $highest_bid[0]['userID'];
 error_log($current_price);
 // test if the user has bid on and item returns 1 for bid and 0 for no bid 
 if (array_key_exists('logged_in',$_SESSION) && $_SESSION['logged_in'] == true) {
-  $userID = $_SESSION['username'];
+  $userID = $_SESSION['user_id'];
   $query = "SELECT count(1) FROM bids WHERE (userID='$userID' AND listingID='$item_id')";
   $bidstatus = SQLQuery($query);
   error_log($bidstatus[0]['count(1)']);
@@ -250,7 +250,7 @@ $watching = false;
         data: {
           functionname: 'add_watch_email',
           arguments: [<?php echo ($item_id); ?>],
-          username: [<?php echo ($_SESSION['username']); ?>]
+          username: [<?php echo ($_SESSION['user_id']); ?>]
         },
 
         success: function(obj, textstatus) {
@@ -273,7 +273,7 @@ $watching = false;
         data: {
           functionname: 'add_to_watchlist',
           arguments: [<?php echo ($item_id); ?>],
-          username: [<?php echo ($_SESSION['username']); ?>]
+          username: [<?php echo ($_SESSION['user_id']); ?>]
         },
 
         success: function(obj, textstatus) {
@@ -307,7 +307,7 @@ $watching = false;
         data: {
           functionname: 'remove_watch_email',
           arguments: [<?php echo ($item_id); ?>],
-          username: [<?php echo ($_SESSION['username']); ?>]
+          username: [<?php echo ($_SESSION['user_id']); ?>]
         },
 
         success: function(obj, textstatus) {
@@ -329,7 +329,7 @@ $watching = false;
         data: {
           functionname: 'remove_from_watchlist',
           arguments: [<?php echo ($item_id); ?>],
-          username: [<?php echo ($_SESSION['username']); ?>]
+          username: [<?php echo ($_SESSION['user_id']); ?>]
         },
 
         success: function(obj, textstatus) {
@@ -364,7 +364,7 @@ $watching = false;
         data: {
           functionname: 'bid_notification',
           arguments: [<?php echo ($item_id); ?>],
-          username: [<?php echo ($_SESSION['username']); ?>]
+          username: [<?php echo ($_SESSION['user_id']); ?>]
         },
 
         success: function(obj, textstatus) {

@@ -29,7 +29,7 @@ if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
 
     } else {
       $signedin = $_SESSION['logged_in'];
-      $user_id = $_SESSION['username'];
+      $user_id = $_SESSION['user_id'];
 
       $item_id = $results[0];
       $bidprice = $results[1];

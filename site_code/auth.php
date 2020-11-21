@@ -4,8 +4,8 @@
 <?php //session_start();
 echo "Before you can create an auction, it is necessary to update your account with the correct selling priveleges. Please check box to get authorisation!"; 
 $connect = OpenDbConnection(); 
-echo $_SESSION['username'];
-$user_id = $_SESSION['username'];
+echo $_SESSION['user_id'];
+$user_id = $_SESSION['user_id'];
 ?>
 
 <form method="post" action="">

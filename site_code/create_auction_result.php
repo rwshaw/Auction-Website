@@ -61,7 +61,7 @@ $statement = "INSERT INTO auction_listing(sellerUserID, itemName, itemDescriptio
 $stmt = $connect->prepare($statement);
 
 
-$user_id = $_SESSION['username'];
+$user_id = $_SESSION['user_id'];
 
 
 $stmt->bind_param("issddsis", $user_id, $ititle, $idesc, $stprice, $revprice, $enddate, $icat, $image);

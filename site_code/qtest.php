@@ -54,7 +54,7 @@ function add_to_watch_success() {
             $.ajax("watchlist_notifications.php", {
               type: "POST",
               data: {functionname: 'add_watch_email', arguments: [<?php echo($item_id);?>], 
-            username: [<?php echo($_SESSION['username']);?>]},
+            username: [<?php echo($_SESSION['user_id']);?>]},
 
               success: 
                 function(obj, textstatus) {
@@ -78,7 +78,7 @@ function addToWatchlist(button) {
   $.ajax('watchlist_funcs.php', {
     type: "POST",
     data: {functionname: 'add_to_watchlist', arguments: [<?php echo($item_id);?>], 
-            username: [<?php echo($_SESSION['username']);?>]},
+            username: [<?php echo($_SESSION['user_id']);?>]},
 
     success: 
       function (obj, textstatus) {
@@ -112,7 +112,7 @@ function remove_from_watch_success() {
             $.ajax("watchlist_notifications.php", {
               type: "POST",
               data: {functionname: 'remove_watch_email', arguments: [<?php echo($item_id);?>], 
-              username: [<?php echo($_SESSION['username']);?>]
+              username: [<?php echo($_SESSION['user_id']);?>]
               },
 
               success: 
@@ -135,7 +135,7 @@ function removeFromWatchlist(button) {
   $.ajax('watchlist_funcs.php', {
     type: "POST",
     data: {functionname: 'remove_from_watchlist', arguments: [<?php echo($item_id);?>], 
-            username: [<?php echo($_SESSION['username']);?>]},
+            username: [<?php echo($_SESSION['user_id']);?>]},
 
     success: 
       function (obj, textstatus) {
@@ -172,7 +172,7 @@ function removeFromWatchlist(button) {
             data: {
                 functionname: 'bid_notification',
                 arguments: [<?php echo ($item_id); ?>], 
-                username: [<?php echo($_SESSION['username']);?>]
+                username: [<?php echo($_SESSION['user_id']);?>]
             },
 
             success: function(obj, textstatus) {
