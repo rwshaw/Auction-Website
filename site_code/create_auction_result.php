@@ -18,8 +18,8 @@ $connect->close();
 }
 
 // Data entered in create_auction.php form	
-$ititle = $connect->real_escape_string($_POST["auctionTitle"]);
-$idesc = $connect->real_escape_string($_POST["auctionDetails"]);
+$ititle1 = $_POST["auctionTitle"];
+$idesc1 = $_POST["auctionDetails"];
 $icat = $_POST["auctionCategory"];
 $stprice = $_POST["auctionStartPrice"];
 $revprice = $_POST["auctionReservePrice"];
@@ -29,6 +29,8 @@ $datenow = time();
 $image = $_POST["auctionImage"];
 
 
+$ititle = htmlspecialchars(stripslashes($ititle1), ENT_QUOTES);
+$idesc = htmlspecialchars(stripslashes($idesc1), ENT_QUOTES);
 
 //Date input validation
 if ($enddate1->getTimestamp() < $datenow) {
