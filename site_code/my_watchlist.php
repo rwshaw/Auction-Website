@@ -3,9 +3,9 @@
 require_once("debug.php");
 require_once("mysql_connect.php");
 require_once("watchlist_notifications.php");
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL); ?>
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL); ?>
 
 <!-- This Page will display the users current watchlist items + current bid states for those items.
 - It will also have a recommendation feature to recommend items similar to previously bought items
@@ -198,7 +198,7 @@ function print_notifs($notif_array)
 
     $(document).ready(function() {
         updateBids();
-        setInterval(updateBids, 5000);
+        setInterval(updateBids, 3000);
     });
 
     function updateBids() {
