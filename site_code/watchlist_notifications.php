@@ -105,7 +105,7 @@ require_once("utilities.php");
             $prev_high_bidder_query = "SELECT userID from bids where bidID= (select bidID
                                     from (select @rownum:=@rownum+1 as row_num, b.bidID 
                                                             from bids b, (SELECT @rownum:=-1) r 
-                                                            where listingID = 91 order by bidID asc) a
+                                                            where listingID = $item_id order by bidID asc) a
                                                             where a.row_num = $lag_row_num)";
             $prev_high_result = SQLQuery($prev_high_bidder_query);
             $prev_high_bidder = $prev_high_result[0]["userID"];
@@ -117,7 +117,7 @@ require_once("utilities.php");
                 $message = "You just bid &#163;" . $latest_bid[0]["bidPrice"] . " for '" . $latest_bid[0]["itemName"] . "'";
             } elseif ($row["userID"] === $latest_bid[0]["sellerID"]) {
                 $message = $latest_bid[0]["bidder_name"] . " just bid &#163;" . $latest_bid[0]["bidPrice"] . " for your item '" . $latest_bid[0]["itemName"] . "'";
-            } elseif ($row["userID"] === $prev_high_bidder) {
+            } elseif ($row["userID"] == $prev_high_bidder) {
                 $message = "You were just outbid! " . $latest_bid[0]["bidder_name"] . " just bid &#163;" . $latest_bid[0]["bidPrice"] . " for '" . $latest_bid[0]["itemName"] . "'";
             } else {
                 $message = $latest_bid[0]["bidder_name"] . " just bid &#163;" . $latest_bid[0]["bidPrice"] . " for '" . $latest_bid[0]["itemName"] . "'";
