@@ -1,4 +1,5 @@
 
+
 <?php include_once("header.php")?>
 <?php require("utilities.php")?>
 <?php include_once("mysql_connect.php")?>
@@ -24,9 +25,9 @@ header('Location: create_auction.php');
 //Check whether user has any existing listings, if not redirect to create_auction.php
 $sql2 = "SELECT * FROM auction_listing WHERE sellerUserID = '$sellerid' ORDER BY listingID desc";
 $result2 = SQLQuery($sql2);
-if (is_null($result2)) { ?>
-<h2>You have to create an auction listing before you're able to view it!</h2>
-<h3><a href="create_auction.php"> Click here to list an item!</a></h3>
+if (empty($result2)) { ?>
+<h3>You have to create an auction listing before you're able to view it!</h3>
+<h4><a href="create_auction.php"> Click here to list an item!</a></h4>
 <?php die(); } ?>
 
 
