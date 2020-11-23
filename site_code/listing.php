@@ -3,9 +3,9 @@
 require_once("utilities.php");
 require_once("mysql_connect.php");
 require_once("debug.php");
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 ?>
 
 
@@ -224,6 +224,7 @@ $watching = false;
         console.log(typeof("bidplaced"));
         if (status==="bidplaced") {
           console.log("Yay");
+          bidNotification();  // on bidplaced success, run notification generation for all users on item watchlist
         } else if (status=="login") {
           // if bid is too small popover warning to bid
           console.log("nay");
@@ -280,6 +281,7 @@ $watching = false;
           // Callback function for when call is successful and returns obj
           console.log("Success");
           var objT = obj.trim();
+          console.log(objT);
 
           if (objT == "success") {
             $("#watch_nowatch").hide();
