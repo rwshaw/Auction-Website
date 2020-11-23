@@ -94,6 +94,7 @@
     }
   }
 
+
   // store logged_in_user's bid for similarity analysis later
     // initialise emtpy array to store user bids 
   $logged_in_user_bids = array();
@@ -102,14 +103,55 @@
       // store their bid preferences in logged_in_user_bids
     $logged_in_user_bids[] = $matrix[$user_id];
   }
+    // make sure bid preferences are first thing to come up 
+  $user_bid_preferences = $logged_in_user_bids[0];
+  // FOR TESTING
+  // print_r($user_bid_preferences);
 
-  // if user in matrix is not logged in user, store bid in 
+
+  // stored other user's bid preferences and conduct similarity analysis 
+    // 
+  $similarity_score = array();
+    // extract users from matrix 
+  $matrix_user_ids = array_keys($matrix);
+                // FOR TESTING
+                // print_r($matrix_user_ids); echo "<br>";
+    // loop through users
+  foreach ($matrix_user_ids as $user_ids) {
+      // initialie empty array to store other user's bids before checking a user 
+    $other_user_bids = array();
+      // check if user is logged in user 
+    if ($user_ids != $user_id) {
+        // if not logged in user, store the current user's preferences in other_user_bids
+      $other_user_bids[] = $matrix[$user_ids];
+        // make sure bid preferences are first thing to come up 
+      $other_users_bid_preferences = $other_user_bids[0];
+        // get similarity score for user and store in similarity_score
+      $similarity_score = getSimilarity($user_bid_preferences, $other_users_bid_preferences);
+    }
+  }
 
 
+  
 
   // FOR TESTING
   echo "<br>"; echo '<pre>'; print_r($matrix); echo '</pre>'; 
 
+
+  // function to calculate jaccard similarity = (array_a Intersection array_b)/(array_a Union array_b)
+  function getSimilarity($users_preferences, $others_preferences) {
+    // FOR TESTING
+    print_r($users_preferences); echo "<br>";
+    print_r($others_preferences); echo "<br>";
+
+    $intersection = array_intersect_key($users_preferences, $others_preferences);
+    echo "this is the intersection: "; print_r($intersection); echo "<br>";
+
+    $union = array_unique(array_merge($users_preferences, $others_preferences));
+    echo "this is the union: "; print_r($union); echo "<br><br>";
+
+
+  }
 
 
 ?>
