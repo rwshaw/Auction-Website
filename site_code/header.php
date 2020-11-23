@@ -56,28 +56,28 @@ error_reporting(E_ALL);
 </nav>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <ul class="navbar-nav align-middle">
-	<li class="nav-item mx-1">
+  <li class="nav-item mx-1">
       <a class="nav-link" href="browse.php">Browse</a>
     </li>
 <?php
-  if (isset($_SESSION['account_type']) && $_SESSION['account_type'] == 'buyer') {
+  if (isset($_SESSION['account_type'])) {
   echo('
-	<li class="nav-item mx-1">
+  <li class="nav-item mx-1">
       <a class="nav-link" href="mybids.php">My Bids</a>
     </li>
-	<li class="nav-item mx-1">
+  <li class="nav-item mx-1">
       <a class="nav-link" href="recommendations.php">Recommended</a>
     </li>
     <li class="nav-item mx-1">
       <a class="nav-link" href="my_watchlist.php">My Watchlist</a>
     </li>
     <li class="nav-item ml-3">
-      <a class="nav-link btn border-light" href="create_auction.php">+ Create auction</a>
+      <a class="nav-link btn border-light" href="create_auction.php">+ Create Auction</a>
     </li>');
   }
   if (isset($_SESSION['account_type']) && $_SESSION['account_type'] == 'seller') {
   echo('
-	<li class="nav-item mx-1">
+  <li class="nav-item mx-1">
       <a class="nav-link" href="mylistings.php">My Listings</a>
     </li>');
   }

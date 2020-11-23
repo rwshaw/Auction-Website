@@ -58,7 +58,18 @@ if (isset($_POST['login_user'])) {
       }
       $_SESSION['logged_in'] = true;
       $_SESSION['user_id'] = $user_id;
-      $_SESSION['account_type'] = "buyer";
+
+      $user_status = ($user["seller"]);
+      switch ($user_status) {
+      	case "1":
+      		$_SESSION['account_type'] = "seller";
+      		break;
+
+      	case "0":
+      		$_SESSION['account_type'] = "buyer";     		
+      		break;	
+       } 
+
 
       // redirect 
       echo "You are now logged in! You will be redirected shortly.";
