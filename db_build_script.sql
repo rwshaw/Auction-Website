@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS auction_listing;
 DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS bids;
 DROP TABLE IF EXISTS watchlist; 
+DROP TABLE IF EXISTS watch_notifications; 
 
 -- TABLE NAMES ARE LOWER CASE PER MYSQL CONVENTIONS WITH SPACE REPLACED WITH _
 
@@ -175,8 +176,7 @@ FROM users where email = 'john.doe@ourauctionsite.com'
 
 INSERT INTO auctionsite.bids (userID, listingID, bidPrice)
 SELECT 2, listingID, 110
-from auction_listing 
-where listingID=1;
+from auction_listing where listingID=1;
 
 INSERT INTO auctionsite.bids (userID, listingID, bidPrice)
 SELECT 2, listingID, 150.33
@@ -193,3 +193,11 @@ from auction_listing where listingID=2;
 INSERT INTO auctionsite.bids (userID, listingID, bidPrice)
 SELECT 1, listingID, 1000.99
 from auction_listing where listingID=3;
+
+INSERT INTO auctionsite.bids (userID, listingID, bidPrice)
+SELECT 1, listingID, 33
+from auction_listing where listingID=2;
+
+INSERT INTO auctionsite.bids (userID, listingID, bidPrice)
+SELECT 1, listingID, 250
+from auction_listing where listingID=1;

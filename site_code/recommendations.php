@@ -16,102 +16,87 @@
   // open connection to database
   $db = OpenDbConnection(); 
 
-  // Retrieve all bids the user has made 
+  // Check if the user is already logged in, if yes then redirect him to welcome page
+  if(!isset($_SESSION["logged_in"]) && !$_SESSION["logged_in"] === true) {
+    header("location: browse.php"); 
+    exit; 
+  }
+
     // get user id of logged-in user 
   $user_id = '1';
-  echo $user_id;
+  echo "user_id: " . $user_id . "<br><br>";
   // $user_id = $_SESSION['user_id']; 
   // echo $_SESSION['user_id']; 
 
-    // prepare sql statement
-  $all_user_bids_query = $db->prepare("SELECT bidID FROM bids where userID=?");
-    // bind parameters
-  $all_user_bids_query->bind_param("s",$user_id); 
-    // execute prepared statement 
-  $all_user_bids_query->execute();
-    // retrieve result
-  $result = $all_user_bids_query->get_result(); 
-    // fetch as associative array 
-  // $user_bids = $result->fetch_assoc();
+  // initialie matrix and user array 
+  $matrix = array();
+  $user_array = array();
+  $listing_array = array();
 
-  while ($user_bids = $result->fetch_assoc()) {
-    echo '<pre>'; print_r($user_bids); echo '</pre>';
+  // retrieve all users
+    // prepare query 
+  $all_users_query = $db->prepare("SELECT userID FROM users"); 
+    // execute prepared statement 
+  $all_users_query->execute();
+    // retrieve result
+  $all_users = $all_users_query->get_result();    
+    // fetch all results
+  while ($users = $all_users->fetch_array(MYSQLI_ASSOC)) {
+      // loop through results 
+    foreach ($users as $user) {
+        // add users to user_array 
+      $user_array[] = $user;
+    } 
   }
 
+  // retrieve all listings 
+    // prepare query
+  $all_listings_query = $db->prepare("SELECT listingID FROM auction_listing");
+    // execute result
+  $all_listings_query->execute();
+    // retrieve results 
+  $all_listings = $all_listings_query->get_result(); 
+    // fetch all listings 
+  while ($listings = $all_listings->fetch_array(MYSQLI_ASSOC)) {
+      // loop over all listings  
+    foreach ($listings as $listing) {
+        // add users to listing_array
+      $listing_array[] = $listing;
+    }
+  }
   
+  // fill matrix with bid preferences of users who bidded on listings 
+    // loop over all users
+  foreach ($user_array as $user_value) {
+      // loop over all listings 
+    foreach ($listing_array as $listing_value) {
 
-  // $row = $result->fetch_array(MYSQLI_NUM);
+      // retrieve bid preference of user  
+        // prepare query
+      $check_user_bid_query = $db->prepare("SELECT DISTINCT listingID FROM bids WHERE userID=? AND listingID=?");
+        // bind parameters
+      $check_user_bid_query->bind_param("ss", $user_value, $listing_value);
+        // execute result
+      $check_user_bid_query->execute();
+        // retrieve results
+      $check_user_bid = $check_user_bid_query->get_result();
+        // fetch array
+      $user_bid = $check_user_bid->fetch_assoc();
 
+      // check whether bid preference was returned or note (i.e. if user made a bid on this listing or not)
+        // if user didn't bid on this particular listing, insert 0 into matrix 
+      if (is_null($user_bid)) {
+        $matrix[$user_value][$listing_value] = "0";
+      } 
+      else { // else if user did bid, insert 1
+        $matrix[$user_value][$listing_value] = "1";
+      }
+    }
+  }
 
-  // $check_user_query->bind_param("s",$email);   
-  //   // execute prepared statement 
-  // $check_user_query->execute(); 
-  //   // retrieve result
-  // $result = $check_user_query->get_result(); 
-  //   // fetch as associative array
-  // $user = $result->fetch_assoc();
-  //   // check if user exists with this email address
-  // if ($user && $user['email'] == $email) { // if user does exist, redirect back to registration
-
-?>
-
-<?php  
-
-  // This page is for showing a buyer recommended items based on their bid 
-  // history. It will be pretty similar to browse.php, except there is no 
-  // search bar. This can be started after browse.php is working with a database.
-  // Feel free to extract out useful functions from browse.php and put them in
-  // the shared "utilities.php" where they can be shared by multiple files.
-  
-  
-  // TODO: Check user's credentials (cookie/session).
-  
-  // TODO: Perform a query to pull up auctions they might be interested in.
-  
-  // TODO: Loop through results and print them out as list items.
-
-
-
-  // MY NOTES
-
-  // Definition: In the context of recommendation systems, collaborative filtering is a method of making predictions about the interests of user by analysing the taste of users which are similar to the said user. The idea of filtering patterns by collaborating multiple viewpoints is why it is called collaborative filtering.
-        // https://www.youtube.com/watch?v=6mGMBipt7kU
-
-	// Brief: Buyers can receive recommendations for items to bid on based on collaborative filtering (i.e., ‘you might want to bid on the sorts of things other people, who have also bid on the sorts of things you have previously bid on, are currently bidding on).
-    // so find users with similar bidding histories to the current user, see what they are bidding on right now, reccomend those items to the user. (i.e. based on preference of similar bidders)
-
-  // 3 types of reccomendation: 
-    // user based
-      // historical preferences in terms of views, watchlists, etc. 
-        // assumes historical preferences are a good signal for future preferences 
-        // measured by explicit ratings (e.g. likes) or implicit (views, clicks, purchase records)
-    // Nearest neighbourhood algorithm using Person correlation or cosine similarity       
-    // item based
-      // 
-    // content based 
-      // can use product categories
-
-	// at bottom of homepage, reccomend items based on: 
-    // 1) most popular items - the ones that are currently being bid on by other users with similar bidding histories to the currrent user. 
-    // 2) most popular items by viewing traffic; i.e. items which have received a lot of views by all users across the site
-    // 3) similarity analysis based on the current user's viewing history and other user's viewing history
-
-	// at bottom of auction page, reccomend items based on: 
-	   // 1) items in the same category 
-     // 2) watchlist-ability - items watchlisted by other users who have also watchlisted this item
+  // FOR TESTING
+  echo "<br>"; echo '<pre>'; print_r($matrix); echo '</pre>'; 
 
 
-  // get list of bidders who bid for the same items as the user 
-    // SELECT items user bid on 
-    // SELECT bidders who bid on that item (excluding the user)
-  // find all items those bidders bid on. 
-    // SELECT all bids 
-  // find items those bidders have bid on which are still live and the current user hasnt bid on 
-    // order by the highest number of bids 
-  // display the top 10 item not bidded on by the user 
 
-
-  
-
-  
 ?>
