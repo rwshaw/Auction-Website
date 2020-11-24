@@ -2,18 +2,21 @@
 <?php include_once("mysql_connect.php")?>
 <?php include_once("utilities.php")?> 
 
-<div class="container">
-<b>Before you can create an auction, it is necessary to update your account with the correct selling privileges. Please check the box to get authorisation!</b>
-</div>
 
 <?php
 $connect = OpenDbConnection(); 
 $user_id = $_SESSION['user_id'];
 ?>
 
-<div class="container">
+<div class="container m-5 p-5">
+<b>Before you can create an auction, it is necessary to update your account with the correct selling privileges. Please check the box to get authorisation!</b>
 <form method="post" action="">
-<input type="checkbox" name="sellauth" value="authorisation"> Seller Authorisation
+    <div class="form-check p-2 m-3">
+<input class="form-check-input" type="checkbox" id="chkbox1" name="sellauth" value="authorisation"> Seller Authorisation
+<small class="form-text text-muted">
+  I agree to become a seller on AuctionXpress, and hereby agree to the terms and conditions.
+</small>
+</div>
 <button type="submit" class="btn btn-primary form-control" name="submit">Submit</button>
 </div>
 
