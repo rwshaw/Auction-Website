@@ -77,9 +77,9 @@ $stmt->execute();
 
 <div class='fullscreenDiv'>
 	<br>
-    <div style="center"><big>Auction successfully created!<a href="mylistings.php"> View your new listing.</a></big></div>
+    <div style="text-align:center;"><big>Auction successfully created!<a href="mylistings.php"> View your new listing.</a></big></div>
     <br>
-     <div style="center"><big><a href="create_auction.php">Or list another item!</a></big></div>
+     <div style="text-align:center;"><big><a href="create_auction.php">Or list another item!</a></big></div>
 </div>​
 
 
