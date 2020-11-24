@@ -100,6 +100,9 @@ error_reporting(E_ALL);
   else {
     $category = $_GET['cat'];
     if ($category != '') {
+      if ($category == "Sport") {
+        $category = "Sport & Leisure";
+      }
       $where_conditions[] = "AND deptName = '" . $category . "'";
     }
     }
