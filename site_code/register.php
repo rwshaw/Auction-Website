@@ -152,7 +152,7 @@ ini_set('display_errors', '1');
     if (empty($fnameErr) && empty($lnameErr) && empty($addressLine1Err) && empty($cityErr) && empty($postCodeErr) && empty($emailErr) && empty($passwordErr) && empty($passwordConfirmationErr)) {
 
       // import sql connection script
-      require_once('mysql_connect.php'); 
+      require_once('../mysql_connect.php'); 
 
       // open connection to database
       $db = OpenDbConnection(); 

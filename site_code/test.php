@@ -4,7 +4,7 @@
       ini_set('display_errors', '1');
 
       // import sql connection script
-      require_once('mysql_connect.php'); 
+      require_once('../mysql_connect.php'); 
 
       // open connection to database
       $db = OpenDbConnection(); 

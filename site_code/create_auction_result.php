@@ -1,5 +1,5 @@
 <?php include_once("header.php")?>
-<?php include_once("mysql_connect.php")?>
+<?php include_once("../mysql_connect.php")?>
 <?php //session_start();?>
 <div class="container my-5">
 

@@ -1,4 +1,4 @@
-<?php require_once("mysql_connect.php");
+<?php require_once("../mysql_connect.php");
 require_once("debug.php");
 require_once("utilities.php");
 ?> 

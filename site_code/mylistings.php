@@ -2,7 +2,7 @@
 
 <?php include_once("header.php")?>
 <?php require("utilities.php")?>
-<?php include_once("mysql_connect.php")?>
+<?php include_once("../mysql_connect.php")?>
 <?php  //session_start(); ?>
 <?php
 

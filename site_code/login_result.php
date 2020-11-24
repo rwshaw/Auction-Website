@@ -20,7 +20,7 @@ $password = " ";
 if (isset($_POST['login_user'])) {
 
   // import sql connect page
-  require_once('mysql_connect.php'); 
+  require_once('../mysql_connect.php'); 
 
   // open connection to database
   $db = OpenDbConnection(); 
