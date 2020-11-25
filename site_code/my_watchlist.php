@@ -88,18 +88,31 @@ $show_notif_result = SQLQuery($show_notif_query);
 function print_notifs($notif_array)
 {
     foreach ($notif_array as $row) {
-        $html =  "<div class=\"alert alert-info alert-dismissible fade show\" role=\"alert\">
-        <small class=\"text-muted\">" . $row["bidTimestamp"] . "</small><br><strong>Watchlist Update!</strong><a href=\"listing.php?item_id=" . $row["listingID"] .
+        $html = "<div class=\"toast fade\"  role=\"alert\" aria-live=\"assertive\" aria-atomic=\"true\" data-autohide=\"false\" data-animation=\"true\">
+      <div class=\"toast-header\">
+      <i class=\"fa fa-bell p-1\" aria-hidden=\"true\"></i>
+        <strong class=\"mr-auto\">Watchlist Update!</strong>
+        <small class=\"text-muted\">" . $row["bidTimestamp"] . "</small>
+        <button type=\"button\" class=\"ml-2 mb-1 close\" data-dismiss=\"toast\" aria-label=\"Close\">
+          <span aria-hidden=\"true\">&times;</span>
+        </button>
+      </div>
+      <div class=\"toast-body\">
+      <a href=\"listing.php?item_id=" . $row["listingID"] .
             "\"> " . $row["message"] . "</a>
-             <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
-                <span aria-hidden=\"true\">&times;</span>
-            </button>
-        </div>";
+      </div>
+    </div>";
         echo $html;
     }
 }
 
+
 ?>
+
+<div class="custom-control custom-switch push-left" style="position:fixed; bottom: 15; left: 15;">
+  <input type="checkbox" class="custom-control-input" id="dark-toggle" onclick="darkMode()">
+  <label class="custom-control-label" for="dark-toggle">Dark Mode</label>
+</div>
 
 <div class="container mb-5">
     <div class="row d-flex justify-content-between" id="topstats">
@@ -169,7 +182,7 @@ function print_notifs($notif_array)
             <h2>Notifications</h2>
             Notification messages for bid updates go here!
 
-            <div class="p-3">
+            <div class="p-3" id="notifs">
                 <?php
                 //  insert notifs here
                 print_notifs($show_notif_result);
@@ -192,11 +205,18 @@ function print_notifs($notif_array)
 
 
 <script>
+
+    function darkMode() {
+        const pagebody = document.body;
+        pagebody.classList.toggle("dark-mode");
+    }
+
     // JavaScript functions: updateBids
 
     // update the bid tables for all items in watchlist.
 
     $(document).ready(function() {
+        $('.toast').toast('show');
         updateBids();
         setInterval(updateBids, 3000);
     });

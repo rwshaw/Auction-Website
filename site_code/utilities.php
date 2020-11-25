@@ -147,7 +147,7 @@ function print_watchlist_listing($item_id, $title, $desc, $price, $num_bids, $en
       <small id=catTree class="text-muted font-italic">
       ' . $category . ' -> ' . $subcategory . '
     </small>
-      </h5> ' . $desc_shortened . '<br>' . $time_remaining . '
+      </h5><span class="text-dark"> ' . $desc_shortened . '<br>' . $time_remaining . '</span>
       </div>
       <div class="col-5" >
       <table class="table table-dark table-striped table-hover table-sm table-borderless" id="' . $item_id . '">
