@@ -22,7 +22,7 @@ require_once("debug.php");
 $item_id = $_GET['item_id'];
 $con = OpenDbConnection();
 $stmt = $con->prepare("SELECT * FROM auction_listing WHERE listingID=?");
-$stmt->bind_param("i",$item_id);
+$stmt->bind_param("i", $item_id);
 $stmt->execute();
 $get_mysql = $stmt->get_result();
 $result = $get_mysql->fetch_assoc();
@@ -31,7 +31,7 @@ CloseDbConnection($con);
 
 $end_time = new DateTime($result['endTime']);
 $now = new DateTime();
-$endtimestamp= $end_time->format('Y-m-d H:i:s');
+$endtimestamp = $end_time->format('Y-m-d H:i:s');
 
 $item_id = $result['listingID'];
 $title = $result['itemName'];
@@ -39,14 +39,14 @@ $description = $result['itemDescription'];
 $imageurl = $result['itemImage'];
 
 //will always return the highest bid during and after auction
-$maxprice = "SELECT MAX(bidPrice) as currentPrice, userID FROM bids WHERE (listingID='$item_id' AND bidTimestamp<'$endtimestamp')";
+$maxprice = "SELECT bidPrice as currentPrice, userID FROM bids WHERE (listingID=$item_id) order by bidID desc";
 $highest_bid = SQLQuery($maxprice);
 //error_log( print_r($highest_bid[0]['currentPrice'], TRUE) );
 $current_price = $highest_bid[0]['currentPrice'];
 $highest_bidder = $highest_bid[0]['userID'];
 error_log($current_price);
 // test if the user has bid on and item returns 1 for bid and 0 for no bid 
-if (array_key_exists('logged_in',$_SESSION) && $_SESSION['logged_in'] == true) {
+if (array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in'] == true) {
   $userID = $_SESSION['user_id'];
   $query = "SELECT count(1) FROM bids WHERE (userID='$userID' AND listingID='$item_id')";
   $bidstatus = SQLQuery($query);
@@ -136,18 +136,19 @@ $watching = false;
             Bidding has ended, the winning bid was: £<?php echo ($current_price); ?>
           </div>
           <?php if (isset($bidstatus)) : ?>
-            <?php if ($userID==$highest_bidder) : ?>
+            <?php if ($userID == $highest_bidder) : ?>
               <div class="row">
-              You won this auction!
+                You won this auction!
               </div>
             <?php else : ?>
               You were outbid!
-              <?php endif ?> 
-          <?php endif ?>    
+            <?php endif ?>
+          <?php endif ?>
         <?php else : ?>
-          Auction ends <?php echo (date_format($end_time, 'j M H:i') . $time_remaining) ?></p>
-      <p class="lead" id="latestbid"></p>
-
+          Auction ends <?php echo (date_format($end_time, 'j M H:i') . $time_remaining) ?>
+        </p>
+          <p class="lead" id="latestbid"></p>
+          <?=console_log("I'm in last ELSE");?>
       <!-- Bidding form -->
       <form method="POST" action="place_bid.php">
         <div class="input-group">
@@ -156,7 +157,7 @@ $watching = false;
           </div>
           <input type="number" class="form-control" id="bid" data-toggle="popover" data-placement="left" data-content="Please enter a bid higher than the current bid">
         </div>
-        <button type="button" class="btn btn-primary form-control" onclick="placeBid()" >Place bid</button>
+        <button type="button" class="btn btn-primary form-control" onclick="placeBid()">Place bid</button>
       </form>
     <?php endif ?>
 
@@ -165,7 +166,9 @@ $watching = false;
   </div>
 </div> <!-- End of row #2 -->
 
-  </div> <!-- End of row #2 -->
+</div> <!-- End of row #2 -->
+
+<?=console_log($maxprice);?>
 
 
 <?php include_once("footer.php") ?>
@@ -173,7 +176,13 @@ $watching = false;
 <script>
   // Make Ajax call to get latest bids
   // on success empty table, repopulate with 10 latets bids. Add extra html /css to show your bid, winning bid
-  $(document).ready(function bidUpdater() {
+  $(document).ready(function() {
+    bidUpdater();
+    setInterval(bidUpdater, 3000);
+  });
+
+
+  function bidUpdater() {
     $.ajax("priceupdate.php", {
       type: "POST",
       data: {
@@ -182,202 +191,200 @@ $watching = false;
       },
 
       success: function(htmlResult) {
-        
-        //console.log(htmlResult);
+
+        console.log(htmlResult);
         $("#latestbid").html("Current Price: £".concat(htmlResult));
-        setTimeout(bidUpdater(), 3000);
+        // setTimeout(bidUpdater(), 3000);
         // if all looks ok, update the DOM to show latest data feed. jQuery
         // $(#table). empty
         // $(#table). repopualte with new html order by bidID desc
+      },
+      error: function(obj, textstatus) {
+        console.log("Error");
       }
     });
-  })
-
-
-
-
+  }
 
 
   function placeBid(button) {
-    console.log("These print statements are helpful for debugging btw");
     var bid = document.getElementById("bid").value;
-    console.log(bid); 
+    console.log(bid);
     // This performs an asynchronous call to a PHP function using POST method.
     // Sends item ID as an argument to that function.
-    
+
     $.ajax('place_bid.php', {
       type: "POST",
       dataType: "text",
       data: {
         functionname: 'place_bid',
-        arguments: [<?php echo ($item_id); ?>,bid]
-        
+        arguments: [<?php echo ($item_id); ?>, bid]
+
       },
 
       success: function(text) {
         // Callback function for when call is successful and returns obj
-        console.log("RAN PLACEBID SUCCESS");
-        
+        console.log("RAN SUCCESS");
+
         var status = text.trim();
         console.log(status);
         console.log(typeof(status));
         console.log(typeof("bidplaced"));
-        if (status==="bidplaced") {
+        if (status === "bidplaced") {
           console.log("Yay");
           $("#watchclick").click();
-          bidNotification();  // on bidplaced success, run notification generation for all users on item watchlist
-        } else if (status=="login") {
+          bidNotification(); // on bidplaced success, run notification generation for all users on item watchlist
+        } else if (status == "login") {
           // if bid is too small popover warning to bid
           console.log("nay");
           $("#loginpopup").click();
           //$('#bid').popover('show');
           //setTimeout(function() {$('#bid').popover('dispose');}, 5000);
-        }
-        else {
+        } else {
           $('#bid').popover('show');
-          setTimeout(function() {$('#bid').popover('dispose');}, 5000);
+          setTimeout(function() {
+            $('#bid').popover('dispose');
+          }, 5000);
         }
       }
-    }
-    );
+    });
   }
 
-    // JavaScript functions: addToWatchlist and removeFromWatchlist.
+  // JavaScript functions: addToWatchlist and removeFromWatchlist.
 
-    // watchlist add success send email func
+  // watchlist add success send email func
 
-    function add_to_watch_success() {
-      $.ajax("watchlist_notifications.php", {
-        type: "POST",
-        data: {
-          functionname: 'add_watch_email',
-          arguments: [<?php echo ($item_id); ?>],
-          username: [<?php echo ($_SESSION['user_id']); ?>]
-        },
+  function add_to_watch_success() {
+    $.ajax("watchlist_notifications.php", {
+      type: "POST",
+      data: {
+        functionname: 'add_watch_email',
+        arguments: [<?php echo ($item_id); ?>],
+        username: [<?php echo ((isset($_SESSION['user_id'])) ? $_SESSION['user_id'] : null ); ?>]
+      },
 
-        success: function(obj, textstatus) {
-          console.log("Email sent");
-          var resObj = obj.trim();
-          console.log(resObj);
-        },
-        error: function(obj, textstatus) {
-          console.log("Error");
+      success: function(obj, textstatus) {
+        console.log("Email sent");
+        var resObj = obj.trim();
+        console.log(resObj);
+      },
+      error: function(obj, textstatus) {
+        console.log("Error");
+      }
+    });
+  }
+
+  function addToWatchlist(button) {
+
+    // This performs an asynchronous call to a PHP function using POST method.
+    // Sends item ID as an argument to that function.
+    $.ajax('watchlist_funcs.php', {
+      type: "POST",
+      data: {
+        functionname: 'add_to_watchlist',
+        arguments: [<?php echo ($item_id); ?>],
+        username: [<?php echo ((isset($_SESSION['user_id'])) ? $_SESSION['user_id'] : null ); ?>]
+      },
+
+      success: function(obj, textstatus) {
+        // Callback function for when call is successful and returns obj
+        console.log("Success");
+        var objT = obj.trim();
+        console.log(objT);
+
+        if (objT == "success") {
+          $("#watch_nowatch").hide();
+          $("#watch_watching").show();
+          // TODO call function to send email.
+          add_to_watch_success();
+        } else {
+          var mydiv = document.getElementById("watch_nowatch");
+          mydiv.appendChild(document.createElement("br"));
+          mydiv.appendChild(document.createTextNode("Add to watch failed. Try again later."));
         }
-      });
-    }
+      },
 
-    function addToWatchlist(button) {
+      error: function(obj, textstatus) {
+        console.log("Error");
+      }
+    }); // End of AJAX call
 
-      // This performs an asynchronous call to a PHP function using POST method.
-      // Sends item ID as an argument to that function.
-      $.ajax('watchlist_funcs.php', {
-        type: "POST",
-        data: {
-          functionname: 'add_to_watchlist',
-          arguments: [<?php echo ($item_id); ?>],
-          username: [<?php echo ($_SESSION['user_id']); ?>]
-        },
+  } // End of addToWatchlist func
 
-        success: function(obj, textstatus) {
-          // Callback function for when call is successful and returns obj
-          console.log("Success");
-          var objT = obj.trim();
-          console.log(objT);
+  // watchlist removal success send email func
+  function remove_from_watch_success() {
+    $.ajax("watchlist_notifications.php", {
+      type: "POST",
+      data: {
+        functionname: 'remove_watch_email',
+        arguments: [<?php echo ($item_id); ?>],
+        username: [<?php echo ((isset($_SESSION['user_id'])) ? $_SESSION['user_id'] : null ); ?>]
+      },
 
-          if (objT == "success") {
-            $("#watch_nowatch").hide();
-            $("#watch_watching").show();
-            // TODO call function to send email.
-            add_to_watch_success();
-          } else {
-            var mydiv = document.getElementById("watch_nowatch");
-            mydiv.appendChild(document.createElement("br"));
-            mydiv.appendChild(document.createTextNode("Add to watch failed. Try again later."));
-          }
-        },
+      success: function(obj, textstatus) {
+        console.log("Email sent");
+        var resObj = obj.trim();
+        console.log(resObj);
+      },
+      error: function(obj, textstatus) {
+        console.log("Error");
+      }
+    });
+  }
 
-        error: function(obj, textstatus) {
-          console.log("Error");
+  function removeFromWatchlist(button) {
+    // This performs an asynchronous call to a PHP function using POST method.
+    // Sends item ID as an argument to that function.
+    $.ajax('watchlist_funcs.php', {
+      type: "POST",
+      data: {
+        functionname: 'remove_from_watchlist',
+        arguments: [<?php echo ($item_id); ?>],
+        username: [<?php echo ((isset($_SESSION['user_id'])) ? $_SESSION['user_id'] : null ); ?>]
+      },
+
+      success: function(obj, textstatus) {
+        // Callback function for when call is successful and returns obj
+        console.log("Success");
+        var objT = obj.trim();
+
+        if (objT == "success") {
+          $("#watch_watching").hide();
+          $("#watch_nowatch").show();
+          // TODO call function to send email
+          remove_from_watch_success();
+        } else {
+          var mydiv = document.getElementById("watch_watching");
+          mydiv.appendChild(document.createElement("br"));
+          mydiv.appendChild(document.createTextNode("Watch removal failed. Try again later."));
         }
-      }); // End of AJAX call
+      },
 
-    } // End of addToWatchlist func
+      error: function(obj, textstatus) {
+        console.log("Error");
+      }
+    }); // End of AJAX call
 
-    // watchlist removal success send email func
-    function remove_from_watch_success() {
-      $.ajax("watchlist_notifications.php", {
-        type: "POST",
-        data: {
-          functionname: 'remove_watch_email',
-          arguments: [<?php echo ($item_id); ?>],
-          username: [<?php echo ($_SESSION['user_id']); ?>]
-        },
+  } // End of addToWatchlist func
 
-        success: function(obj, textstatus) {
-          console.log("Email sent");
-          var resObj = obj.trim();
-          console.log(resObj);
-        },
-        error: function(obj, textstatus) {
-          console.log("Error");
-        }
-      });
-    }
+  // Successful place bid results in notification generation for watchlist users.
+  // function to send item_id to watchlist_notifications.php to initiate notifications for latest bid.
+  function bidNotification() { // Should be implemented on success on place bid ajax call.
+    $.ajax("watchlist_notifications.php", {
+      type: "POST",
+      data: {
+        functionname: 'bid_notification',
+        arguments: [<?php echo ($item_id); ?>],
+        username: [<?php echo ((isset($_SESSION['user_id'])) ? $_SESSION['user_id'] : null ); ?>]
+      },
 
-    function removeFromWatchlist(button) {
-      // This performs an asynchronous call to a PHP function using POST method.
-      // Sends item ID as an argument to that function.
-      $.ajax('watchlist_funcs.php', {
-        type: "POST",
-        data: {
-          functionname: 'remove_from_watchlist',
-          arguments: [<?php echo ($item_id); ?>],
-          username: [<?php echo ($_SESSION['user_id']); ?>]
-        },
-
-        success: function(obj, textstatus) {
-          // Callback function for when call is successful and returns obj
-          console.log("Success");
-          var objT = obj.trim();
-
-          if (objT == "success") {
-            $("#watch_watching").hide();
-            $("#watch_nowatch").show();
-            // TODO call function to send email
-            remove_from_watch_success();
-          } else {
-            var mydiv = document.getElementById("watch_watching");
-            mydiv.appendChild(document.createElement("br"));
-            mydiv.appendChild(document.createTextNode("Watch removal failed. Try again later."));
-          }
-        },
-
-        error: function(obj, textstatus) {
-          console.log("Error");
-        }
-      }); // End of AJAX call
-
-    } // End of addToWatchlist func
-
-    // Successful place bid results in notification generation for watchlist users.
-    // function to send item_id to watchlist_notifications.php to initiate notifications for latest bid.
-    function bidNotification() { // Should be implemented on success on place bid ajax call.
-      $.ajax("watchlist_notifications.php", {
-        type: "POST",
-        data: {
-          functionname: 'bid_notification',
-          arguments: [<?php echo ($item_id); ?>],
-          username: [<?php echo ($_SESSION['user_id']); ?>]
-        },
-
-        success: function(obj, textstatus) {
-          // console.log("function returned success");
-          var resObj = obj.trim();
-          // console.log(resObj);
-        },
-        error: function(obj, textstatus) {
-          console.log("Error");
-        }
-      });
-    }
-  </script>
+      success: function(obj, textstatus) {
+        // console.log("function returned success");
+        var resObj = obj.trim();
+        // console.log(resObj);
+      },
+      error: function(obj, textstatus) {
+        console.log("Error");
+      }
+    });
+  }
+</script>
