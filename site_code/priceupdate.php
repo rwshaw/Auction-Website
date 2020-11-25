@@ -14,8 +14,8 @@ if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
 }
 
 // Extract arguments from the POST variables:
-$item_id = implode('',$_POST['arguments']); 
-
+$item_id = $_POST['arguments'][0]; 
+$startPrice = $_POST['arguments'][1]; 
 if ($_POST['functionname'] == "updateprice") {
   
 
@@ -26,7 +26,8 @@ if ($_POST['functionname'] == "updateprice") {
     $get_mysql = $stmt->get_result();
     $current_price = $get_mysql->fetch_assoc();
     $current_price = $current_price['currentPrice'];
-    $res=(number_format($current_price, 2));
+    $current_price=(number_format($current_price, 2));
+    $res = max($current_price,number_format($startPrice, 2));
     $stmt->close();
     CloseDbConnection($con);
     

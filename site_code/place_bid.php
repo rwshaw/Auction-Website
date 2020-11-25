@@ -33,6 +33,8 @@ if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
 
       $item_id = $results[0];
       $bidprice = $results[1];
+      $startprice = $results[2];
+
       error_log($user_id);
       $datetime = new DateTime();
       $timestamp= $datetime->format('Y-m-d H:i:s');
@@ -48,7 +50,7 @@ if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
       $stmt->close();
       CloseDbConnection($con);
 
-      if ($current_price < $bidprice) {
+      if (($current_price < $bidprice) && ($startprice < $bidprice)) {
         //prep statement to enter bid data if greater than current price
         $con = OpenDbConnection();
         $stmt = $con->prepare("INSERT INTO bids (userID,listingID,bidPrice,bidTimestamp) VALUES (?,?,?,'$timestamp')");

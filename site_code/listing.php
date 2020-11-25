@@ -37,7 +37,7 @@ $item_id = $result['listingID'];
 $title = $result['itemName'];
 $description = $result['itemDescription'];
 $imageurl = $result['itemImage'];
-
+$startprice = $result['startPrice'];
 //will always return the highest bid during and after auction
 $maxprice = "SELECT bidPrice as currentPrice, userID FROM bids WHERE (listingID=$item_id) order by bidID desc";
 $highest_bid = SQLQuery($maxprice);
@@ -192,7 +192,7 @@ if (array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in'] == true) 
       type: "POST",
       data: {
         functionname: "updateprice",
-        arguments: [<?php echo ($item_id); ?>]
+        arguments: [<?php echo ($item_id); ?>,<?php echo ($startprice); ?>]
       },
 
       success: function(htmlResult) {
@@ -222,7 +222,7 @@ if (array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in'] == true) 
       dataType: "text",
       data: {
         functionname: 'place_bid',
-        arguments: [<?php echo ($item_id); ?>, bid]
+        arguments: [<?php echo ($item_id); ?>, bid, <?php echo ($startprice); ?>]
 
       },
 
