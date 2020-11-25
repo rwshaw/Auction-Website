@@ -11,7 +11,6 @@ error_reporting(E_ALL);
 session_start();
 
 
-
 if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
     return;
   }
@@ -34,9 +33,11 @@ if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
       $item_id = $results[0];
       $bidprice = $results[1];
       $startprice = $results[2];
+      $endtime = $results[3];
+      
 
-      error_log($user_id);
       $datetime = new DateTime();
+      $nowtimestamp = date_timestamp_get($datetime);
       $timestamp= $datetime->format('Y-m-d H:i:s');
       //retrieve current price
       $con = OpenDbConnection();
@@ -50,7 +51,7 @@ if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
       $stmt->close();
       CloseDbConnection($con);
 
-      if (($current_price < $bidprice) && ($startprice < $bidprice)) {
+      if (($current_price < $bidprice) && ($startprice < $bidprice) && ($nowtimestamp<$endtime)) {
         //prep statement to enter bid data if greater than current price
         $con = OpenDbConnection();
         $stmt = $con->prepare("INSERT INTO bids (userID,listingID,bidPrice,bidTimestamp) VALUES (?,?,?,'$timestamp')");

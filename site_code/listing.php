@@ -31,8 +31,8 @@ CloseDbConnection($con);
 
 $end_time = new DateTime($result['endTime']);
 $now = new DateTime();
-$endtimestamp = $end_time->format('Y-m-d H:i:s');
-
+$endtimestamp=date_timestamp_get($end_time);
+$seller_id = $result['sellerUserID'];
 $item_id = $result['listingID'];
 $title = $result['itemName'];
 $description = $result['itemDescription'];
@@ -156,7 +156,9 @@ if (array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in'] == true) 
         </p>
           <p class="lead" id="latestbid"></p>
           <?=console_log("I'm in last ELSE");?>
-      <!-- Bidding form -->
+      <!-- Show bidding Bidding form if logged out or not the seller otherwise hide -->
+          
+    <?php if (!isset($_SESSION['user_id']) || ($_SESSION['user_id']!=$seller_id)) : ?>
       <form method="POST" action="place_bid.php">
         <div class="input-group">
           <div class="input-group-prepend">
@@ -166,6 +168,7 @@ if (array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in'] == true) 
         </div>
         <button type="button" class="btn btn-primary form-control" onclick="placeBid()">Place bid</button>
       </form>
+      <?php endif ?>
     <?php endif ?>
 
 
@@ -183,6 +186,7 @@ if (array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in'] == true) 
 <script>
   // Make Ajax call to get latest bids
   // on success empty table, repopulate with 10 latets bids. Add extra html /css to show your bid, winning bid
+
   $(document).ready(function() {
     bidUpdater();
     setInterval(bidUpdater, 3000);
@@ -224,7 +228,7 @@ if (array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in'] == true) 
       dataType: "text",
       data: {
         functionname: 'place_bid',
-        arguments: [<?php echo ($item_id); ?>, bid, <?php echo ($startprice); ?>]
+        arguments: [<?php echo ($item_id); ?>, bid, <?php echo ($startprice); ?>, <?php echo ($endtimestamp); ?>]
 
       },
 
@@ -239,6 +243,7 @@ if (array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in'] == true) 
         if (status === "bidplaced") {
           console.log("Yay");
           $("#watchclick").click();
+          bidUpdater();
           bidNotification(); // on bidplaced success, run notification generation for all users on item watchlist
         } else if (status == "login") {
           // if bid is too small popover warning to bid
