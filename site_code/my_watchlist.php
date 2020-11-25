@@ -57,8 +57,8 @@ $num_wins_result = $num_wins[0]["num_wins"];
 
 //Items you're watching
 //Need Item details + last 3 bids
-// get items that are being watched.
-$watchied_items_query = "SELECT a.listingID, ItemName, ItemDescription, ifnull(max(bidPrice),startPrice) as currentPrice, count(bidID) as num_bids, endTime, c.deptName, c.subCategoryName 
+// get items that are being watched. Via AJAX script we will request bid details for that item.
+$watched_items_query = "SELECT a.listingID, ItemName, ItemDescription, ifnull(max(bidPrice),startPrice) as currentPrice, count(bidID) as num_bids, endTime, c.deptName, c.subCategoryName 
                         from auction_listing a
                         left join bids b on a.listingID = b.listingID 
                         left join categories c on a.categoryID = c.categoryID 
@@ -68,13 +68,13 @@ $watchied_items_query = "SELECT a.listingID, ItemName, ItemDescription, ifnull(m
                         where endTime > now() 
                         group by a.listingID, a.ItemName, a.ItemDescription, a.endTime, c.deptName, c.subCategoryName
                         order by endTime asc";
-$watched_items = SQLQuery($watchied_items_query);
-$watched_items_array = array(); // create empty array to story items, to pass to bidupdate function in script.
-// this will be printed below.
+$watched_items = SQLQuery($watched_items_query);
+$watched_items_array = array(); // create empty array to store itemID, to pass to bidupdate function in script.
+
 
 
 // Past 50 notifications
-$show_notif_query = "select message, wl.listingID, b.bidTimestamp from watch_notifications w 
+$show_notif_query = "SELECT message, wl.listingID, b.bidTimestamp from watch_notifications w 
                         inner join watchlist wl
                         on w.watchID = wl.watchID
                         and wl.userID = $userid
