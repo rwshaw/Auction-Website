@@ -36,6 +36,7 @@ $seller_id = $result['sellerUserID'];
 $item_id = $result['listingID'];
 $title = $result['itemName'];
 $description = $result['itemDescription'];
+$reserveprice=$result['reservePrice'];
 $imageurl = $result['itemImage'];
 $startprice = $result['startPrice'];
 //will always return the highest bid during and after auction
@@ -145,10 +146,10 @@ if (array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in'] == true) 
           <?php if (isset($bidstatus)) : ?>
             <?php if ($userID == $highest_bidder) : ?>
               <div class="row">
-                You won this auction!
+              You won this auction!
               </div>
             <?php else : ?>
-              You were outbid!
+              You did not win this auction
             <?php endif ?>
           <?php endif ?>
         <?php else : ?>
@@ -156,6 +157,8 @@ if (array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in'] == true) 
         </p>
           <p class="lead" id="latestbid"></p>
           <?=console_log("I'm in last ELSE");?>
+          <small class="text-muted">Reserve price: <?php echo ($reserveprice); ?></small>
+          
       <!-- Show bidding Bidding form if logged out or not the seller otherwise hide -->
           
     <?php if (!isset($_SESSION['user_id']) || ($_SESSION['user_id']!=$seller_id)) : ?>
