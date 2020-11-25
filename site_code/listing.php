@@ -79,6 +79,8 @@ if (array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in'] == true) 
   $has_session = isset($_SESSION);
   $query = "SELECT isWatching FROM watchlist WHERE (userID='$userID' AND listingID='$item_id')";
   $watching = SQLQuery($query);
+  $watching = $watching[0]['isWatching'];
+  
 }
 ?>
 
@@ -97,7 +99,7 @@ if (array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in'] == true) 
      just as easily use PHP as in other places in the code */
         if (($now < $end_time) && (isset($_SESSION['user_id']))) :
         ?>
-          <div id="watch_nowatch" <?php if ($has_session && $watching) echo ('style="display: none"'); ?>>
+          <div id="watch_nowatch" <?php if ($has_session && $watching==true) echo ('style="display: none"'); ?>>
             <button id="watchclick" type="button" class="btn btn-outline-secondary btn-sm" onclick="addToWatchlist()">+ Add to watchlist</button>
           </div>
           <div id="watch_watching" <?php if (!$has_session || !$watching) echo ('style="display: none"'); ?>>
