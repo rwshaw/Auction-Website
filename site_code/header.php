@@ -26,7 +26,7 @@ error_reporting(E_ALL);
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <!-- Custom CSS file -->
-  <link rel="stylesheet" href="css/custom.css">
+  <link rel="stylesheet" href="css/my_custom.css">
 
   <title>AuctionXpress</title>
 </head>
