@@ -20,7 +20,7 @@ $userid = $_SESSION['user_id'];
 
 //Items you're watching
 
-$count_watched_query = "select count(watchID) as no_watched from watchlist w left join auction_listing using(listingID) where w.userID =$userid and isWatching = 1 and endTime>now()";
+$count_watched_query = "SELECT count(watchID) as no_watched from watchlist w left join auction_listing using(listingID) where w.userID =$userid and isWatching = 1 and endTime>now()";
 $count_watched = SQLQuery($count_watched_query);
 $count_watched_result = $count_watched[0]["no_watched"];
 

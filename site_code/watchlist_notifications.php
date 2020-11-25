@@ -71,11 +71,11 @@ require_once("utilities.php");
         //  otherwise "firstname" just bid on ItemNAme.
 
         //Start - execute queries to get relevant info to compare in order to build notification message for user.
-        $watchers_query = "Select userID, watchID from watchlist w
+        $watchers_query = "SELECT userID, watchID from watchlist w
                         where w.listingID =$item_id";
 
         // get latest bid info, by listing and bidder that placed the bid
-        $latest_bid_query = "select bidID, b.userID as bidder, u.fName as bidder_name, b.listingID, sellerUserID as sellerID, a.itemName, bidPrice, bidTimestamp
+        $latest_bid_query = "SELECT bidID, b.userID as bidder, u.fName as bidder_name, b.listingID, sellerUserID as sellerID, a.itemName, bidPrice, bidTimestamp
                             from bids b
                             left join auction_listing a
                             using(listingID)
@@ -90,9 +90,9 @@ require_once("utilities.php");
 
         // get bid ID to work out prev higest bidder
         // Since no lag or window functions in MySQL 5 - had to do some googling to be able to execute desired query in one query. Query was informed by this link - https://stackoverflow.com/questions/7100902/php-mysql-how-can-i-use-set-rank-0-in-query
-        $prev_bid_query1 = "select @rownum:=@rownum+1 as row_num, b.bidID 
+        $prev_bid_query1 = "SELECT @rownum:=@rownum+1 as row_num, b.bidID 
                         from bids b, (SELECT @rownum:=-1) r 
-                        where listingID = $item_id order by bidID asc"; //issue with lab bid!!!
+                        where listingID = $item_id order by bidID asc";
         $prev_bid_search = SQLQuery($prev_bid_query1);
         $max_row_num = end($prev_bid_search);
         $max_row_num_result = $max_row_num["row_num"]; // if this is 0 - then no previous high bidder.

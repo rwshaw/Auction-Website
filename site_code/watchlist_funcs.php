@@ -52,27 +52,9 @@ require_once("utilities.php");
       }
     }
 
-    // if ($res === "success") {
-    //   // Send email of successfull add to watchlist
-    //   // get item name
-    //   $item_name_query = "SELECT itemName FROM auction_listing WHERE listingID=$item_id";
-    //   $item_result = SQLQuery($item_name_query);
-    //   $itemName = $item_result[0]["itemName"];
+    // Send email now handled in main php file. On success of this function, ajax function will call another function to send the email.
 
-    //   // TODO create subject + html message.
-    //   $subject = "New item added to watchlist";
-
-    //   $message = "<html>
-    //   <h2>Great News!</h2>
-    //   <p><span style=\"color: #008000;\">$itemName</span> has been <span style=\"color: #008000;\">successfullly added to your watchlist</span>.</p>
-    //   <p>To see items you currently have in your watchlist, go to the 'My Watchlist' tab from the navigation bar.</p>
-    //   <p><em>Happy Buying!</em></p>
-    //   <p><em>The AuctionXpress Team</em></p></html>";
-
-    //   send_user_email($userid,$subject,$message);
-
-
-    // }
+ 
   } // REMOVE FROM WATCHLIST IF SUCCESS, SEND EMAIL.
   elseif ($_POST['functionname'] == "remove_from_watchlist") {
     // TODO: Update database and return success/failure.
@@ -96,25 +78,7 @@ require_once("utilities.php");
       //Do nothing for now. Other value could be returned to say user already not watching.
     }
 
-    // if ($res === "success") {
-    //   // Send email of successful removal from watchlist
-    //   // get item name
-    //   $item_name_query = "SELECT itemName FROM auction_listing WHERE listingID=$item_id";
-    //   $item_result = SQLQuery($item_name_query);
-    //   $itemName = $item_result[0]["itemName"];
-
-    //   // TODO create subject + html message.
-    //   $subject = "Item removed from watchlist";
-
-    //   $message = "<html>
-    //   <h2>That's all done!</h2>
-    //   <p><span style=\"color: #008000;\">$itemName</span> has been <span style=\"color: #008000;\">successfullly removed from your watchlist</span>.</p>
-    //   <p>To see items you currently have in your watchlist, go to the 'My Watchlist' tab from the navigation bar.</p>
-    //   <p><em>Happy Buying!</em></p>
-    //   <p><em>The AuctionXpress Team</em></p></html>";
-
-    //   send_user_email($userid,$subject,$message);
-    // }
+    // Send email now handled in main php file. On success of this function, ajax function will call another function to send the email.
 
 
   }
