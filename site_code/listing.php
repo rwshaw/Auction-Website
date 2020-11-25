@@ -71,10 +71,15 @@ if ($now < $end_time) {
 }
 
 // TODO: If the user has a session, use it to make a query to the database
-//       to determine if the user is already watching this item.
-//       For now, this is hardcoded.
-$has_session = true;
-$watching = false;
+//       
+//
+$has_session = false;
+if (array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in'] == true) {
+  $has_session = true;
+  $has_session = isset($_SESSION);
+  $query = "SELECT isWatching FROM watchlist WHERE (userID='$userID' AND listingID='$item_id')";
+  $watching = SQLQuery($query);
+}
 ?>
 
 <div class="container">
