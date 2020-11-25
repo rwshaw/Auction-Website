@@ -90,10 +90,10 @@ $watching = false;
         <?php
         /* The following watchlist functionality uses JavaScript, but could
      just as easily use PHP as in other places in the code */
-        if ($now < $end_time) :
+        if (($now < $end_time) && (isset($_SESSION['user_id']))) :
         ?>
           <div id="watch_nowatch" <?php if ($has_session && $watching) echo ('style="display: none"'); ?>>
-            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addToWatchlist()">+ Add to watchlist</button>
+            <button id="watchclick" type="button" class="btn btn-outline-secondary btn-sm" onclick="addToWatchlist()">+ Add to watchlist</button>
           </div>
           <div id="watch_watching" <?php if (!$has_session || !$watching) echo ('style="display: none"'); ?>>
             <button type="button" class="btn btn-success btn-sm" disabled>Watching</button>
@@ -224,6 +224,7 @@ $watching = false;
         console.log(typeof("bidplaced"));
         if (status==="bidplaced") {
           console.log("Yay");
+          $("#watchclick").click();
           bidNotification();  // on bidplaced success, run notification generation for all users on item watchlist
         } else if (status=="login") {
           // if bid is too small popover warning to bid
