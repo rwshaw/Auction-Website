@@ -65,7 +65,7 @@ $watched_items_query = "SELECT a.listingID, ItemName, ItemDescription, ifnull(ma
                         inner join watchlist w 
                         on w.listingID = a.listingID
                         and w.userID = $userid
-                        where endTime > now() 
+                        where endTime > now() and isWatching=1
                         group by a.listingID, a.ItemName, a.ItemDescription, a.endTime, c.deptName, c.subCategoryName
                         order by endTime asc";
 $watched_items = SQLQuery($watched_items_query);
