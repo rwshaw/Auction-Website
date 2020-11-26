@@ -2,3 +2,29 @@
     background-color: black;
     color: white;
 }
+
+.bottom-space {
+    margin-bottom: 100px;
+}
+
+.image-wrapper {
+    overflow: hidden;
+}
+
+.image-wrapper2 {
+    overflow: hidden;
+    height: 90%;
+    width: auto;
+}
+
+.item-image {
+    -webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .9s ease-in-out;
+    transition: .9s ease-in-out;
+    overflow: hidden;
+}
+.item-image:hover {
+	-webkit-transform: scale(1.3);
+    transform: scale(1.2);
+}
