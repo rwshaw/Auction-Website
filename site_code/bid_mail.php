@@ -10,7 +10,7 @@ function email_results() {
 
 
 
-    //get all listing ids
+    //get all listing ids could shange this to select endtimes just in the last minute and run every minute
     $query = "SELECT listingID, reservePrice, sellerUserID FROM auction_listing";
     $listings = SQLQuery($query);
 
@@ -26,12 +26,12 @@ function email_results() {
         $maxprice = SQLQuery("SELECT max(bidPrice) as maxbidprice FROM bids WHERE listingID='$listing_id'");
         
         if ($maxprice[0]['maxbidprice'] == null || $maxprice[0]['maxbidprice'] <= $reserve_price) {
-            //emailsellernotsold($sellerUserID);
+            emailsellernotsold($sellerUserID,$listing_id,$maxprice[0]['maxbidprice']);
             error_log("no_reserve");
             error_log($listing_id);
         }
         else {
-            //emailsellersold($sellerUserID,$maxprice);
+            emailsellersold($sellerUserID,$listing_id,$maxprice);
             $query = "SELECT max(bidPrice) as usermax,userID FROM bids WHERE (listingID=$listing_id) group by userID";
             $ordered_bids = SQLQuery($query);
            
@@ -40,14 +40,11 @@ function email_results() {
                 $usermax = $bid['usermax'];
 
                 if ($usermax == $maxprice[0]['maxbidprice']) {
-                    //emailwinner();
-                    error_log("winner");
-                    error_log($listing_id);
-                } else {
+                    error_log($listing_id,$maxprice[0]['maxbidprice'], $userID);
 
-                    //emailloser();
-                    error_log("loser");
-                    error_log($listing_id);
+                } else {
+                    error_log($listing_id,$maxprice[0]['maxbidprice'], $userID);
+
                 }
             }
 
@@ -62,6 +59,78 @@ function email_results() {
 
 
 }
+
+function emailsellernotsold($sellerUserID,$listing_id) {
+    $item_name_query = "SELECT itemName FROM auction_listing WHERE listingID=$listing_id";
+    $item_result = SQLQuery($item_name_query);
+    $itemName = $item_result[0]["itemName"];
+
+    // TODO create subject + html message.
+    $subject = "Bidding has ended on your listing";
+
+    $message = "<html>
+    <h2>Hi there!</h2>
+    <p><span style=\"color: #008000;\">$itemName</span>  <span style=\"color: #008000;\">has not been sold.</span></p>
+    <p>Unfortunately your auction has not met the reserve price and has not been sold. Better luck nextime!</p>
+    <p><em>Happy Selling!</em></p>
+    <p><em>The AuctionXpress Team</em></p></html>";
+
+    send_user_email($sellerUserID, $subject, $message);
+}
+
+function emailsellersold($sellerUserID,$listing_id,$maxprice) {
+    $item_name_query = "SELECT itemName FROM auction_listing WHERE listingID=$listing_id";
+    $item_result = SQLQuery($item_name_query);
+    $itemName = $item_result[0]["itemName"];
+
+    // TODO create subject + html message.
+    $subject = "Bidding has ended on your listing";
+
+    $message = "<html>
+    <h2>Hi there!</h2>
+    <p><span style=\"color: #008000;\">$itemName</span> <span style=\"color: #008000;\">has been sold for £$maxprice!</span></p>
+    <p>Congratulations on your succcessful sale!</p>
+    <p><em>Happy Selling!</em></p>
+    <p><em>The AuctionXpress Team</em></p></html>";
+
+    send_user_email($sellerUserID, $subject, $message);
+}
+
+function emailwinner($listing_id,$maxprice, $userID) {
+    $item_name_query = "SELECT itemName FROM auction_listing WHERE listingID=$listing_id";
+    $item_result = SQLQuery($item_name_query);
+    $itemName = $item_result[0]["itemName"];
+
+    // TODO create subject + html message.
+    $subject = "Congratulations you won!";
+
+    $message = "<html>
+    <h2>Hi there!</h2>
+    <p>You have won <span style=\"color: #008000;\">$itemName</span>  <span style=\"color: #008000;\"> for £$maxprice!</span></p>
+    <p>Congratulations on your auction win!</p>
+    <p><em>Happy bidding!</em></p>
+    <p><em>The AuctionXpress Team</em></p></html>";
+
+    send_user_email($userID, $subject, $message);
+}
+function emailloser($listing_id,$maxprice, $userID) {
+    $item_name_query = "SELECT itemName FROM auction_listing WHERE listingID=$listing_id";
+    $item_result = SQLQuery($item_name_query);
+    $itemName = $item_result[0]["itemName"];
+
+    // TODO create subject + html message.
+    $subject = "Congratulations you won!";
+
+    $message = "<html>
+    <h2>Hi there!</h2>
+    <p>Your bid on <span style=\"color: #008000;\">$itemName</span>  <span style=\"color: #008000;\"> has been unsuccessful. </span></p>
+    <p>The item the sold at $maxprice. Better luck next time!</p>
+    <p><em>Happy bidding!</em></p>
+    <p><em>The AuctionXpress Team</em></p></html>";
+
+    send_user_email($userID, $subject, $message);
+}
+
 
 email_results();
 
