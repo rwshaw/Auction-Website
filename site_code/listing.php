@@ -138,19 +138,29 @@ if (array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in'] == true) 
       <!-- Right col with bidding info -->
 
       <p>
+      
         <?php if ($now > $end_time) : ?>
-          This auction ended <?php echo (date_format($end_time, 'j M H:i')); ?>
-          <div class="row">
-            Bidding has ended, the winning bid was: £<?php echo ($current_price); ?>
-          </div>
-          <?php if (isset($bidstatus)) : ?>
-            <?php if ($userID == $highest_bidder) : ?>
-              <div class="row">
-              You won this auction!
-              </div>
-            <?php else : ?>
+
+          <?php if (($current_price == null) || ($current_price<$reserveprice)) : ?>
+            <div class="row">
+              Bidding has ended, this auction was unsuccessful.
+            </div>
+          <?php else : ?>
+            This auction ended <?php echo (date_format($end_time, 'j M H:i')); ?>
+            <div class="row">
+              Bidding has ended, the winning bid was: £<?php echo ($current_price); ?>
+            </div>
+            <?php if (isset($bidstatus)) : ?>
+              <?php if ($userID == $highest_bidder) : ?>
+                <div class="row">
+                You won this auction!
+                </div>
+              <?php else : ?>
+                You did not win this auction
+              <?php endif ?>
             <?php endif ?>
           <?php endif ?>
+
         <?php else : ?>
           Auction ends <?php echo (date_format($end_time, 'j M H:i') . $time_remaining) ?>
         </p>
@@ -160,18 +170,18 @@ if (array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in'] == true) 
           
       <!-- Show bidding Bidding form if logged out or not the seller otherwise hide -->
           
-    <?php if (!isset($_SESSION['user_id']) || ($_SESSION['user_id']!=$seller_id)) : ?>
-      <form method="POST" action="place_bid.php">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">£</span>
-          </div>
-          <input type="number" class="form-control" id="bid" data-toggle="popover" data-placement="left" data-content="Please enter a bid higher than the current bid">
-        </div>
-        <button type="button" class="btn btn-primary form-control" onclick="placeBid()">Place bid</button>
-      </form>
-      <?php endif ?>
-    <?php endif ?>
+        <?php if (!isset($_SESSION['user_id']) || ($_SESSION['user_id']!=$seller_id)) : ?>
+          <form method="POST" action="place_bid.php">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">£</span>
+              </div>
+              <input type="number" class="form-control" id="bid" data-toggle="popover" data-placement="left" data-content="Please enter a bid higher than the current bid">
+            </div>
+            <button type="button" class="btn btn-primary form-control" onclick="placeBid()">Place bid</button>
+          </form>
+          <?php endif ?>
+        <?php endif ?>
 
 
     </div> <!-- End of right col with bidding info -->
