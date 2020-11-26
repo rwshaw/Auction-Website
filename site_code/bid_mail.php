@@ -10,7 +10,7 @@ function email_results() {
 
 
 
-    //get all listing ids could shange this to select endtimes just in the last minute and run every minute
+    //get all listing ids  -- could shange this to select endtimes just in the last minute and run every minute
     $query = "SELECT listingID, reservePrice, sellerUserID FROM auction_listing";
     $listings = SQLQuery($query);
 
@@ -47,17 +47,8 @@ function email_results() {
 
                 }
             }
-
-
-
-        }
-
-
-        
+        }  
     }
-
-
-
 }
 
 function emailsellernotsold($sellerUserID,$listing_id) {
