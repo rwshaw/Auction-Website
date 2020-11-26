@@ -27,8 +27,7 @@ function email_results() {
         $maxprice=$maxprice[0]['maxbidprice'];
         if ($maxprice == null || $maxprice <= $reserve_price) {
             emailsellernotsold($sellerUserID,$listing_id,$maxprice);
-            error_log("no_reserve");
-            error_log($listing_id);
+          
         }
         else {
             emailsellersold($sellerUserID,$listing_id,$maxprice);
@@ -40,10 +39,10 @@ function email_results() {
                 $usermax = $bid['usermax'];
 
                 if ($usermax == $maxprice) {
-                    error_log($listing_id,$maxprice, $userID);
+                    emailwinner($listing_id,$maxprice, $userID);
 
                 } else {
-                    error_log($listing_id,$maxprice, $userID);
+                    emailloser($listing_id,$maxprice, $userID);
 
                 }
             }
