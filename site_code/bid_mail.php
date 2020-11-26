@@ -78,7 +78,7 @@ function emailsellersold($sellerUserID,$listing_id,$maxprice) {
 
     $message = "<html>
     <h2>Hi there!</h2>
-    <p><span style=\"color: #008000;\">$itemName</span> <span style=\"color: #008000;\">has been sold for £$maxprice!</span></p>
+    <p><span style=\"color: #008000;\">$itemName</span> <span style=\"color: #008000;\">has been sold for &#163;$maxprice!</span></p>
     <p>Congratulations on your succcessful sale!</p>
     <p><em>Happy Selling!</em></p>
     <p><em>The AuctionXpress Team</em></p></html>";
@@ -96,7 +96,7 @@ function emailwinner($listing_id,$maxprice, $userID) {
 
     $message = "<html>
     <h2>Hi there!</h2>
-    <p>You have won <span style=\"color: #008000;\">$itemName</span>  <span style=\"color: #008000;\"> for £$maxprice!</span></p>
+    <p>You have won <span style=\"color: #008000;\">$itemName</span>  <span style=\"color: #008000;\"> for &#163;$maxprice!</span></p>
     <p>Congratulations on your auction win!</p>
     <p><em>Happy bidding!</em></p>
     <p><em>The AuctionXpress Team</em></p></html>";
@@ -114,7 +114,7 @@ function emailloser($listing_id,$maxprice, $userID) {
     $message = "<html>
     <h2>Hi there!</h2>
     <p>Your bid on <span style=\"color: #008000;\">$itemName</span>  <span style=\"color: #008000;\"> has been unsuccessful. </span></p>
-    <p>The item the sold at $maxprice. Better luck next time!</p>
+    <p>The item the sold at &#163;$maxprice. Better luck next time!</p>
     <p><em>Happy bidding!</em></p>
     <p><em>The AuctionXpress Team</em></p></html>";
 
