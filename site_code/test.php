@@ -83,7 +83,7 @@
         // fetch array
       $user_bid = $check_user_bid->fetch_array(MYSQLI_ASSOC);
 
-      // check whether bid preference was returned or note (i.e. if user made a bid on this listing or not)
+      // check whether bid preference was returned or not (i.e. if user made a bid on this listing or not)
         // if user didn't bid on this particular listing, insert 0 into matrix 
       if (is_null($user_bid)) {
         $matrix[$user_value][$listing_value] = "0";
@@ -126,32 +126,80 @@
       $other_user_bids[] = $matrix[$user_ids];
         // make sure bid preferences are first thing to come up 
       $other_users_bid_preferences = $other_user_bids[0];
-        // get similarity score for user and store in similarity_score
-      $similarity_score = getSimilarity($user_bid_preferences, $other_users_bid_preferences);
+        // get similarity score for user 
+      $result = jaccardSimilarlity($user_bid_preferences, $other_users_bid_preferences);
+      // echo "user: $user_ids ";echo $result; echo "<br>";
+        // store all similarity scores in the score array in same order as matrix 
+      $similarity_score[$user_ids] = $result; 
     }
   }
 
-
   
 
+// find the most similar user in terms of bid history, reccomend the items theyve bid on that the user has not bid on yet 
+
+  // identify the most similar users 
+    // loop through similarity_score array 
+    // return top N neighbours with highest similarity scores (where N = 5)
+
+  // identify the items the similar user has bid on that the user has not 
+    // if (neighbour's simliarity score is > 0)
+      // loop through bid preferences of neighbour
+        // if (listing was bid on by by current neighbour and not bid on by the user)
+          // 
+
+
+  
+      // if the similar user has bid on those items and the user has not bid on those items 
+    // reccomend those items 
+      // return an array with those items. 
+
+
+  
   // FOR TESTING
+  echo "<pre>", print_r($similarity_score), "</pre>";
   echo "<br>"; echo '<pre>'; print_r($matrix); echo '</pre>'; 
 
+  // https://helpful.knobs-dials.com/index.php/Similarity_or_distance_measures/metrics
+  // function to calculate jaccard similarlity as boolean intersection / boolean union
+  function jaccardSimilarlity ($user_array, $other_user_array) {
 
-  // function to calculate jaccard similarity = (array_a Intersection array_b)/(array_a Union array_b)
-  function getSimilarity($users_preferences, $others_preferences) {
-    // FOR TESTING
-    print_r($users_preferences); echo "<br>";
-    print_r($others_preferences); echo "<br>";
+    // initialise counter variables for intersection and union
+    $intersection_count = 0; 
+    $union_count = 0;
 
-    $intersection = array_intersect_key($users_preferences, $others_preferences);
-    echo "this is the intersection: "; print_r($intersection); echo "<br>";
+    // loop through user array and the other user array
+    foreach (array_keys($user_array) as $key) {
+      // if both users have bid on the item (sum of pairwise multiplication)
+      if ($user_array[$key] == $other_user_array[$key] && $user_array[$key] == "1" && $other_user_array[$key] == "1") {
+        // increment intersection counter 
+        $intersection_count += 1; 
+      }
+      // if at lease one user has bid on the item (sum of pairwise addition)
+      if ($user_array[$key] + $other_user_array[$key] >= 1) {
+        // increment union counter
+        $union_count += 1;
+      }
+    }
 
-    $union = array_unique(array_merge($users_preferences, $others_preferences));
-    echo "this is the union: "; print_r($union); echo "<br><br>";
+    // caclulate jaccard similarlity value 
+    $jaccard_similarity = $intersection_count / $union_count;
+    
+    // return jaccard similarlity value 
+    return $jaccard_similarity;
 
+    // notes
+    // intersection calculation = sum(RHS) = 0 + 0 + 0 + 1 = 1
+      // 0 x 0 = 0
+      // 0 x 1 = 0
+      // 1 x 0 = 0
+      // 1 x 1 = 1
 
+    // unio calculation = sum (RHS) = 0 + 1 + 1 + 1 = 4
+      // 0 + 0 = 0 
+      // 0 + 1 = 1
+      // 1 + 0 = 1
+      // 1 + 1 = 1
   }
-
 
 ?>
