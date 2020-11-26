@@ -31,11 +31,13 @@ if (empty($result2)) { ?>
 <?php die(); } ?>
 
 
+
 <div class="container">
 
 <h2 class="my-3">My listings</h2>
 
 <?php
+
 
 
 //Queries to gather and display relevant information about current user's listings
@@ -57,6 +59,10 @@ foreach ($result2 as $row) {
 	$iimage = ($row['itemImage']);
 	
 
+	$maxprice = "SELECT MAX(bidPrice) as currentPrice FROM bids WHERE (listingID='$lid')";   
+	$highest_bid = SQLQuery($maxprice);	   
+	$current_price = $highest_bid[0]['currentPrice'];
+	
 	//Selects category name for each item
 	$catid = ($row['categoryID']);	
 	$sql4 = "SELECT subCategoryName FROM categories WHERE categoryID = '$catid'";
@@ -83,13 +89,37 @@ foreach ($result2 as $row) {
 	echo "<div class='item_row'>Item Description: $ides</div>";
 	echo "<div class='item_row'>Category: $catname</div>";
 	echo "<div class='item_row'>Time Remaining: $time_remaining</div>";
+	
+	
+	
+
+	if(($now < $end_time)) { 
+		if(empty($current_price)) {
+			echo "<div class='item_row'>No Bids</div>";	
+		} 
+	
+		else {
+		echo "<div class='item_row'>Current Price: £$current_price</div>"; }
+		}
+	
+
+	else {
+		
+		
+		if(empty($current_price)) {
+		echo "<div class='item_row'>Item Not Sold</div>";
+		}
+		else {
+		echo "<div class='item_row'>Final Price: £$current_price</div>"; } 
+		} 
+
 	?>
 	<?php if($iimage):?>
 	<div class="img-block">
         <img src="<?php echo($iimage); ?>" width="300" height="200" class="img-responsive"/>
     <?php   endif; 
-	echo "<br>"; 
-}
+	echo "<br>"; }
+	
 
 
 
