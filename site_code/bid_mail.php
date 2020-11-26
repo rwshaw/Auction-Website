@@ -109,7 +109,7 @@ function emailloser($listing_id,$maxprice, $userID) {
     $itemName = $item_result[0]["itemName"];
 
     // TODO create subject + html message.
-    $subject = "Congratulations you won!";
+    $subject = "Bidding has ended";
 
     $message = "<html>
     <h2>Hi there!</h2>
