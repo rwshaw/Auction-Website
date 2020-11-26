@@ -22,11 +22,11 @@ function email_results() {
         $listing_id = $listing['listingID'];
         $reserve_price = $listing['reservePrice'];
         $sellerUserID = $listing['sellerUserID'];
-
-        $maxprice = SQLQuery("SELECT max(bidPrice) as maxbidprice FROM bids WHERE listingID='$listing_id'");
         
-        if ($maxprice[0]['maxbidprice'] == null || $maxprice[0]['maxbidprice'] <= $reserve_price) {
-            emailsellernotsold($sellerUserID,$listing_id,$maxprice[0]['maxbidprice']);
+        $maxprice = SQLQuery("SELECT max(bidPrice) as maxbidprice FROM bids WHERE listingID='$listing_id'");
+        $maxprice=$maxprice[0]['maxbidprice'];
+        if ($maxprice == null || $maxprice <= $reserve_price) {
+            emailsellernotsold($sellerUserID,$listing_id,$maxprice);
             error_log("no_reserve");
             error_log($listing_id);
         }
@@ -39,11 +39,11 @@ function email_results() {
                 $userID = $bid['userID'];
                 $usermax = $bid['usermax'];
 
-                if ($usermax == $maxprice[0]['maxbidprice']) {
-                    error_log($listing_id,$maxprice[0]['maxbidprice'], $userID);
+                if ($usermax == $maxprice) {
+                    error_log($listing_id,$maxprice, $userID);
 
                 } else {
-                    error_log($listing_id,$maxprice[0]['maxbidprice'], $userID);
+                    error_log($listing_id,$maxprice, $userID);
 
                 }
             }
