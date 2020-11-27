@@ -26,7 +26,6 @@
   $user_id = '1';
   echo "user_id: " . $user_id . "<br><br>";
   // $user_id = $_SESSION['user_id']; 
-  // echo $_SESSION['user_id']; 
 
   // initialie matrix and user array 
   $matrix = array();
@@ -106,11 +105,11 @@
     // make sure bid preferences are first thing to come up 
   $user_bid_preferences = $logged_in_user_bids[0];
   // FOR TESTING
-  // print_r($user_bid_preferences);
+  // echo "<br>"; print_r($user_bid_preferences);echo "<br>"; echo "<br>";  
 
 
-  // stored other user's bid preferences and conduct similarity analysis 
-    // 
+  // store other user's bid preferences and conduct similarity analysis 
+    // initialise empty array to score jaccard similarity values 
   $similarity_score = array();
     // extract users from matrix 
   $matrix_user_ids = array_keys($matrix);
@@ -134,31 +133,37 @@
     }
   }
 
+// find the most K most similar users (i.e. neighbours in KNN) in terms of bid history, recommend the items they've bid on that the user has not bid on yet 
+// identify the most N most similar users where N = 5
+    // sort the similarity scores retain the user IDs of the top users
+    arsort($similarity_score);
+    // store the top 5 users in $top5 array and retain their user IDs
+    $top5 = array_slice($similarity_score, 0, 5, true);
+// find the items the top N users have bid on that the user has not 
+    // initialise an empty array to hold recommended items 
+    $recomendations = array();
+    // loop through top N users 
+    foreach ($top5 as $key => $value) {
+      // if the current user is similar to the logged in user, 
+      if ($value > 0) {
+        // loop through current user's bids preferences 
+        foreach ($matrix[$key] as $users_item => $users_bids) {  
+          // if item has been bid on by current user and not bid on by the logged in user yet (and still available)     !!!!!!!!!!
+          if ($users_bids === "1" && !$matrix[$user_id][$users_item] == "1") {
+            $recommendations = $users_item;
+          }
+        }
+      }
+    }
   
-
-// find the most similar user in terms of bid history, reccomend the items theyve bid on that the user has not bid on yet 
-
-  // identify the most similar users 
-    // loop through similarity_score array 
-    // return top N neighbours with highest similarity scores (where N = 5)
-
-  // identify the items the similar user has bid on that the user has not 
-    // if (neighbour's simliarity score is > 0)
-      // loop through bid preferences of neighbour
-        // if (listing was bid on by by current neighbour and not bid on by the user)
-          // 
-
-
-  
-      // if the similar user has bid on those items and the user has not bid on those items 
-    // reccomend those items 
-      // return an array with those items. 
+  echo $recommendations
 
 
   
   // FOR TESTING
-  echo "<pre>", print_r($similarity_score), "</pre>";
-  echo "<br>"; echo '<pre>'; print_r($matrix); echo '</pre>'; 
+  echo "<pre>", " \nexample user preferences: <br>", print_r($matrix[$user_id]), "</pre>";
+  echo "<pre>", " \nsimilarity_score: <br>", print_r($similarity_score), "</pre>";
+  echo "<pre>", " \nmatrix: <br>", print_r($matrix),"</pre>"; 
 
   // https://helpful.knobs-dials.com/index.php/Similarity_or_distance_measures/metrics
   // function to calculate jaccard similarlity as boolean intersection / boolean union
@@ -195,7 +200,7 @@
       // 1 x 0 = 0
       // 1 x 1 = 1
 
-    // unio calculation = sum (RHS) = 0 + 1 + 1 + 1 = 4
+    // union calculation = sum (RHS) = 0 + 1 + 1 + 1 = 4
       // 0 + 0 = 0 
       // 0 + 1 = 1
       // 1 + 0 = 1
