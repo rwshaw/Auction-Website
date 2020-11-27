@@ -9,47 +9,58 @@ require_once("utilities.php");
 function email_results() {
 
 
-
     //get all listing ids  -- could shange this to select endtimes just in the last minute and run every minute
-    $query = "SELECT listingID, reservePrice, sellerUserID FROM auction_listing";
+    $query = "SELECT listingID, reservePrice, sellerUserID FROM auction_listing WHERE (endTime between date_sub(now(), interval 1 DAY) and now()) and (resultsEmailed=FALSE)";
     $listings = SQLQuery($query);
 
     // if condition, e.g if endtime in the last 5 minutes
 
     //loop over each listing (could add already emailed value here)
-    foreach ($listings as $listing) {
-    //first check if there were any bids over the reserve
-        $listing_id = $listing['listingID'];
-        $reserve_price = $listing['reservePrice'];
-        $sellerUserID = $listing['sellerUserID'];
-        
-        $maxprice = SQLQuery("SELECT max(bidPrice) as maxbidprice FROM bids WHERE listingID='$listing_id'");
-        $maxprice=$maxprice[0]['maxbidprice'];
-        if ($maxprice == null || $maxprice <= $reserve_price) {
-            //emailsellernotsold($sellerUserID,$listing_id,$maxprice);
-            echo "Item: $listing_id <br>";
-            echo "notsold <br>";
-        }
-        else {
-            //emailsellersold($sellerUserID,$listing_id,$maxprice);
-            $query = "SELECT max(bidPrice) as usermax,userID FROM bids WHERE (listingID=$listing_id) group by userID";
-            $ordered_bids = SQLQuery($query);
-            echo "Item: $listing_id <br>";
-            echo "sold <br>";
-           
-            foreach ($ordered_bids as $bid) {
-                $userID = $bid['userID'];
-                $usermax = $bid['usermax'];
-
-                if ($usermax == $maxprice) {
-                    //emailwinner($listing_id,$maxprice, $userID);
-                    echo "winner <br>";
+    if ($listings == false){
+        //do nothing
+        //this will occur if no auction has ended that hasnt been emailed
+    }
+    else {
+        foreach ($listings as $listing) {
+        //first check if there were any bids over the reserve
+            $listing_id = $listing['listingID'];
+            $reserve_price = $listing['reservePrice'];
+            $sellerUserID = $listing['sellerUserID'];
+            $con = OpenDbConnection();
+            $query = "UPDATE auction_listing SET resultsEmailed=TRUE WHERE listingID=$listing_id";
+            if ($con->query($query) === TRUE) {
+                $res = "success";
                 } else {
-                    //emailloser($listing_id,$maxprice, $userID);
-                    echo "loser <br>";
+                    error_log("Error: ". $con->error);
                 }
+            $maxprice = SQLQuery("SELECT max(bidPrice) as maxbidprice FROM bids WHERE listingID='$listing_id'");
+            $maxprice=$maxprice[0]['maxbidprice'];
+            if ($maxprice == null || $maxprice <= $reserve_price) {
+                emailsellernotsold($sellerUserID,$listing_id,$maxprice);
+                echo "Item: $listing_id <br>";
+                echo "notsold <br>";
             }
-        }  
+            else {
+                emailsellersold($sellerUserID,$listing_id,$maxprice);
+                $query = "SELECT max(bidPrice) as usermax,userID FROM bids WHERE (listingID=$listing_id) group by userID";
+                $ordered_bids = SQLQuery($query);
+                echo "Item: $listing_id <br>";
+                echo "sold <br>";
+            
+                foreach ($ordered_bids as $bid) {
+                    $userID = $bid['userID'];
+                    $usermax = $bid['usermax'];
+
+                    if ($usermax == $maxprice) {
+                        emailwinner($listing_id,$maxprice, $userID);
+                        echo "winner <br>";
+                    } else {
+                        emailloser($listing_id,$maxprice, $userID);
+                        echo "loser <br>";
+                    }
+                }
+            }  
+        }
     }
 }
 
