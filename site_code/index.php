@@ -58,93 +58,34 @@ error_reporting(E_ALL);
   </div>
 </div>
 
-<div class="container">
 
-  <h3 class="my-3">Looking for something? Try searching.</h3>
+<?php
+// Import search bar module for user to be able to search from homepage.
+require_once("search_module.php");
 
-  <div id="searchSpecs">
-    <!-- When this form is submitted, this PHP page is what processes it.
-     Search/sort specs are passed to this page through parameters in the URL
-     (GET method of passing data to a page). -->
-    <form method="get" action="browse.php">
-      <div class="row">
-        <div class="col-md-5 pr-0">
-          <div class="form-group">
-            <label for="keyword" class="sr-only">Search keyword:</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text bg-transparent pr-0 text-muted">
-                  <i class="fa fa-search"></i>
-                </span>
-              </div>
-              <input type="search" class="form-control border-left-0" id="keyword" name="keyword" placeholder="Search for a product">
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 pr-0">
-          <div class="form-group">
-            <label for="cat" class="sr-only">Search within:</label>
-            <select class="form-control" id="cat" name="cat">
-              <option value=''>All categories</option>
-              <!-- TODO - Auto generate categories alphabetically in options from database -->
-              <?php
-              $sql = "SELECT distinct deptName from auctionsite.categories order by deptName";
-              $result = SQLQuery($sql);
-              foreach ($result as $row) {
-                echo "<option value=" . $row["deptName"] . ">" . $row["deptName"] . "</option>";
-              }
-              ?>
-            </select>
-          </div>
-        </div>
-        <div class="col-md-3 pr-0">
-          <div class="form-inline">
-            <label class="mx-2" for="order_by">Sort by:</label>
-            <select class="form-control" id="order_by" name="order_by">
-              <option value="date">Soonest expiry</option>
-              <option value="pricelow">Price (low to high)</option>
-              <option value="pricehigh">Price (high to low)</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-md-1 px-0">
-          <button type="submit" class="btn btn-primary">Search</button>
-        </div>
-      </div>
-    </form>
-  </div>
-  <!-- JS to retain form data in form options after input. -->
-  <script type="text/javascript">
-    document.getElementById("keyword").value = "<?php echo $_GET["keyword"]; ?>";
-    document.getElementById("cat").value = "<?php echo $_GET["cat"]; ?>";
-    document.getElementById("order_by").value = "<?php echo $_GET["order_by"]; ?>";
-  </script>
-  <!-- end search specs bar -->
+// Generate hottest auctions right now
 
-  <?php
-  // Generate hottest auctions right now
-
-  // find items with highest number of bids. Get itemName and current price to display.
-  $hot_items_query = "select a.* from 
+// find items with highest number of bids. Get itemName and current price to display.
+$hot_items_query = "select a.* from 
                       (SELECT a.listingID, ItemName,itemImage, ifnull(max(bidPrice),startPrice) as currentPrice, count(bidID) as num_bids 
                       from auction_listing a 
                       left join bids b on a.listingID = b.listingID 
                       where endTime > now() 
                       group by a.listingID, a.ItemName, a.itemImage) a
                       order by num_bids DESC LIMIT 8";
-  $hot_items = SQLQuery($hot_items_query);
+$hot_items = SQLQuery($hot_items_query);
 
 
 
 
-  // Generate reccommended items if logged in, or other items of interest if not logged in.
+// Generate reccommended items if logged in, or other items of interest if not logged in.
 
-  ?>
+?>
 
-  <?= console_log($hot_items); ?>
+<?= console_log($hot_items); ?>
 
 
-</div>
+
 
 <div class="container">
   <div class="row">
@@ -180,9 +121,9 @@ error_reporting(E_ALL);
   </div>
 
   <hr class="my-2">
-<div style="align-items: center;">
-  <img src="https://tpc.googlesyndication.com/simgad/13881930544975202200" width="970" height="90" alt="" style="display:block; margin-left:auto; margin-right: auto;">
-</div>
+  <div style="align-items: center;">
+    <img src="https://tpc.googlesyndication.com/simgad/13881930544975202200" width="970" height="90" alt="" style="display:block; margin-left:auto; margin-right: auto;">
+  </div>
   <hr class="my-2">
 
   <div class="row">
