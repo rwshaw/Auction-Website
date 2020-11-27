@@ -126,13 +126,15 @@ require_once("utilities.php");
             $subject = "Watchlist Update";
             $html_message = "<html><p>" . $message . "</p></html>";
             $email_sent = (send_user_email($row["userID"], $subject, $html_message) == TRUE) ? TRUE : FALSE; //evaluating if email successfullly sent to populate emailSent field in notifications.
+            $email_sent = ((is_null($email_sent)) ? FALSE: $email_sent);
             $notification_insert = "INSERT INTO watch_notifications(watchID, bidID, message, emailSent) VALUES (" . $row["watchID"] . "," . $latest_bidID . ",\"" . $message . "\"," . $email_sent . ")";
             // execute insert
             $conn = OpenDbConnection(); // Open connection ready for insert
             if ($conn->query($notification_insert) === TRUE) {
                 $res = "success";
             } else {
-                $res = "Error: " . $sql . $conn->error;
+                $res = "Error: " . $conn->error;
+                error_log("Error: " . $conn->error);
             }
         }
         echo $res;
