@@ -16,102 +16,195 @@
   // open connection to database
   $db = OpenDbConnection(); 
 
-  // Retrieve all bids the user has made 
-    // get user id of logged-in user 
-  $user_id = '1';
-  echo $user_id;
-  // $user_id = $_SESSION['user_id']; 
-  // echo $_SESSION['user_id']; 
-
-    // prepare sql statement
-  $all_user_bids_query = $db->prepare("SELECT bidID FROM bids where userID=?");
-    // bind parameters
-  $all_user_bids_query->bind_param("s",$user_id); 
-    // execute prepared statement 
-  $all_user_bids_query->execute();
-    // retrieve result
-  $result = $all_user_bids_query->get_result(); 
-    // fetch as associative array 
-  // $user_bids = $result->fetch_assoc();
-
-  while ($user_bids = $result->fetch_assoc()) {
-    echo '<pre>'; print_r($user_bids); echo '</pre>';
+  // Check if the user is already logged in, if yes then redirect him to welcome page
+  if(!isset($_SESSION["logged_in"]) && !$_SESSION["logged_in"] === true) {
+    header("location: index.php"); 
+    exit; 
   }
 
+    // get user id of logged-in user 
+  $user_id = '1';
+  echo "user_id: " . $user_id . "<br><br>";
+  // $user_id = $_SESSION['user_id']; 
+
+  // initialie matrix and user array 
+  $matrix = array();
+  $user_array = array();
+  $listing_array = array();
+
+  // retrieve all users
+    // prepare query 
+  $all_users_query = $db->prepare("SELECT userID FROM users"); 
+    // execute prepared statement 
+  $all_users_query->execute();
+    // retrieve result
+  $all_users = $all_users_query->get_result();    
+    // fetch all results
+  while ($users = $all_users->fetch_array(MYSQLI_ASSOC)) {
+      // loop through results 
+    foreach ($users as $user) {
+        // add users to user_array 
+      $user_array[] = $user;
+    } 
+  }
+
+  // retrieve all listings 
+    // prepare query
+  $all_listings_query = $db->prepare("SELECT listingID FROM auction_listing");
+    // execute result
+  $all_listings_query->execute();
+    // retrieve results 
+  $all_listings = $all_listings_query->get_result(); 
+    // fetch all listings 
+  while ($listings = $all_listings->fetch_array(MYSQLI_ASSOC)) {
+      // loop over all listings  
+    foreach ($listings as $listing) {
+        // add users to listing_array
+      $listing_array[] = $listing;
+    }
+  }
   
+  // fill matrix with bid preferences of users who bidded on listings 
+    // loop over all users
+  foreach ($user_array as $user_value) {
+      // loop over all listings 
+    foreach ($listing_array as $listing_value) {
 
-  // $row = $result->fetch_array(MYSQLI_NUM);
+      // retrieve bid preference of user  
+        // prepare query
+      $check_user_bid_query = $db->prepare("SELECT DISTINCT listingID FROM bids WHERE userID=? AND listingID=?");
+        // bind parameters
+      $check_user_bid_query->bind_param("ss", $user_value, $listing_value);
+        // execute result
+      $check_user_bid_query->execute();
+        // retrieve results
+      $check_user_bid = $check_user_bid_query->get_result();
+        // fetch array
+      $user_bid = $check_user_bid->fetch_array(MYSQLI_ASSOC);
+
+      // check whether bid preference was returned or not (i.e. if user made a bid on this listing or not)
+        // if user didn't bid on this particular listing, insert 0 into matrix 
+      if (is_null($user_bid)) {
+        $matrix[$user_value][$listing_value] = "0";
+      } 
+      else { // else if user did bid, insert 1
+        $matrix[$user_value][$listing_value] = "1";
+      }
+    }
+  }
 
 
-  // $check_user_query->bind_param("s",$email);   
-  //   // execute prepared statement 
-  // $check_user_query->execute(); 
-  //   // retrieve result
-  // $result = $check_user_query->get_result(); 
-  //   // fetch as associative array
-  // $user = $result->fetch_assoc();
-  //   // check if user exists with this email address
-  // if ($user && $user['email'] == $email) { // if user does exist, redirect back to registration
+  // store logged_in_user's bid for similarity analysis later
+    // initialise emtpy array to store user bids 
+  $logged_in_user_bids = array();
+    // if we find logged_in_user in matrix, 
+  if (array_key_exists($user_id, $matrix)) {
+      // store their bid preferences in logged_in_user_bids
+    $logged_in_user_bids[] = $matrix[$user_id];
+  }
+    // make sure bid preferences are first thing to come up 
+  $user_bid_preferences = $logged_in_user_bids[0];
+  // FOR TESTING
+  // echo "<br>"; print_r($user_bid_preferences);echo "<br>"; echo "<br>";  
 
-?>
 
-<?php  
+  // store other user's bid preferences and conduct similarity analysis 
+    // initialise empty array to score jaccard similarity values 
+  $similarity_score = array();
+    // extract users from matrix 
+  $matrix_user_ids = array_keys($matrix);
+                // FOR TESTING
+                // print_r($matrix_user_ids); echo "<br>";
+    // loop through users
+  foreach ($matrix_user_ids as $user_ids) {
+      // initialie empty array to store other user's bids before checking a user 
+    $other_user_bids = array();
+      // check if user is logged in user 
+    if ($user_ids != $user_id) {
+        // if not logged in user, store the current user's preferences in other_user_bids
+      $other_user_bids[] = $matrix[$user_ids];
+        // make sure bid preferences are first thing to come up 
+      $other_users_bid_preferences = $other_user_bids[0];
+        // get similarity score for user 
+      $result = jaccardSimilarlity($user_bid_preferences, $other_users_bid_preferences);
+      // echo "user: $user_ids ";echo $result; echo "<br>";
+        // store all similarity scores in the score array in same order as matrix 
+      $similarity_score[$user_ids] = $result; 
+    }
+  }
 
-  // This page is for showing a buyer recommended items based on their bid 
-  // history. It will be pretty similar to browse.php, except there is no 
-  // search bar. This can be started after browse.php is working with a database.
-  // Feel free to extract out useful functions from browse.php and put them in
-  // the shared "utilities.php" where they can be shared by multiple files.
+// find the most K most similar users (i.e. neighbours in KNN) in terms of bid history, recommend the items they've bid on that the user has not bid on yet 
+// identify the most N most similar users where N = 5
+    // sort the similarity scores retain the user IDs of the top users
+    arsort($similarity_score);
+    // store the top 5 users in $top5 array and retain their user IDs
+    $top5 = array_slice($similarity_score, 0, 5, true);
+// find the items the top N users have bid on that the user has not 
+    // initialise an empty array to hold recommended items 
+    $recomendations = array();
+    // loop through top N users 
+    foreach ($top5 as $key => $value) {
+      // if the current user is similar to the logged in user, 
+      if ($value > 0) {
+        // loop through current user's bids preferences 
+        foreach ($matrix[$key] as $users_item => $users_bids) {  
+          // if item has been bid on by current user and not bid on by the logged in user yet (and still available)     !!!!!!!!!!
+          if ($users_bids === "1" && !$matrix[$user_id][$users_item] == "1") {
+            $recommendations = $users_item;
+          }
+        }
+      }
+    }
   
-  
-  // TODO: Check user's credentials (cookie/session).
-  
-  // TODO: Perform a query to pull up auctions they might be interested in.
-  
-  // TODO: Loop through results and print them out as list items.
-
-
-
-  // MY NOTES
-
-  // Definition: In the context of recommendation systems, collaborative filtering is a method of making predictions about the interests of user by analysing the taste of users which are similar to the said user. The idea of filtering patterns by collaborating multiple viewpoints is why it is called collaborative filtering.
-        // https://www.youtube.com/watch?v=6mGMBipt7kU
-
-	// Brief: Buyers can receive recommendations for items to bid on based on collaborative filtering (i.e., ‘you might want to bid on the sorts of things other people, who have also bid on the sorts of things you have previously bid on, are currently bidding on).
-    // so find users with similar bidding histories to the current user, see what they are bidding on right now, reccomend those items to the user. (i.e. based on preference of similar bidders)
-
-  // 3 types of reccomendation: 
-    // user based
-      // historical preferences in terms of views, watchlists, etc. 
-        // assumes historical preferences are a good signal for future preferences 
-        // measured by explicit ratings (e.g. likes) or implicit (views, clicks, purchase records)
-    // Nearest neighbourhood algorithm using Person correlation or cosine similarity       
-    // item based
-      // 
-    // content based 
-      // can use product categories
-
-	// at bottom of homepage, reccomend items based on: 
-    // 1) most popular items - the ones that are currently being bid on by other users with similar bidding histories to the currrent user. 
-    // 2) most popular items by viewing traffic; i.e. items which have received a lot of views by all users across the site
-    // 3) similarity analysis based on the current user's viewing history and other user's viewing history
-
-	// at bottom of auction page, reccomend items based on: 
-	   // 1) items in the same category 
-     // 2) watchlist-ability - items watchlisted by other users who have also watchlisted this item
-
-
-  // get list of bidders who bid for the same items as the user 
-    // SELECT items user bid on 
-    // SELECT bidders who bid on that item (excluding the user)
-  // find all items those bidders bid on. 
-    // SELECT all bids 
-  // find items those bidders have bid on which are still live and the current user hasnt bid on 
-    // order by the highest number of bids 
-  // display the top 10 item not bidded on by the user 
+  echo $recommendations;
 
 
   
+  // FOR TESTING
+  echo "<pre>", " \nexample user preferences: <br>", print_r($matrix[$user_id]), "</pre>";
+  echo "<pre>", " \nsimilarity_score: <br>", print_r($similarity_score), "</pre>";
+  echo "<pre>", " \nmatrix: <br>", print_r($matrix),"</pre>"; 
 
-  
+  // https://helpful.knobs-dials.com/index.php/Similarity_or_distance_measures/metrics
+  // function to calculate jaccard similarlity as boolean intersection / boolean union
+  function jaccardSimilarlity ($user_array, $other_user_array) {
+
+    // initialise counter variables for intersection and union
+    $intersection_count = 0; 
+    $union_count = 0;
+
+    // loop through user array and the other user array
+    foreach (array_keys($user_array) as $key) {
+      // if both users have bid on the item (sum of pairwise multiplication)
+      if ($user_array[$key] == $other_user_array[$key] && $user_array[$key] == "1" && $other_user_array[$key] == "1") {
+        // increment intersection counter 
+        $intersection_count += 1; 
+      }
+      // if at lease one user has bid on the item (sum of pairwise addition)
+      if ($user_array[$key] + $other_user_array[$key] >= 1) {
+        // increment union counter
+        $union_count += 1;
+      }
+    }
+
+    // caclulate jaccard similarlity value 
+    $jaccard_similarity = $intersection_count / $union_count;
+    
+    // return jaccard similarlity value 
+    return $jaccard_similarity;
+
+    // notes
+    // intersection calculation = sum(RHS) = 0 + 0 + 0 + 1 = 1
+      // 0 x 0 = 0
+      // 0 x 1 = 0
+      // 1 x 0 = 0
+      // 1 x 1 = 1
+
+    // union calculation = sum (RHS) = 0 + 1 + 1 + 1 = 4
+      // 0 + 0 = 0 
+      // 0 + 1 = 1
+      // 1 + 0 = 1
+      // 1 + 1 = 1
+  }
+
 ?>

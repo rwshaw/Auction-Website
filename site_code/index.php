@@ -30,29 +30,29 @@ error_reporting(E_ALL);
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item" style="height: 350px;">
-          <img class="d-block w-100" style="margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);"   src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1589&q=80" />
+          <img class="d-block w-100" style="margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1589&q=80" />
         </div>
         <div class="carousel-caption">
-            <h4>
-              Welcome to AUCTIONXPRESS.
-            </h4>
-          </div>
+          <h4>
+            Welcome to AUCTIONXPRESS.
+          </h4>
+        </div>
         <div class="carousel-item active" style="height: 350px;">
-          <img class="d-block w-100" style="margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);"   alt="Carousel Bootstrap Second" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80" />
+          <img class="d-block w-100" style="margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80" />
         </div>
         <div class="carousel-caption">
-            <h4>
-              Welcome to AUCTIONXPRESS.
-            </h4>
-          </div>
+          <h4>
+            Welcome to AUCTIONXPRESS.
+          </h4>
+        </div>
         <div class="carousel-item" style="height: 350px;">
-          <img class="d-block w-100" style="margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);"   alt="Carousel Bootstrap Third" src="https://images.unsplash.com/photo-1497515098781-e965764ab601?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1608&q=80" />
+          <img class="d-block w-100" style="margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);" src="https://images.unsplash.com/photo-1497515098781-e965764ab601?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1608&q=80" />
         </div>
         <div class="carousel-caption">
-            <h4>
-              Welcome to AUCTIONXPRESS.
-            </h4>
-          </div>
+          <h4>
+            Welcome to AUCTIONXPRESS.
+          </h4>
+        </div>
       </div> <a class="carousel-control-prev" href="#carousel" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
     </div>
   </div>
@@ -141,7 +141,7 @@ error_reporting(E_ALL);
 
   ?>
 
-  <?= console_log($hot_items);?>
+  <?= console_log($hot_items); ?>
 
 
 </div>
@@ -154,35 +154,36 @@ error_reporting(E_ALL);
       </h3>
       <div class="row flex-row flex-nowrap p-5" style="height: 330px; overflow-x:auto;">
 
-      <?php 
-      // print hottest items
-      if ($hot_items == false) { // SQL query error, or no items returned at all.
-        echo "Sorry, we can't seem to find any auctions. This might be an issue on our side.";
-      } else {
-        $counter = 0;
-      foreach ($hot_items as $row) {
-        if ($counter > 8) {
-        break;
+        <?php
+        // print hottest items
+        if ($hot_items == false) { // SQL query error, or no items returned at all.
+          echo "Sorry, we can't seem to find any auctions. This might be an issue on our side.";
+        } else {
+          $counter = 0;
+          foreach ($hot_items as $row) {
+            if ($counter > 8) {
+              break;
+            } elseif ($row) {
+              print_homepage_item_list($row["listingID"], $row["ItemName"], $row["currentPrice"], $row["itemImage"]);
+            } else {
+              echo "No more listings to show :(";
+            }
+            ++$counter;
+          }
         }
-        elseif ($row) {
-          print_homepage_item_list($row["listingID"],$row["ItemName"], $row["currentPrice"],$row["itemImage"]);
-        }
-        else {
-          echo "No more listings to show :(";
-        }
-        ++$counter;
-      }
-      }
-      
-      ?>
+
+        ?>
 
 
       </div>
     </div>
   </div>
 
-  <hr class="my-4">
-
+  <hr class="my-2">
+<div style="align-items: center;">
+  <img src="https://tpc.googlesyndication.com/simgad/13881930544975202200" width="970" height="90" alt="" style="display:block; margin-left:auto; margin-right: auto;">
+</div>
+  <hr class="my-2">
 
   <div class="row">
     <div class="col-md-12">
@@ -208,11 +209,11 @@ error_reporting(E_ALL);
       </h3>
       <div class="row flex-row flex-nowrap p-5" style="height: 330px; overflow-x:auto;">
 
-      <?php 
-      // print recommended items
-      echo "We are still working on recommendations for you. Keep shopping!"
-      
-      ?>
+        <?php
+        // print recommended items
+        echo "We are still working on recommendations for you. Keep shopping!"
+
+        ?>
 
 
       </div>
