@@ -26,24 +26,26 @@ function email_results() {
         $maxprice = SQLQuery("SELECT max(bidPrice) as maxbidprice FROM bids WHERE listingID='$listing_id'");
         $maxprice=$maxprice[0]['maxbidprice'];
         if ($maxprice == null || $maxprice <= $reserve_price) {
-            emailsellernotsold($sellerUserID,$listing_id,$maxprice);
+            //emailsellernotsold($sellerUserID,$listing_id,$maxprice);
+            echo "notsold\n";
           
         }
         else {
-            emailsellersold($sellerUserID,$listing_id,$maxprice);
+            //emailsellersold($sellerUserID,$listing_id,$maxprice);
             $query = "SELECT max(bidPrice) as usermax,userID FROM bids WHERE (listingID=$listing_id) group by userID";
             $ordered_bids = SQLQuery($query);
+            echo "sold\n";
            
             foreach ($ordered_bids as $bid) {
                 $userID = $bid['userID'];
                 $usermax = $bid['usermax'];
 
                 if ($usermax == $maxprice) {
-                    emailwinner($listing_id,$maxprice, $userID);
-
+                    //emailwinner($listing_id,$maxprice, $userID);
+                    echo "winner \n";
                 } else {
-                    emailloser($listing_id,$maxprice, $userID);
-
+                    //emailloser($listing_id,$maxprice, $userID);
+                    echo "loser\n";
                 }
             }
         }  
