@@ -73,17 +73,6 @@ CREATE TABLE bids (
     FOREIGN KEY (listingID) REFERENCES auction_listing(listingID) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
-/* CREATE TABLE watchlist (
-    userID INT NOT NULL,
-    listingID INT NOT NULL,
-    bidID INT NOT NULL,
-    message TEXT,
-    emailSent BOOLEAN NOT NULL DEFAULT FALSE,
-    PRIMARY KEY (userID,listingID,bidID),
-    FOREIGN KEY (userID) REFERENCES users(userID) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (listingID) REFERENCES auction_listing(listingID) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (bidID) REFERENCES bids(bidID) ON UPDATE CASCADE ON DELETE CASCADE
-); */
 
 CREATE TABLE watchlist (
     watchID INT NOT NULL AUTO_INCREMENT,
@@ -111,6 +100,24 @@ CREATE TABLE watch_notifications (
 
 ALTER TABLE auction_listing
 ADD FOREIGN KEY (categoryID) REFERENCES categories(categoryID) ON UPDATE CASCADE ON DELETE CASCADE;
+
+/* Create view for standarised access to key auction information that is needed frequently + simpler auction queries accross the site. */
+CREATE VIEW v_auction_info AS
+SELECT a.listingID
+		, ItemName
+        , ItemDescription
+        , ifnull(max(bidPrice),startPrice) as currentPrice --if no bids, show starting price as current price.
+        , count(bidID) as num_bids
+        , endTime
+        , endTime < now() as auction_ended
+        , c.deptName
+        , c.subCategoryName 
+from auction_listing a 
+left join bids b 
+on a.listingID = b.listingID 
+left join categories c 
+on a.categoryID = c.categoryID 
+group by a.listingID, a.ItemName, a.ItemDescription, a.endTime, c.deptName, c.subCategoryName;
 
 -- SPECIFYING CATEGORIES
 
