@@ -27,14 +27,15 @@ function email_results() {
         $maxprice=$maxprice[0]['maxbidprice'];
         if ($maxprice == null || $maxprice <= $reserve_price) {
             //emailsellernotsold($sellerUserID,$listing_id,$maxprice);
-            echo "notsold\n";
-          
+            echo "Item: $listing_id <br>";
+            echo "notsold <br>";
         }
         else {
             //emailsellersold($sellerUserID,$listing_id,$maxprice);
             $query = "SELECT max(bidPrice) as usermax,userID FROM bids WHERE (listingID=$listing_id) group by userID";
             $ordered_bids = SQLQuery($query);
-            echo "sold\n";
+            echo "Item: $listing_id <br>";
+            echo "sold <br>";
            
             foreach ($ordered_bids as $bid) {
                 $userID = $bid['userID'];
@@ -42,10 +43,10 @@ function email_results() {
 
                 if ($usermax == $maxprice) {
                     //emailwinner($listing_id,$maxprice, $userID);
-                    echo "winner \n";
+                    echo "winner <br>";
                 } else {
                     //emailloser($listing_id,$maxprice, $userID);
-                    echo "loser\n";
+                    echo "loser <br>";
                 }
             }
         }  
