@@ -106,7 +106,10 @@ CREATE VIEW v_auction_info AS
 SELECT a.listingID
 		, ItemName
         , ItemDescription
-        , ifnull(max(bidPrice),startPrice) as currentPrice --if no bids, show starting price as current price.
+        , itemImage
+        , a.sellerUserID
+        , ifnull(max(bidPrice),startPrice) as currentPrice -- if no bids, show starting price as current price.
+        , reservePrice
         , count(bidID) as num_bids
         , endTime
         , endTime < now() as auction_ended
