@@ -7,6 +7,7 @@ $connect = OpenDbConnection();
 
 
 
+
 $user_id = $_SESSION['user_id'];
 //echo($user_id);
 
@@ -14,7 +15,6 @@ $user_id = $_SESSION['user_id'];
 $seller_check = "SELECT seller FROM users WHERE userID = $user_id";
 $seller_status = SQLQuery($seller_check);
 $seller_stat = $seller_status[0]["seller"]; 
-
 
 if ($seller_stat == '0') {
 header('Location: auth.php'); 
@@ -30,6 +30,7 @@ header('Location: auth.php');
 
 <div class="container">
 <div style="max-width: 800px; margin: 10px auto">
+<?php if (!isset($user_id) or is_null($user_id)) { print_alert("danger","Oh no!", "You have be signed in to create auctions.", "Please sign in or sign up now"); echo '<hr class="my-2">';}?>
   <h1 class="my-3">Create New Auction</h1>
   <div class="card">
     <div class="card-body">
@@ -150,7 +151,7 @@ header('Location: auth.php');
             <small id="endDateHelp" style="color:red" class="form-text text-muted"><span class="text-danger">* Required.</span> </small>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary form-control" name="submit">Create Auction</button>
+        <button type="submit" class="btn btn-primary form-control" name="submit" <?php echo (!isset($user_id) or is_null($user_id)) ? "disabled": "" ?> >Create Auction</button>
       </form>
       </div>
     </div>
@@ -161,3 +162,9 @@ header('Location: auth.php');
 
 
 <?php include_once("footer.php")?>
+
+<script type='text/javascript'>
+  if (<?php echo (!isset($user_id) or is_null($user_id)) ? "true" : "false"; ?>) {
+    $("#loginpopup").click();
+  } 
+</script>
