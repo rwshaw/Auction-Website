@@ -48,6 +48,7 @@ CREATE TABLE auction_listing (
     startTime TIMESTAMP NOT NULL DEFAULT NOW(),
     endTime DATETIME NOT NULL,
     categoryID INT NOT NULL,
+    resultsEmailed BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY (listingID),
     FOREIGN KEY (sellerUserID) REFERENCES users(userID) ON UPDATE CASCADE ON DELETE NO ACTION,
     INDEX (endTime,categoryID)
