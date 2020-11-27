@@ -56,6 +56,7 @@ error_reporting(E_ALL);
           <option value="date">Soonest expiry</option>
           <option value="pricelow">Price (low to high)</option>
           <option value="pricehigh">Price (high to low)</option>
+          <option value="bids">Popularity</option>
         </select>
       </div>
     </div>
@@ -80,8 +81,7 @@ error_reporting(E_ALL);
   // Retrieve these from the URL
   
   // Base search statement
-  $base_query1 = "SELECT a.listingID, ItemName, ItemDescription, ifnull(max(bidPrice),startPrice) as currentPrice, count(bidID) as num_bids, endTime, c.deptName, c.subCategoryName from auction_listing a left join bids b on a.listingID = b.listingID left join categories c on a.categoryID = c.categoryID where endTime > now() ";
-  $base_query2 = "group by a.listingID, a.ItemName, a.ItemDescription, a.endTime, c.deptName, c.subCategoryName ";
+  $base_query1 = "SELECT * from v_auction_info where endTime > now() ";
   $where_conditions = array();
 
   if (!isset($_GET['keyword'])) {
@@ -121,6 +121,9 @@ error_reporting(E_ALL);
     elseif ($ordering === "pricehigh") {
       $ordering = "order by currentPrice desc";
     }
+    elseif ($ordering === "bids") {
+      $ordering = "order by num_bids desc";
+    }
     else {} // do nothing for now.
   }
 
@@ -137,7 +140,7 @@ error_reporting(E_ALL);
 
   //if keyword variable is set, then we will prepare query to prevent SQL injection.
   if (isset($keyword)) {
-    $sq_no_limit = $base_query1 . "AND lower(ItemName) like ? " . implode(' ', $where_conditions) . ' ' . $base_query2 ; //for pagination, not need for ordering, dont want limit
+    $sq_no_limit = $base_query1 . "AND lower(ItemName) like ? " . implode(' ', $where_conditions) . ' ' ; //for pagination, not need for ordering, dont want limit
     $search_query = $sq_no_limit . $ordering . $limit;
     $con = OpenDbConnection();
     $stmt = $con->stmt_init();
@@ -148,7 +151,7 @@ error_reporting(E_ALL);
     $search_result = $stmt->get_result();
   }
   else {   //if not set we can prepare query without using an itemName wildcard user input
-    $sq_no_limit = $base_query1 . implode(' ', $where_conditions) . ' ' . $base_query2;
+    $sq_no_limit = $base_query1 . implode(' ', $where_conditions) . ' ' ;
     $search_query = $sq_no_limit . $ordering . $limit;
     $con = OpenDbConnection();
     $search_result = $con->query($search_query);
