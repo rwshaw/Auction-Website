@@ -26,8 +26,8 @@ if ($_POST['functionname'] == "updateprice") {
     $get_mysql = $stmt->get_result();
     $current_price = $get_mysql->fetch_assoc();
     $current_price = $current_price['currentPrice'];
-    $current_price=(number_format($current_price, 2));
-    $res = max($current_price,number_format($startPrice, 2));
+    $res = max($current_price,$startPrice);
+    $res=(number_format($res, 2));
     $stmt->close();
     CloseDbConnection($con);
     
