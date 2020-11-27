@@ -131,6 +131,17 @@ if (array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in'] == true) 
         <?php echo ($description); ?>
       </div>
 
+      <!-- Link to browse with other items from same seller. -->
+      <div class="col-7" style="opacity: 0.7;">
+
+      <hr class="my-3" >
+        <?php
+        $CTA = '<a href="browse.php?seller=' . $seller_id . '"> <button type="button" class="btn btn-outline-info">Show me</button> </a>';
+        print_alert("light","Like this seller?", "Why not check out their other auctions?", $CTA );
+        ?>
+
+      </div>
+
     </div>
 
 

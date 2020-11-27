@@ -33,7 +33,7 @@ require_once("search_module.php");
   }
 
   if (!isset($_GET['cat'])) {
-    // TODO: Define behavior if a category has not been specified.
+    // Do nothing if a category has not been specified.
   }
   else {
     $category = $_GET['cat'];
@@ -44,6 +44,12 @@ require_once("search_module.php");
       $where_conditions[] = "AND deptName = '" . $category . "'";
     }
     }
+
+  if (!isset($_GET['seller'])) {
+    // Do nothing
+  } else {
+    $where_conditions[] = "AND sellerUserID = " . $_GET['seller'];
+  }
   
   if (!isset($_GET['order_by'])) {
     $ordering = "order by endTime"; //This is the default parameter at the moment.
@@ -149,7 +155,9 @@ require_once("search_module.php");
   }
 
   //Close DB connection used for browse/search query, free result from memory
-  $search_result->free_result();
+  if ($search_result) {
+    $search_result->free_result();
+  }
   CloseDbConnection($con);
 
 ?>
