@@ -185,7 +185,11 @@ function print_notifs($notif_array)
             <div class="p-3" id="notifs">
                 <?php
                 //  insert notifs here
-                print_notifs($show_notif_result);
+                if ($show_notif_result == false) {
+                    echo "No notifications to show yet.";
+                } else {
+                    print_notifs($show_notif_result);
+                }
                 ?>
 
 
