@@ -48,7 +48,48 @@ require_once("search_module.php");
   if (!isset($_GET['seller'])) {
     // Do nothing
   } else {
-    $where_conditions[] = "AND sellerUserID = " . $_GET['seller'];
+    $seller = $_GET['seller'];
+    $where_conditions[] = "AND sellerUserID = '" . $seller . "'";
+  }
+
+  if (!isset($_GET['no_bids_less'])) {
+    // Do nothing
+  } else {
+    $no_bids_less = $_GET['no_bids_less'];
+    if ($no_bids_less != '') {
+      $where_conditions[] = "AND num_bids < '" . $no_bids_less . "'";
+    }
+    // Do nothing
+  }
+
+  if (!isset($_GET['no_bids_more'])) {
+    // Do nothing
+  } else {
+    $no_bids_more = $_GET['no_bids_more'];
+    if ($no_bids_more != '') {
+      $where_conditions[] = "AND num_bids > '" . $no_bids_more . "'";
+    }
+    // Do nothing
+  }
+
+  if (!isset($_GET['price_more'])) {
+    // Do nothing
+  } else {
+    $price_more = $_GET['price_more'];
+    if ($price_more != '') {
+      $where_conditions[] = "AND currentPrice > '" . $price_more . "'";
+    }
+    // Do nothing
+  }
+
+  if (!isset($_GET['price_less'])) {
+    // Do nothing
+  } else {
+    $price_less = $_GET['price_less'];
+    if ($price_less != '') {
+      $where_conditions[] = "AND currentPrice < '" . $price_less . "'";
+    }
+    // Do nothing
   }
   
   if (!isset($_GET['order_by'])) {

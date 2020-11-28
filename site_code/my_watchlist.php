@@ -58,15 +58,13 @@ $num_wins_result = $num_wins[0]["num_wins"];
 //Items you're watching
 //Need Item details + last 3 bids
 // get items that are being watched. Via AJAX script we will request bid details for that item.
-$watched_items_query = "SELECT a.listingID, ItemName, ItemDescription, ifnull(max(bidPrice),startPrice) as currentPrice, count(bidID) as num_bids, endTime, c.deptName, c.subCategoryName 
-                        from auction_listing a
-                        left join bids b on a.listingID = b.listingID 
-                        left join categories c on a.categoryID = c.categoryID 
+$watched_items_query = "SELECT a.listingID, ItemName, ItemDescription, currentPrice, num_bids, endTime, a.deptName, a.subCategoryName 
+                        from v_auction_info a
                         inner join watchlist w 
                         on w.listingID = a.listingID
                         and w.userID = $userid
                         where endTime > now() and isWatching=1
-                        group by a.listingID, a.ItemName, a.ItemDescription, a.endTime, c.deptName, c.subCategoryName
+                        group by a.listingID, a.ItemName, a.ItemDescription, a.endTime, a.deptName, a.subCategoryName
                         order by endTime asc";
 $watched_items = SQLQuery($watched_items_query);
 $watched_items_array = array(); // create empty array to store itemID, to pass to bidupdate function in script.
