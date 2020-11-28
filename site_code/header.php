@@ -61,10 +61,11 @@ error_reporting(E_ALL);
     </li>
 <?php
   if (isset($_SESSION['account_type'])) {
-  echo('
+ /* echo('
   <li class="nav-item mx-1">
       <a class="nav-link" href="mybids.php">My Bids</a>
-    </li>
+    </li> */
+  echo('
   <li class="nav-item mx-1">
       <a class="nav-link" href="recommendations.php">Recommended</a>
     </li>

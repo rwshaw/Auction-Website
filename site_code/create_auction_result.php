@@ -39,6 +39,12 @@ header("Location:create_auction.php?auction_listing=$value");
 $connect->close();
 } 
 
+if ($stprice < 0 || 250000 < $stprice || $revprice < 0 || 250000 < $revprice) {
+	$value = "priceerror";
+header("Location:create_auction.php?auction_listing=$value");
+$connect->close();
+}
+
 //Prevents duplicates from being added 
 $statement = "SELECT * FROM auction_listing WHERE itemName=?";
 $stmt = $connect->prepare($statement);

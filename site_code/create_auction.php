@@ -59,6 +59,13 @@ header('Location: auth.php');
       {
       echo('<h4><div class="text-center" style="color:red">Invalid date selected.</div><h4>');
       }
+
+      //Checks whether start/reserve price is negative
+      else if($_GET["auction_listing"] == "priceerror")
+      {
+      echo('<h4><div class="text-center" style="color:red">Invalid price selected.</div><h4>');
+      }
+
       }
       else
       {
@@ -80,7 +87,7 @@ header('Location: auth.php');
           <label for="auctionDetails" class="col-sm-2 col-form-label text-right">Details</label>
           <div class="col-sm-10">
             <textarea class="form-control" name="auctionDetails" rows="4"></textarea>
-            <small id="detailsHelp" style="color:red"  class="form-text text-muted">* Required.</small>
+            <small id="detailsHelp" style="color:red"  class="form-text text-muted"><span class="text-danger">* Required.</span></small>
           </div>
         </div>
 
@@ -168,3 +175,4 @@ header('Location: auth.php');
     $("#loginpopup").click();
   } 
 </script>
+
