@@ -42,7 +42,7 @@ CREATE TABLE auction_listing (
     sellerUserID INT NOT NULL,
     itemName VARCHAR(255) NOT NULL,
     itemDescription TEXT,
-    itemImage VARCHAR(255), -- IMAGES AS EXTRA OPTIONAL FEATURE, SHOULD BE IMAGEURL TO DISPLAY, RATHER THAN STORING WHOLE IMAGE FILE IN DB FOR NOW. 
+    itemImage MEDIUMBLOB, -- IMAGES AS EXTRA OPTIONAL FEATURE, SHOULD BE IMAGEURL TO DISPLAY, RATHER THAN STORING WHOLE IMAGE FILE IN DB FOR NOW. 
     startPrice DECIMAL(8,2) NOT NULL DEFAULT 0, -- CHOICE OF DECIMAL, 8 DIGIT PRECISION WITH 2 SCALE, TO RELIABLY STORE MONETRAY VALUE.
     reservePrice DECIMAL(8,2) NOT NULL DEFAULT 0,
     startTime TIMESTAMP NOT NULL DEFAULT NOW(),
@@ -66,7 +66,7 @@ CREATE TABLE bids (
     bidID INT NOT NULL AUTO_INCREMENT,
     userID INT NOT NULL,
     listingID INT NOT NULL,
-    bidPrice DECIMAL(8,2) NOT NULL CHECK (bidPrice > 0),	-- ADDING CONSTRAINT
+    bidPrice DECIMAL(8,2) NOT NULL CHECK (bidPrice > 0),    -- ADDING CONSTRAINT
     bidTimestamp TIMESTAMP NOT NULL DEFAULT NOW(),
     PRIMARY KEY (bidID),
     FOREIGN KEY (userID) REFERENCES users(userID) ON UPDATE CASCADE ON DELETE NO ACTION,
@@ -104,7 +104,7 @@ ADD FOREIGN KEY (categoryID) REFERENCES categories(categoryID) ON UPDATE CASCADE
 /* Create view for standarised access to key auction information that is needed frequently + simpler auction queries accross the site. */
 CREATE VIEW v_auction_info AS
 SELECT a.listingID
-		, ItemName
+        , ItemName
         , ItemDescription
         , itemImage
         , a.sellerUserID
@@ -177,7 +177,6 @@ SELECT userID
 Donec vel lacinia sem, non tristique neque. Suspendisse pellentesque tempus sodales. Vestibulum rhoncus maximus diam. Aenean ut nisi non felis tristique egestas a eget diam. 
 Integer suscipit ac ex vel semper. Donec efficitur blandit elit, id scelerisque quam suscipit eu. Donec sagittis tempor erat, nec posuere nisi efficitur ac. Nulla ac justo fermentum, consequat ipsum ac, condimentum lectus. 
 Maecenas ac congue arcu, eget consectetur augue. Phasellus eget tortor risus. Pellentesque feugiat libero accumsan, rhoncus magna eget, commodo ligula. Nunc sed suscipit ex. Nulla finibus interdum lectus, sit amet gravida orci dictum eget.
-
 Sed sed velit sollicitudin, dapibus nibh sit amet, vulputate neque. Morbi in luctus metus. Nullam nec lacus pellentesque, auctor lorem ut, egestas nisi. Nullam iaculis nibh molestie sapien facilisis congue. 
 Etiam id felis non erat ultricies ornare vitae nec sapien. Morbi dapibus sollicitudin diam et efficitur. Etiam porttitor risus at mauris gravida mollis. Vestibulum in nulla nec mauris sollicitudin malesuada eleifend nec odio. 
 Sed quam ipsum, faucibus id laoreet eget, vehicula sit amet diam. Phasellus ac massa ut mi aliquet fermentum vitae sed velit.'
