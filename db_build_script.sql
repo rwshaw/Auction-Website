@@ -101,7 +101,7 @@ CREATE TABLE watch_notifications (
 ALTER TABLE auction_listing
 ADD FOREIGN KEY (categoryID) REFERENCES categories(categoryID) ON UPDATE CASCADE ON DELETE CASCADE;
 
-/* Create view for standarised access to key auction information that is needed frequently + simpler auction queries accross the site. */
+/* Create view for standarised access to key auction information that is needed frequently  and gathered from multiple tables+ simpler auction queries accross the site. */
 CREATE VIEW v_auction_info AS
 SELECT a.listingID
         , ItemName
