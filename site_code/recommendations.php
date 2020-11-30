@@ -22,7 +22,7 @@
     exit; 
   }
 
-    // get user id of logged-in user 
+  // get user id of logged-in user 
   $user_id = '1';
   echo "user_id: " . $user_id . "<br><br>";
   // $user_id = $_SESSION['user_id']; 
@@ -141,7 +141,7 @@
     $top5 = array_slice($similarity_score, 0, 5, true);
 // find the items the top N users have bid on that the user has not 
     // initialise an empty array to hold recommended items 
-    $recomendations = array();
+    $recommendations = array();
     // loop through top N users 
     foreach ($top5 as $key => $value) {
       // if the current user is similar to the logged in user, 
@@ -156,7 +156,11 @@
       }
     }
   
-  echo $recommendations;
+  echo "recommendation item_id: " . print_r($recommendations);
+
+  // need to add all dummy data 
+  // need to test it works with random session variable 
+  // if user has no bid history, need to advise they need to bid before we can display any recommendations 
 
 
   
