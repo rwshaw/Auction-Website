@@ -78,7 +78,7 @@ $hot_items = SQLQuery($hot_items_query);
 
 
 
-// Generate reccommended items if logged in, or other items of interest if not logged in.
+// Generate reccommended items if logged in, or nothing if not logged in.
 
 ?>
 
@@ -152,7 +152,32 @@ $hot_items = SQLQuery($hot_items_query);
 
         <?php
         // print recommended items
-        echo "We are still working on recommendations for you. Keep shopping!"
+        if ($_SESSION["logged_in"] === true){
+          $recommend_array = recommendations(); // remember to import recommendations module at the top.
+          $rec_query = "SELECT * from v_aution_info where listingID in (" . implode(',', $recommend_array) . ")";
+          $rec_result = SQLQuery($rec_query);
+
+          if ($rec_result == false) {
+            echo "We can't seem to find your reccomendations right now.";
+
+          } else {
+            $counter = 0;
+          foreach ($rec_result as $row) {
+            if ($counter > 8) {
+              break;
+            } elseif ($row) {
+              print_homepage_item_list($row["listingID"], $row["ItemName"], $row["currentPrice"], $row["itemImage"]);
+            } else {
+              echo "No more recommendations to show :(";
+            }
+            ++$counter;
+          }
+          }
+          
+        } else {
+          echo "You need to be logged in to view your recommendations.";
+        }
+        
 
         ?>
 
