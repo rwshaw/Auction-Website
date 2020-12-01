@@ -88,7 +88,7 @@
   <script type="text/javascript">
     document.getElementById("keyword").value = "<?php echo $_GET["keyword"]; ?>";
     document.getElementById("cat").value = "<?php echo $_GET["cat"]; ?>";
-    document.getElementById("order_by").value = "<?php echo $_GET["order_by"]; ?>";
+    document.getElementById("order_by").value = "<?php echo (($_GET["order_by"] == '') ? "date" :$_GET["order_by"]) ; ?>";
   </script>
   <!-- end search specs bar -->
 
