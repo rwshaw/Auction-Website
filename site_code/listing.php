@@ -265,7 +265,7 @@ if (array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in'] == true) 
         console.log(typeof("bidplaced"));
         if (status === "bidplaced") {
           console.log("Yay");
-          $("#watchclick").click();
+
           bidUpdater();
           bidNotification(); // on bidplaced success, run notification generation for all users on item watchlist
         } else if (status == "login") {

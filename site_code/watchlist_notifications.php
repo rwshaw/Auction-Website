@@ -72,7 +72,7 @@ require_once("utilities.php");
 
         //Start - execute queries to get relevant info to compare in order to build notification message for user.
         $watchers_query = "SELECT userID, watchID from watchlist w
-                        where w.listingID =$item_id";
+                        where w.listingID =$item_id and isWatching=1";
 
         // get latest bid info, by listing and bidder that placed the bid
         $latest_bid_query = "SELECT bidID, b.userID as bidder, u.fName as bidder_name, b.listingID, sellerUserID as sellerID, a.itemName, bidPrice, bidTimestamp
