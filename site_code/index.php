@@ -64,13 +64,10 @@ require_once("search_module.php");
 // Generate hottest auctions right now
 
 // find items with highest number of bids. Get itemName and current price to display.
-$hot_items_query = "select a.* from 
-                      (SELECT a.listingID, ItemName,itemImage, ifnull(max(bidPrice),startPrice) as currentPrice, count(bidID) as num_bids 
-                      from auction_listing a 
-                      left join bids b on a.listingID = b.listingID 
-                      where endTime > now() 
-                      group by a.listingID, a.ItemName, a.itemImage) a
-                      order by num_bids DESC LIMIT 8";
+$hot_items_query = "SELECT a.* from 
+                    v_auction_info a
+                    where endTime > now()
+                    order by num_bids DESC LIMIT 8";
 $hot_items = SQLQuery($hot_items_query);
 
 
