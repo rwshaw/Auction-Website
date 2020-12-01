@@ -1,7 +1,8 @@
 <?php 
 
-  // include header
-  include_once("header.php"); 
+  // require header and utilities 
+  require_once("header.php"); 
+  require_once("utilities.php"); 
 
   // Check if the user is already logged in, if yes then redirect him to welcome page
   if(isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
@@ -193,15 +194,6 @@
         // if user inserted succesfully, notify user of success via email and redirect
         if ($result) {
 
-          // notify user via email
-            // declare variables for PHP mailer 
-          $user_email = $email;
-          $subject = 'Congratulations! You are now registered.';
-          $message = 'Verify your email by clicking the link below:';
-          $headers = 'From: noreply@auctionexpress.com';
-            // send mail
-          mail($user_email, $subject, $message, $headers);
-
           // get user_id and user_account_type and set session variables --> redirect user 
             // prepare sql statement to get user_id
           $user_id_query = $db->prepare("SELECT * from users WHERE email = ? LIMIT 1");
@@ -217,6 +209,20 @@
           $user_id = $user['userID'];
             // close database connection
           CloseDbConnection($db); 
+
+          // notify user via email
+            // declare variables for PHP mailer 
+          $subject = 'Congratulations! You are now registered.';
+          $message = "<html>
+                      <h2>Hi there!</h2>
+                      <p>Thank you for joining the site.</p>
+                      <p><em>Happy Selling!</em></p>
+                      <p><em>The AuctionXpress Team</em></p></html>";
+            // send mail
+          send_user_email($user_id, $subject, $message);
+
+
+
 
           // if user_id succesfully retrieved
           if ($user_id) {

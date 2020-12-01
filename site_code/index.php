@@ -32,7 +32,7 @@ require_once("recommendations.php");
         </div>
         <div class="carousel-caption">
           <h4>
-            Welcome to AUCTIONXPRESS.
+            Welcome to AuctionXpress.
           </h4>
         </div>
         <div class="carousel-item active" style="height: 350px;">
@@ -40,7 +40,7 @@ require_once("recommendations.php");
         </div>
         <div class="carousel-caption">
           <h4>
-            Welcome to AUCTIONXPRESS.
+            Welcome to AuctionXpress.
           </h4>
         </div>
         <div class="carousel-item" style="height: 350px;">
@@ -48,7 +48,7 @@ require_once("recommendations.php");
         </div>
         <div class="carousel-caption">
           <h4>
-            Welcome to AUCTIONXPRESS.
+            Welcome to AuctionXpress.
           </h4>
         </div>
       </div> <a class="carousel-control-prev" href="#carousel" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>

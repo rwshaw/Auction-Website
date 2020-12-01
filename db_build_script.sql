@@ -613,11 +613,3 @@ from auction_listing where listingID=9;
 INSERT INTO auctionsite.bids (userID, listingID, bidPrice)
 SELECT 20, listingID, 30
 from auction_listing where listingID=2;
-
-
--- 20 users 
-
-
-
-
-
