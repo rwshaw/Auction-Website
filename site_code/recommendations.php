@@ -23,9 +23,7 @@
   }
 
   // get user id of logged-in user 
-  $user_id = '1';
-  echo "user_id: " . $user_id . "<br><br>";
-  // $user_id = $_SESSION['user_id']; 
+  $user_id = $_SESSION['user_id']; 
 
   // initialie matrix and user array 
   $matrix = array();
@@ -104,6 +102,7 @@
   }
     // make sure bid preferences are first thing to come up 
   $user_bid_preferences = $logged_in_user_bids[0];
+  
   // FOR TESTING
   // echo "<br>"; print_r($user_bid_preferences);echo "<br>"; echo "<br>";  
 
@@ -127,47 +126,50 @@
       $other_users_bid_preferences = $other_user_bids[0];
         // get similarity score for user 
       $result = jaccardSimilarlity($user_bid_preferences, $other_users_bid_preferences);
+      
+      // FOR TESTING
       // echo "user: $user_ids ";echo $result; echo "<br>";
+      
         // store all similarity scores in the score array in same order as matrix 
       $similarity_score[$user_ids] = $result; 
     }
   }
 
-// find the most K most similar users (i.e. neighbours in KNN) in terms of bid history, recommend the items they've bid on that the user has not bid on yet 
-// identify the most N most similar users where N = 5
-    // sort the similarity scores retain the user IDs of the top users
-    arsort($similarity_score);
-    // store the top 5 users in $top5 array and retain their user IDs
-    $top5 = array_slice($similarity_score, 0, 5, true);
-// find the items the top N users have bid on that the user has not 
-    // initialise an empty array to hold recommended items 
-    $recommendations = array();
-    // loop through top N users 
-    foreach ($top5 as $key => $value) {
-      // if the current user is similar to the logged in user, 
-      if ($value > 0) {
-        // loop through current user's bids preferences 
-        foreach ($matrix[$key] as $users_item => $users_bids) {  
-          // if item has been bid on by current user and not bid on by the logged in user yet (and still available)     !!!!!!!!!!
-          if ($users_bids === "1" && !$matrix[$user_id][$users_item] == "1") {
-            $recommendations = $users_item;
+  // find the most K most similar users (i.e. neighbours in KNN) in terms of bid history, recommend the items they've bid on that the user has not bid on yet 
+  // identify the most N most similar users where N = 5
+      // sort the similarity scores and retain the IDs of the top users
+      arsort($similarity_score);
+      // store the top 5 users in the $top5 array 
+      $top5 = array_slice($similarity_score, 0, 5, true);
+  // find the items the top N users have bid on that the user has not 
+      // initialise an empty array to hold recommended items 
+      $recommendations = array();
+      // loop through top N users 
+      foreach ($top5 as $key => $value) {
+        // if the current user is similar to the logged in user, 
+        if ($value > 0) {
+          // loop through current user's bids preferences 
+          foreach ($matrix[$key] as $users_item => $users_bids) {  
+            // if item has been bid on by current, AND has not been bid on by the logged in user yet, AND is not already in the list of recommended items  
+            // (and still available)     !!!!!!!!!!
+            if ($users_bids === "1" && !$matrix[$user_id][$users_item] == "1" && !in_array($users_item, $recommendations)) {
+              $recommendations[] = $users_item;
+            }
           }
         }
       }
-    }
-  
-  echo "recommendation item_id: " . print_r($recommendations);
-
-  // need to add all dummy data 
-  // need to test it works with random session variable 
-  // if user has no bid history, need to advise they need to bid before we can display any recommendations 
 
 
-  
-  // FOR TESTING
-  echo "<pre>", " \nexample user preferences: <br>", print_r($matrix[$user_id]), "</pre>";
-  echo "<pre>", " \nsimilarity_score: <br>", print_r($similarity_score), "</pre>";
-  echo "<pre>", " \nmatrix: <br>", print_r($matrix),"</pre>"; 
+  // // FOR TESTING
+  //   // recommended items
+  echo "<pre>", " \nrecommended items: <br>", print_r($recommendations),"</pre>"; 
+  //   // preferences of logged in user 
+  // echo "<pre>", " \nexample user preferences: <br>", print_r($matrix[$user_id]), "</pre>";
+  //   // similarlity scores of others users against logged in user 
+  // echo "<pre>", " \nsimilarity_score: <br>", print_r($similarity_score), "</pre>";
+  //   // matrix storing users, listings and corresponding bid preferences 
+  // echo "<pre>", " \nmatrix: <br>", print_r($matrix),"</pre>"; 
+
 
   // https://helpful.knobs-dials.com/index.php/Similarity_or_distance_measures/metrics
   // function to calculate jaccard similarlity as boolean intersection / boolean union
