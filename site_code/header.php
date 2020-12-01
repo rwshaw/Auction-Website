@@ -6,9 +6,9 @@
   session_start();
   // $_SESSION['logged_in'] = false;
   // $_SESSION['account_type'] = 'seller';
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 ?>
 
 <div id="error"></div>
@@ -67,9 +67,6 @@ error_reporting(E_ALL);
       <a class="nav-link" href="mybids.php">My Bids</a>
     </li> */
   echo('
-  <li class="nav-item mx-1">
-      <a class="nav-link" href="recommendations.php">Recommended</a>
-    </li>
     <li class="nav-item mx-1">
       <a class="nav-link" href="my_watchlist.php">My Watchlist</a>
     </li>

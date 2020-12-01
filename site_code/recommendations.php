@@ -1,17 +1,12 @@
-<?php include_once("header.php")?>
-<?php require("utilities.php")?>
-
-<div class="container">
-
-<h2 class="my-3">Recommendations for you</h2>
-
 <?php
 
-  error_reporting(E_ALL);
-  ini_set('display_errors', '1');
+  // error_reporting(E_ALL);
+  // ini_set('display_errors', '1');
 
   // import sql connection script
   require_once('../mysql_connect.php'); 
+
+  function getRecommendations() {
 
   // open connection to database
   $db = OpenDbConnection(); 
@@ -159,16 +154,11 @@
         }
       }
 
+  return $recommendations;
 
-  // // FOR TESTING
-  //   // recommended items
-  echo "<pre>", " \nrecommended items: <br>", print_r($recommendations),"</pre>"; 
-  //   // preferences of logged in user 
-  // echo "<pre>", " \nexample user preferences: <br>", print_r($matrix[$user_id]), "</pre>";
-  //   // similarlity scores of others users against logged in user 
-  // echo "<pre>", " \nsimilarity_score: <br>", print_r($similarity_score), "</pre>";
-  //   // matrix storing users, listings and corresponding bid preferences 
-  // echo "<pre>", " \nmatrix: <br>", print_r($matrix),"</pre>"; 
+  }
+
+
 
 
   // https://helpful.knobs-dials.com/index.php/Similarity_or_distance_measures/metrics
@@ -198,6 +188,7 @@
     
     // return jaccard similarlity value 
     return $jaccard_similarity;
+
 
     // notes
     // intersection calculation = sum(RHS) = 0 + 0 + 0 + 1 = 1

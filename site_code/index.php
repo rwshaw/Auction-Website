@@ -3,9 +3,7 @@
 require("utilities.php");
 require_once("../mysql_connect.php");
 require("debug.php");
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+require_once("recommendations.php");
 ?>
 
 <?php
@@ -119,13 +117,7 @@ $hot_items = SQLQuery($hot_items_query);
       </div>
     </div>
   </div>
-
   <hr class="my-2">
-  <div style="align-items: center;">
-    <img src="https://tpc.googlesyndication.com/simgad/13881930544975202200" width="970" height="90" alt="" style="display:block; margin-left:auto; margin-right: auto;">
-  </div>
-  <hr class="my-2">
-
   <div class="row">
     <div class="col-md-12">
       <div class="jumbotron">
@@ -160,13 +152,19 @@ $hot_items = SQLQuery($hot_items_query);
               // initialize an array which contains the return value from recommendations
             $recommend_array = getRecommendations();
               // write sql query 
-            $recommend_query = "SELECT * from v_aution_info where listingID in (" . implode(',', $recommend_array) . ")";
+            $recommend_query = "SELECT * from v_auction_info where auction_ended = 0 AND listingID in (" . implode(',', $recommend_array) . ")";
               // retrieve result
-            $recommend_result = SQLQuery($rec_query);
+            $recommend_result = SQLQuery($recommend_query);
+
+            ?>
+
+            <?=console_log($recommend_query);?>
+
+            <?php 
 
               // if no recommended items returned for user 
-            if ($rec_result == false) {
-              echo "We can't seem to find your reccomendations right now. Make some bids first and we'll show you some recommended items ";
+            if ($recommend_result == false) {
+              echo "We can't seem to find your recommendations right now. Make some bids first and we'll show you some recommended items!";
             } 
             else { // if recommendaations exist, 
                 // initialise counter to keep track of how many items are shown
@@ -180,9 +178,6 @@ $hot_items = SQLQuery($hot_items_query);
                   // show the recommended item along with relevant information 
                 print_homepage_item_list($row["listingID"], $row["ItemName"], $row["currentPrice"], $row["itemImage"]);
                 } 
-                else { // if there are no more recommended items to show 
-                  echo "No more recommendations to show :(";
-                }
                 // increment counter 
                 ++$counter;
               }
