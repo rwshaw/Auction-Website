@@ -1,5 +1,6 @@
 # databases-auction-site
-COMP0022: Database and information systems CW
+
+Auction website similar to eBay. 
 
 # Basic Setup
 <ol>
